@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -5,6 +6,11 @@ using UnityEngine.UI;
 public class UI_Play : UI_Scene
 {
     #region enum
+    enum Texts
+    {
+        Txt_EnemyDialogue
+    }
+
     enum Buttons
     {
         Btn_Phone
@@ -36,17 +42,29 @@ public class UI_Play : UI_Scene
     Image Img_Document;
     Image Img_Pattern01;
 
+    // 랜덤한 적을 뽑고,
+    // 적마다 대사가 다르다고 전제함.
+    TextMeshProUGUI Txt_EnemyDialogue;
     Image Img_Enemy;
+
+    // 아래 서류 컨트롤용
+    // 그런데 도큐먼트를 별도의 UI로 뺄지 고민 중
     GameObject Obj_DocumentPanel;
+
+    // 컴퓨터 속 화면
+    // 기능을 추가한다면 이것을 UI로 잡고, 그 안의 내용을 세부적으로 컨트롤하게 하겠지만,
+    // 단순히 이미지를 바꾸거나 오브젝트를 바꾸는 것이라면 이대로 사용
     GameObject Obj_WorkInstructionPanel;
 
 
-    
     protected override void Awake()
     {
+        BindTexts(typeof(Texts));
         BindButtons(typeof(Buttons));
         BindImages(typeof(Images));
         BindObjects(typeof(Objects));
+
+        Txt_EnemyDialogue = GetText((int)Texts.Txt_EnemyDialogue);
 
         Btn_Phone = GetButton((int)Buttons.Btn_Phone);
 
@@ -70,7 +88,7 @@ public class UI_Play : UI_Scene
         BindEvent(Btn_Phone.gameObject, OnShowPhone);
     }
 
-
+    
     #region Button
     public void OnShowPhone(PointerEventData eventData)
     {
