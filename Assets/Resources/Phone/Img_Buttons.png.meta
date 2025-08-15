@@ -1,16 +1,25 @@
 fileFormatVersion: 2
-guid: 74e3e1d728f90b346bf3bde1400a40b8
+guid: 29ced2758b9cf1947962aa351c43f089
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -238269671985729134
-    second: q1pattern01_0
+      213: 7662017722609388333
+    second: q1buttons_0
   - first:
-      213: 2654229297291444223
-    second: q1pattern01_1
+      213: -1754799552397475992
+    second: q1buttons_1
   - first:
-      213: 9106724461649981775
-    second: q1pattern01_2
+      213: -7815873667704119134
+    second: q1buttons_2
+  - first:
+      213: -934977051166896772
+    second: q1buttons_3
+  - first:
+      213: 7762612852658948431
+    second: q1buttons_4
+  - first:
+      213: 3255686585129164749
+    second: q1buttons_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -119,13 +128,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: q1pattern01_0
+      name: q1buttons_0
       rect:
         serializedVersion: 2
-        x: 142
-        y: 142
-        width: 356
-        height: 356
+        x: 103
+        y: 133
+        width: 274
+        height: 297
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -134,20 +143,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 291ba88eefe71bcf0800000000000000
-      internalID: -238269671985729134
+      spriteID: d2b41ea0684f45a60800000000000000
+      internalID: 7662017722609388333
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: q1pattern01_1
+      name: q1buttons_1
       rect:
         serializedVersion: 2
-        x: 702
-        y: 62
-        width: 516
-        height: 516
+        x: 583
+        y: 133
+        width: 274
+        height: 274
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -156,20 +165,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: fffbd71bb77b5d420800000000000000
-      internalID: 2654229297291444223
+      spriteID: 86f755bba13b5a7e0800000000000000
+      internalID: -1754799552397475992
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: q1pattern01_2
+      name: q1buttons_2
       rect:
         serializedVersion: 2
-        x: 1342
-        y: 62
-        width: 516
-        height: 516
+        x: 1048
+        y: 58
+        width: 312
+        height: 379
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -178,8 +187,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: f41f10cf5a5916e70800000000000000
-      internalID: 9106724461649981775
+      spriteID: 2a0aa2b3f40788390800000000000000
+      internalID: -7815873667704119134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: q1buttons_3
+      rect:
+        serializedVersion: 2
+        x: 1528
+        y: 58
+        width: 312
+        height: 364
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7d0e00635b4603f0800000000000000
+      internalID: -934977051166896772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: q1buttons_4
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 58
+        width: 387
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f494e9be2475abb60800000000000000
+      internalID: 7762612852658948431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: q1buttons_5
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 58
+        width: 387
+        height: 57
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcfd0a623b58e2d20800000000000000
+      internalID: 3255686585129164749
       vertices: []
       indices: 
       edges: []
@@ -198,9 +273,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      q1pattern01_0: -238269671985729134
-      q1pattern01_1: 2654229297291444223
-      q1pattern01_2: 9106724461649981775
+      q1buttons_0: 7662017722609388333
+      q1buttons_1: -1754799552397475992
+      q1buttons_2: -7815873667704119134
+      q1buttons_3: -934977051166896772
+      q1buttons_4: 7762612852658948431
+      q1buttons_5: 3255686585129164749
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

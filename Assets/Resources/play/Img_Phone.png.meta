@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: 80503b5824ee19844943f6e20bc96ca4
+guid: 04aefaf79c9724a478a6e2dca901094a
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7070431899882351391
-    second: phone_0
+      213: 6609483761134510859
+    second: q1phone_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,13 +113,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: phone_0
+      name: q1phone_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 509
-        height: 1103
+        x: 7
+        y: 108
+        width: 484
+        height: 934
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -128,8 +128,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 1e41ce6d5a7c0ed90800000000000000
-      internalID: -7070431899882351391
+      spriteID: b03a223567a99bb50800000000000000
+      internalID: 6609483761134510859
       vertices: []
       indices: 
       edges: []
@@ -148,7 +148,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      phone_0: -7070431899882351391
+      q1phone_0: 6609483761134510859
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
