@@ -255,13 +255,12 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 8603049950287375582}
-  m_Father: {fileID: 3703789500369429036}
+  m_Children: []
+  m_Father: {fileID: 8603049950287375582}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -50, y: -50}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 200}
   m_Pivot: {x: 1, y: 1}
 --- !u!222 &7507685140166026733
@@ -3409,13 +3408,14 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 7119818247826325630}
+  m_Children:
+  - {fileID: 7119818247826325630}
+  m_Father: {fileID: 3703789500369429036}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 440, y: 810}
+  m_SizeDelta: {x: -980, y: -1720}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &220811053976419215
 CanvasRenderer:
@@ -3432,13 +3432,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9008924449429007992}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3495,7 +3495,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 319337097062575082}
+  m_TargetGraphic: {fileID: 2210697125035200841}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
@@ -3532,7 +3532,7 @@ RectTransform:
   - {fileID: 5891325755009353686}
   - {fileID: 7147336691352762830}
   - {fileID: 4192917789816068219}
-  - {fileID: 7119818247826325630}
+  - {fileID: 8603049950287375582}
   - {fileID: 3488277702635801046}
   - {fileID: 2440762617593851182}
   m_Father: {fileID: 0}
