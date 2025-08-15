@@ -131,12 +131,12 @@ TextureImporter:
       name: q1buttons_0
       rect:
         serializedVersion: 2
-        x: 103
-        y: 133
-        width: 274
-        height: 297
+        x: 40
+        y: 55
+        width: 390
+        height: 390
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -153,12 +153,12 @@ TextureImporter:
       name: q1buttons_1
       rect:
         serializedVersion: 2
-        x: 583
-        y: 133
-        width: 274
-        height: 274
+        x: 523
+        y: 55
+        width: 390
+        height: 390
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -175,12 +175,12 @@ TextureImporter:
       name: q1buttons_2
       rect:
         serializedVersion: 2
-        x: 1048
-        y: 58
-        width: 312
-        height: 379
+        x: 1010
+        y: 55
+        width: 390
+        height: 390
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -197,12 +197,12 @@ TextureImporter:
       name: q1buttons_3
       rect:
         serializedVersion: 2
-        x: 1528
-        y: 58
-        width: 312
-        height: 364
+        x: 1490
+        y: 55
+        width: 390
+        height: 390
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
@@ -215,55 +215,11 @@ TextureImporter:
       indices: 
       edges: []
       weights: []
-    - serializedVersion: 2
-      name: q1buttons_4
-      rect:
-        serializedVersion: 2
-        x: 43
-        y: 58
-        width: 387
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: f494e9be2475abb60800000000000000
-      internalID: 7762612852658948431
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: q1buttons_5
-      rect:
-        serializedVersion: 2
-        x: 523
-        y: 58
-        width: 387
-        height: 57
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: dcfd0a623b58e2d20800000000000000
-      internalID: 3255686585129164749
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
     outline: []
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 89b2a47cff37d624baac4f17707a74dc
     internalID: 0
     vertices: []
     indices: 
@@ -273,6 +229,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
+      Img_Buttons_0: 765780758
       q1buttons_0: 7662017722609388333
       q1buttons_1: -1754799552397475992
       q1buttons_2: -7815873667704119134

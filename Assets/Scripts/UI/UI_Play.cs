@@ -79,11 +79,11 @@ public class UI_Play : UI_Scene
         Obj_DocumentPanel = GetObject((int)Objects.Obj_DocumentPanel);
         Obj_WorkInstructionPanel = GetObject((int)Objects.Obj_WorkInstructionPanel);
 
-        Img_BG01.sprite = Resources.Load<Sprite>("Play/Img_BG01");
-        Img_Desk.sprite = Resources.Load<Sprite>("Play/Img_Desk");
-        Img_Phone.sprite = Resources.Load<Sprite>("Play/Img_Phone");
-        Img_Document.sprite = Resources.Load<Sprite>("DocumentPanel/Img_Document");
-        Img_Pattern01.sprite = Resources.Load<Sprite>("DocumentPanel/Img_Pattern01");
+        Img_BG01.sprite = Resources.Load<Sprite>("UI_Play/Img_BG01");
+        Img_Desk.sprite = Resources.Load<Sprite>("UI_Play/Img_Desk");
+        Img_Phone.sprite = Resources.Load<Sprite>("UI_Play/Img_Phone");
+        Img_Document.sprite = Resources.Load<Sprite>("UI_Play/Img_Document");
+        Img_Pattern01.sprite = Resources.Load<Sprite>("UI_Play/Img_Pattern01");
 
         BindEvent(Btn_Phone.gameObject, OnShowPhone);
     }
