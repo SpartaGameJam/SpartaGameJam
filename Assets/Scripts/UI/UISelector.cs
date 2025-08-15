@@ -10,11 +10,6 @@ public class UISelector : UI_Base
 
     [SerializeField] protected GameObject defaultButton;
 
-    protected override void Awake()
-    {
-        base.Awake();
-    }
-
 
     protected virtual void OnEnable()
     {

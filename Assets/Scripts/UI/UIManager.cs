@@ -12,7 +12,7 @@ public class UIManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(gameObject);
+            //DontDestroyOnLoad(gameObject);
             Init();
         }
         else
@@ -38,10 +38,14 @@ public class UIManager : MonoBehaviour
     
     public Dictionary<string, UI_Base> UIs = new();
 
+
     public void Init()
     {
         RegisterAllUIs();
+
+        ShowSceneUI<UI_Play>();
     }
+
 
     void RegisterAllUIs()
     {
@@ -60,6 +64,8 @@ public class UIManager : MonoBehaviour
             }
 
             UIs.Add(key, ui);
+
+            ui.Init();
         }
     }
 
