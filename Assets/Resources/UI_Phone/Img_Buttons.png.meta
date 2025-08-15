@@ -1,10 +1,25 @@
 fileFormatVersion: 2
-guid: 8b60112f33bb96d45b8bce78476bab08
+guid: 29ced2758b9cf1947962aa351c43f089
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 8033975403568566451
-    second: desk_0
+      213: 7662017722609388333
+    second: q1buttons_0
+  - first:
+      213: -1754799552397475992
+    second: q1buttons_1
+  - first:
+      213: -7815873667704119134
+    second: q1buttons_2
+  - first:
+      213: -934977051166896772
+    second: q1buttons_3
+  - first:
+      213: 7762612852658948431
+    second: q1buttons_4
+  - first:
+      213: 3255686585129164749
+    second: q1buttons_5
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -113,23 +128,89 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: desk_0
+      name: q1buttons_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 509
-        height: 1103
+        x: 40
+        y: 55
+        width: 390
+        height: 390
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 3b01eef401a6e7f60800000000000000
-      internalID: 8033975403568566451
+      spriteID: d2b41ea0684f45a60800000000000000
+      internalID: 7662017722609388333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: q1buttons_1
+      rect:
+        serializedVersion: 2
+        x: 523
+        y: 55
+        width: 390
+        height: 390
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86f755bba13b5a7e0800000000000000
+      internalID: -1754799552397475992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: q1buttons_2
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 55
+        width: 390
+        height: 390
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a0aa2b3f40788390800000000000000
+      internalID: -7815873667704119134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: q1buttons_3
+      rect:
+        serializedVersion: 2
+        x: 1490
+        y: 55
+        width: 390
+        height: 390
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c7d0e00635b4603f0800000000000000
+      internalID: -934977051166896772
       vertices: []
       indices: 
       edges: []
@@ -138,7 +219,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: 
+    spriteID: 89b2a47cff37d624baac4f17707a74dc
     internalID: 0
     vertices: []
     indices: 
@@ -148,7 +229,13 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      desk_0: 8033975403568566451
+      Img_Buttons_0: 765780758
+      q1buttons_0: 7662017722609388333
+      q1buttons_1: -1754799552397475992
+      q1buttons_2: -7815873667704119134
+      q1buttons_3: -934977051166896772
+      q1buttons_4: 7762612852658948431
+      q1buttons_5: 3255686585129164749
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
