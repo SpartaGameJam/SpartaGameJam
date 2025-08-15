@@ -9,12 +9,6 @@ public class UISelector : UI_Base
     [SerializeField] protected GameObject content;
 
     [SerializeField] protected GameObject defaultButton;
-
-
-    protected virtual void OnEnable()
-    {
-
-    }
     
     public virtual void ClosePopupUI()
     {

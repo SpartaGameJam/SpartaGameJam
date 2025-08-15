@@ -6,30 +6,41 @@ public class UpgradeSlot : MonoBehaviour
     [SerializeField] TextMeshProUGUI Txt_UpgradeValue;
     [SerializeField] TextMeshProUGUI Txt_UpgradePrice;
 
-    public void SetupByUpgradeType(UpgradeType upgradeType)
+    public UpgradeType UpgradeType;
+    public int Index;
+
+    public void SetupByUpgradeType()
     {
-        switch (upgradeType)
+        if (UpgradeType == UpgradeType.None)
+            return;
+
+        switch (UpgradeType)
         {
-        case UpgradeType.CurrencyGain:
+            case UpgradeType.CurrencyGain:
                 Txt_UpgradeValue.text = $"{StringNameSpace.CurrencyGain}(Lv.0)+88%";
                 Txt_UpgradePrice.text = $"8888";
-            break;
-        case UpgradeType.ExtraChanceRate:
+                break;
+            case UpgradeType.ExtraChanceRate:
                 Txt_UpgradeValue.text = $"{StringNameSpace.ExtraChanceRate}(Lv.0)+88%";
                 Txt_UpgradePrice.text = $"8888";
-            break;
-        case UpgradeType.FeverTriggerRate:
+                break;
+            case UpgradeType.FeverTriggerRate:
                 Txt_UpgradeValue.text = $"{StringNameSpace.FeverTriggerRate}(Lv.0)+88%";
                 Txt_UpgradePrice.text = $"8888";
-            break;
-        case UpgradeType.LotteryWinRate:
+                break;
+            case UpgradeType.LotteryWinRate:
                 Txt_UpgradeValue.text = $"{StringNameSpace.LotteryWinRate}(Lv.0)+88%";
                 Txt_UpgradePrice.text = $"8888";
-            break;
-        case UpgradeType.LotteryDiscountRate:
+                break;
+            case UpgradeType.LotteryDiscountRate:
                 Txt_UpgradeValue.text = $"{StringNameSpace.LotteryDiscountRate}(Lv.0)+88%";
                 Txt_UpgradePrice.text = $"8888";
-            break;
+                break;
         }
+    }
+    
+    public void OnSlotClicked()
+    {
+        UIManager.Instance.FindUIPopup<UI_UpgradePanel>()?.OnSlotClicked(Index);
     }
 }

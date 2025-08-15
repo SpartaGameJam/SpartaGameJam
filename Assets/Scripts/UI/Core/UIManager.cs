@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class UIManager : MonoBehaviour
@@ -68,6 +69,19 @@ public class UIManager : MonoBehaviour
             ui.Init();
         }
     }
+    
+    
+    public T FindUIScene<T>() where T : UI_Scene
+    {
+        return UIs.Values.OfType<T>().FirstOrDefault();
+    }
+
+
+    public T FindUIPopup<T>() where T : UISelector
+    {
+        return UIs.Values.OfType<T>().FirstOrDefault();
+    }
+    
 
 
     public T ShowSceneUI<T>(Action<T> callback = null) where T : UI_Scene
@@ -82,7 +96,7 @@ public class UIManager : MonoBehaviour
         T sceneUI = ui as T;
 
         sceneUI.gameObject.SetActive(true);
-		callback?.Invoke(sceneUI);
+        callback?.Invoke(sceneUI);
 
         SceneUI = sceneUI;
 
