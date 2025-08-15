@@ -7,6 +7,8 @@ public class LockPattern : MonoBehaviour
 {
     public GameObject linePrefab;
     public Canvas canvas;
+    public MonitorPattern monitorPattern;
+
     public Vector3 offsetPos = new Vector3(0, -450f, 0); // PatternContent의 Rect Transform 값
 
     private Dictionary<int, PatternPointer> pointers;
@@ -20,6 +22,33 @@ public class LockPattern : MonoBehaviour
     private bool unlocking;
 
     private new bool enabled = true;
+
+    public int gridSize = 3;
+
+    
+
+    private void IdToRC(int id, out int r, out int c)
+    {
+        int z = id;
+        r = z / gridSize; // 행
+        c = z % gridSize; // 열
+    }
+
+    int GetMiddleId(int a, int b)
+    {
+        IdToRC(a, out int ar, out int ac);
+        IdToRC(b, out int br, out int bc);
+
+        int dr = Mathf.Abs(br - ar), dc = Mathf.Abs(bc - ac);
+
+        if (ar == br && dc == 2) return (a + b) / 2; // 같은 행, 열이 2 차이 (0,2)
+        if (ac == bc && dr == 2) return (a + b) / 2; // 같은 열, 행이 2 차이 (0,6)
+        if (dc == dr && dc + dr == 4) // 대각선 일 경우 (0,8)
+        {
+            return (a + b) / 2;
+        }
+        return -1;
+    }
 
     private void Start()
     {
@@ -59,6 +88,7 @@ public class LockPattern : MonoBehaviour
     private IEnumerator Release() // 패턴 제거
     {
         enabled = false;
+        monitorPattern.SetPatternSquence();
 
         yield return new WaitForSeconds(3);
 
@@ -121,10 +151,14 @@ public class LockPattern : MonoBehaviour
         pointerOnEdit = pp;
     }
 
-    private void EnableColorFade(Animator anim)
+    private void EnableColorFade(Animator anim, bool isPass = true)
     {
         anim.enabled = true;
-        anim.Rebind();
+
+        if (isPass) anim.SetTrigger("IsPass");
+        else anim.SetTrigger("IsFail");
+
+        //anim.Rebind();
     }
 
     public void MouseEnter(PatternPointer pp)
@@ -134,9 +168,29 @@ public class LockPattern : MonoBehaviour
             return;
         }
 
+        foreach (var line in lines)
+        {
+            if (line.id == pp.id) // 이미 해당 포인터에 라인이 생성됨
+            {
+                return;
+            }
+        }
 
         if (unlocking) // 버튼을 이미 하나라도 해제했다면 다음 버튼 연결
         {
+            int mid = GetMiddleId(pointerOnEdit.id, pp.id); // 현재 저장된 id와 지금 들어온 점의 id
+
+            if (mid != -1) // 중간에 점이 있다면
+            {
+                lineOnEditRect.sizeDelta = new Vector2(lineOnEditRect.sizeDelta.x, Vector3.
+                Distance(pointers[mid].transform.localPosition, pointerOnEdit.transform.localPosition));
+                lineOnEditRect.rotation = Quaternion.FromToRotation(
+                    Vector3.up, (pointers[mid].transform.localPosition - pointerOnEdit.transform.localPosition)
+                    .normalized);
+
+                TrySetLineEdit(pointers[mid]);
+            }
+
             lineOnEditRect.sizeDelta = new Vector2(lineOnEditRect.sizeDelta.x, Vector3.
                 Distance(pp.transform.localPosition, pointerOnEdit.transform.localPosition));
             lineOnEditRect.rotation = Quaternion.FromToRotation(
@@ -183,19 +237,27 @@ public class LockPattern : MonoBehaviour
         }
 
 
-        if (unlocking)
+        if (unlocking) // 패턴 그리기 완료
         {
-            foreach(var line in lines)
+            List<int> ids = new List<int>();
+
+            foreach (var line in lines) ids.Add(line.id);
+
+            bool checkResult = monitorPattern.CheckPattern(ids);
+
+
+            foreach (var line in lines)
             {
-                EnableColorFade(pointers[line.id].gameObject.GetComponent<Animator>());
+                EnableColorFade(pointers[line.id].gameObject.GetComponent<Animator>(), checkResult);
             }
+
 
             Destroy(lines[lines.Count - 1].gameObject);
             lines.RemoveAt(lines.Count - 1);
 
             foreach(var line in lines)
             {
-                EnableColorFade(line.GetComponent<Animator>());
+                EnableColorFade(line.GetComponent<Animator>(), checkResult);
             }
 
             StartCoroutine(Release());
