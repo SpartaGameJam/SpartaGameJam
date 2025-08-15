@@ -57,10 +57,19 @@ public class UI_Shop : UI_Scene
         Img_Counter.sprite = Resources.Load<Sprite>("UI_Shop/Img_Counter");
 
         BindEvent(Btn_Lotto.gameObject, OnClickLotto);
+        BindEvent(Btn_ReturnToOffice.gameObject, OnReturnToOffice);
     }
 
+    #region Button
     void OnClickLotto(PointerEventData eventData)
     {
         //void StartScratchTicket()
     }
+
+    void OnReturnToOffice(PointerEventData eventData)
+    {
+        UIManager.Instance.CloseAllPopupUI();
+        UIManager.Instance.ChangeSceneUI<UI_Play>();
+    }
+    #endregion
 }

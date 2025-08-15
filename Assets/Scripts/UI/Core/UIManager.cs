@@ -107,8 +107,7 @@ public class UIManager : MonoBehaviour
         sceneUI.gameObject.SetActive(true);
         callback?.Invoke(sceneUI);
 
-        
-        //CurSceneUI?.gameObject.SetActive(false);
+        CurSceneUI?.gameObject.SetActive(false);
 
         CurSceneUI = sceneUI;
 
