@@ -21,7 +21,7 @@ public class MainMenu : UISelector
     public void NewStartButton()
     {
         OnIngameEnter?.Invoke(this, EventArgs.Empty);
-
+        UIManager.Instance.InitializePannel();
 
         //LoadSceneManager.Instance.LoadScene(SceneName.Ingame);
 
