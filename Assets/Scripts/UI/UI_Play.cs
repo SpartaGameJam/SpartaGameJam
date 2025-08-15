@@ -9,6 +9,14 @@ public class UI_Play : UI_Scene
     {
         Btn_Phone
     }
+
+    enum Images
+    {
+        Img_BG01,
+        Img_Wall,
+        Img_Desk,
+        Img_DeskProps
+    }
     #endregion
 
     Button Btn_Phone;
