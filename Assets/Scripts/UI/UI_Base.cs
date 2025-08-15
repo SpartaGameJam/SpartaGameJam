@@ -28,7 +28,6 @@ public abstract class UI_Base : MonoBehaviour
         gameObject.name = GetType().Name;
         gameObject.transform.localPosition = Vector3.zero;
         gameObject.SetActive(false);
-
     }
 
     public static void BindEvent(GameObject go, Action<PointerEventData> action = null, ETouchEvent type = ETouchEvent.Click)
