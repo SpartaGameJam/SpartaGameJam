@@ -31,7 +31,7 @@ public class UIManager : MonoBehaviour
     private Stack<UISelector> panelStack = new Stack<UISelector>();
     
     private UI_Scene _sceneUI = null;
-    public UI_Scene SceneUI
+    public UI_Scene CurSceneUI
     {
         set { _sceneUI = value; }
         get { return _sceneUI; }
@@ -44,7 +44,8 @@ public class UIManager : MonoBehaviour
     {
         RegisterAllUIs();
 
-        ShowSceneUI<UI_Play>();
+        ChangeSceneUI<UI_Play>();
+        FindUIScene<UI_HUD>().SetUP();
     }
 
 
@@ -92,7 +93,7 @@ public class UIManager : MonoBehaviour
     
 
 
-    public T ShowSceneUI<T>(Action<T> callback = null) where T : UI_Scene
+    public T ChangeSceneUI<T>(Action<T> callback = null) where T : UI_Scene
     {
         String key = typeof(T).Name;
 
@@ -106,7 +107,10 @@ public class UIManager : MonoBehaviour
         sceneUI.gameObject.SetActive(true);
         callback?.Invoke(sceneUI);
 
-        SceneUI = sceneUI;
+        
+        //CurSceneUI?.gameObject.SetActive(false);
+
+        CurSceneUI = sceneUI;
 
         return sceneUI;
     }

@@ -22,6 +22,11 @@ public class UI_HUD : UI_Scene
 
     }
 
+    public void SetUP()
+    {
+        gameObject.SetActive(true);
+    }
+
     protected override void Awake()
     {
         BindTexts(typeof(Texts));
@@ -31,6 +36,6 @@ public class UI_HUD : UI_Scene
 
     void UpdateUI()
     {
-        
+
     }
 }

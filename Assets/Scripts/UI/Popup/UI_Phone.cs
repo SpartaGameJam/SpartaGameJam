@@ -48,7 +48,7 @@ public class UI_Phone : UISelector
         if (UIManager.Instance.PeekCurPopup() is UI_UpgradePanel)
         {
             ClosePopupUI();
-            UIManager.Instance.ShowPopup<UI_AppMenuPanel>();
+            UIManager.Instance.ShowPopup<UI_AppMenuPanel>(null, AppMenuPanelBox);
         }
         else
         {

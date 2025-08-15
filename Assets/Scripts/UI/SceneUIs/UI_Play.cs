@@ -3,6 +3,8 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+//Desk = 80 에서 -520
+//부장 = -50 에서 - 480
 public class UI_Play : UI_Scene
 {
     #region enum
@@ -92,8 +94,9 @@ public class UI_Play : UI_Scene
     #region Button
     public void OnShowPhone(PointerEventData eventData)
     {
+        UIManager.Instance.CloseAllPopupUI();
         UIManager.Instance.ShowPopup<UI_Phone>();
-        UIManager.Instance.ShowPopup<UI_AppMenuPanel>(null, UIManager.Instance.FindUIPopup<UI_Phone>()?.UpgradePanelBox);
+        UIManager.Instance.ShowPopup<UI_AppMenuPanel>(null, UIManager.Instance.FindUIPopup<UI_Phone>()?.AppMenuPanelBox);
     }
     #endregion
 }

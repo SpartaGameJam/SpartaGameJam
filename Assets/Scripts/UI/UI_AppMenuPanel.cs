@@ -8,10 +8,10 @@ public class UI_AppMenuPanel : UISelector
     #region enum
     enum Buttons
     {
-        Btn_Icon00_Pressed,
-        Btn_Icon00_Normal,
-        Btn_Icon02_Pressed,
-        Btn_Icon02_Normal,
+        // Btn_Icon00_Pressed,
+        // Btn_Icon00_Normal,
+        // Btn_Icon02_Pressed,
+        // Btn_Icon02_Normal,
 
         Btn_Icon00,
         Btn_Icon01,
@@ -19,10 +19,10 @@ public class UI_AppMenuPanel : UISelector
     }
     #endregion
     
-    Button Btn_Icon00_Pressed;
-    Button Btn_Icon00_Normal;
-    Button Btn_Icon02_Pressed;
-    Button Btn_Icon02_Normal;
+    // Button Btn_Icon00_Pressed;
+    // Button Btn_Icon00_Normal;
+    // Button Btn_Icon02_Pressed;
+    // Button Btn_Icon02_Normal;
 
     Button Btn_Icon00; //Shop
     Button Btn_Icon01; //UpgradePanel
@@ -33,10 +33,10 @@ public class UI_AppMenuPanel : UISelector
         
         BindButtons(typeof(Buttons));
 
-        Btn_Icon00_Pressed = GetButton((int)Buttons.Btn_Icon00_Pressed);
-        Btn_Icon00_Normal = GetButton((int)Buttons.Btn_Icon00_Normal);
-        Btn_Icon02_Pressed = GetButton((int)Buttons.Btn_Icon02_Pressed);
-        Btn_Icon02_Normal = GetButton((int)Buttons.Btn_Icon02_Normal);
+        // Btn_Icon00_Pressed = GetButton((int)Buttons.Btn_Icon00_Pressed);
+        // Btn_Icon00_Normal = GetButton((int)Buttons.Btn_Icon00_Normal);
+        // Btn_Icon02_Pressed = GetButton((int)Buttons.Btn_Icon02_Pressed);
+        // Btn_Icon02_Normal = GetButton((int)Buttons.Btn_Icon02_Normal);
 
         Btn_Icon00 = GetButton((int)Buttons.Btn_Icon00);
         Btn_Icon01 = GetButton((int)Buttons.Btn_Icon01);
@@ -48,9 +48,10 @@ public class UI_AppMenuPanel : UISelector
     }
 
     #region Button
-    void OnShowShop(PointerEventData eventData)
+    public void OnShowShop(PointerEventData eventData)
     {
-
+        UIManager.Instance.CloseAllPopupUI();
+        UIManager.Instance.ChangeSceneUI<UI_Shop>();
     }
 
     void OnShowUpgradePanel(PointerEventData eventData)
