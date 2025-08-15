@@ -71,6 +71,12 @@ public class UIManager : MonoBehaviour
             //ui.Init();
         }
     }
+
+    public UISelector PeekCurPopup()
+    {
+        return panelStack.Count > 0 ? panelStack.Peek() : null;
+
+    }
     
     
     public T FindUIScene<T>() where T : UI_Scene

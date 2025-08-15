@@ -8,7 +8,6 @@ public enum EEventType
     Upgraded,
 }
 
-
 public class EventManager
 {
     #region Singleton
