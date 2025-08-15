@@ -243,9 +243,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   scratchImage: {fileID: 604598475222951518}
   brushTexture: {fileID: 2800000, guid: 3e7ecdb251f2d1c48bdb8de6990e2588, type: 3}
-  clearThreshold: 70
+  clearThreshold: 60
   shineImage: {fileID: 604598475222951518}
   rootTransform: {fileID: 8063586003583957475}
+  forwardMoveZ: -50
+  forwardMoveDuration: 0.4
+  moveXOffset: 100
+  moveXDuration: 1
 --- !u!1 &3384540603905702842
 GameObject:
   m_ObjectHideFlags: 0
@@ -518,7 +522,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6657135176389642721
 MonoBehaviour:
   m_ObjectHideFlags: 0

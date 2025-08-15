@@ -22,9 +22,8 @@ public class LottoMaker : MonoBehaviour
     [Header("결과 확률 퍼센트. 반드시 모든 퍼센트들의 합이 100이 되도록 해야합니다.")]
     [Range(0, 100)] public float noMatchPercent = 50f;
     [Range(0, 100)] public float twoMatchPercent = 30f;
-    [Range(0, 100)] public float threeMatchPercent = 15f;
-    [Range(0, 100)] public float jackpotPercent = 4f;
-    [Range(0, 100)] public float oneMorePercent = 1f;
+    [Range(0, 100)] public float threeMatchPercent = 5f;
+    [Range(0, 100)] public float oneMorePercent = 15f;
 
     private void Start()
     {

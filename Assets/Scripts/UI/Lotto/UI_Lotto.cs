@@ -5,8 +5,10 @@ using DG.Tweening;
 
 public class UI_Lotto : MonoBehaviour
 {
-    Canvas canvas;
+    public LottoResult CurrentResult => currentResult;
     LottoResult currentResult;
+
+    Canvas canvas;
 
     [SerializeField] List<Image> images;
 

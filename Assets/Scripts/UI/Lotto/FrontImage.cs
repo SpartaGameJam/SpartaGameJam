@@ -1,18 +1,26 @@
+using DG.Tweening;
+using System.Reflection;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using System;
+using UnityEngine.UI;
 
 public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
     [Header("Scratch Settings")]
     public Image scratchImage;
     public Texture2D brushTexture;
-    public float clearThreshold = 70f; // 퍼센트(%)
+    public float clearThreshold = 60f; // 퍼센트(%)
 
     [Header("Shine Settings")]
     public Image shineImage;
     public Transform rootTransform;
+
+    [Header("Animation Settings")]
+    [SerializeField] private float forwardMoveZ = -50f; // 앞으로 튀어나오기 z 변화량
+    [SerializeField] private float forwardMoveDuration = 0.1f; // 튀어나오기 시간
+    [SerializeField] private float moveXOffset = 300f; // 오른쪽으로 이동할 X 거리
+    [SerializeField] private float moveXDuration = 1f; // 오른쪽 이동 시간
+
 
     Texture2D scratchTex;
     Material shineMat;
@@ -66,6 +74,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     public void OnPointerDown(PointerEventData eventData)
     {
         ScratchAt(eventData);
+
         ExecuteEvents.Execute<IPointerDownHandler>(
             rootTransform.gameObject, eventData, ExecuteEvents.pointerDownHandler
         );
@@ -74,6 +83,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     public void OnDrag(PointerEventData eventData)
     {
         ScratchAt(eventData);
+
         ExecuteEvents.Execute<IDragHandler>(
             rootTransform.gameObject, eventData, ExecuteEvents.dragHandler
         );
@@ -81,17 +91,12 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        // 퍼센트 체크
         float percent = (erasedPixels / (float)totalPixels) * 100f;
-        if (percent >= clearThreshold)
+        if (percent >= clearThreshold && !isCleared)
         {
-            if (!isCleared)
-            {
-                isCleared = true;
-                // 진동
-                rootTransform.GetComponent<LottoTiltShader>().DoShake();
-                // TODO : 여기서 다 긁었을 때 함수 실행시키기
-            }
+            isCleared = true;
+            ClearAllScratch();
+            PlayResultAnimation();
         }
 
         ExecuteEvents.Execute<IPointerUpHandler>(
@@ -99,7 +104,63 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         );
     }
 
-    private void ScratchAt(PointerEventData eventData)
+    void ClearAllScratch()
+    {
+        Color[] colors = scratchTex.GetPixels();
+        Color clear = new Color(0, 0, 0, 0);
+        for (int i = 0; i < colors.Length; i++)
+            colors[i] = clear;
+        scratchTex.SetPixels(colors);
+        scratchTex.Apply();
+    }
+
+    LottoResult GetLottoResult()
+    {
+        UI_Lotto lotto = GetComponentInParent<UI_Lotto>();
+        Debug.Log($"{lotto.CurrentResult}");
+        if (lotto == null) return LottoResult.NoMatch;
+        return lotto.CurrentResult;
+    }
+
+    void PlayResultAnimation()
+    {
+        LottoResult result = GetLottoResult();
+        float moveX = rootTransform.position.x + moveXOffset;
+
+        Sequence seq = DOTween.Sequence();
+        LottoTiltShader tilt = rootTransform.GetComponent<LottoTiltShader>();
+
+        if (result == LottoResult.ThreeMatch || result == LottoResult.OneMore)
+        {
+            seq.Append(rootTransform.DOLocalMoveZ(rootTransform.localPosition.z + forwardMoveZ, forwardMoveDuration));
+            if (tilt != null)
+            {
+                seq.AppendCallback(() => tilt.DoShake());
+                float shakeTime = tilt.shakeStepTime * tilt.shakeLoops * 2f;
+                seq.AppendInterval(shakeTime);
+            }
+            seq.Append(rootTransform.DOMoveX(moveX, moveXDuration));
+        }
+        else if (result == LottoResult.TwoMatch)
+        {
+            if (tilt != null)
+            {
+                seq.AppendCallback(() => tilt.DoShake());
+                float shakeTime = tilt.shakeStepTime * tilt.shakeLoops * 2f;
+                seq.AppendInterval(shakeTime);
+            }
+            seq.Append(rootTransform.DOMoveX(moveX, moveXDuration));
+        }
+        else
+        {
+            seq.Append(rootTransform.DOMoveX(moveX, moveXDuration));
+        }
+
+        seq.OnComplete(() => Destroy(rootTransform.gameObject));
+    }
+
+
+    void ScratchAt(PointerEventData eventData)
     {
         Vector2 localPos;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -119,7 +180,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         }
     }
 
-    private void Erase(int cx, int cy)
+    void Erase(int cx, int cy)
     {
         int bw = brushTexture.width;
         int bh = brushTexture.height;
@@ -148,14 +209,14 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         scratchTex.Apply();
     }
 
-    private float ClampAngle(float angle, float min, float max)
+    float ClampAngle(float angle, float min, float max)
     {
         if (angle < -180f) angle += 360f;
         if (angle > 180f) angle -= 360f;
         return Mathf.Clamp(angle, min, max);
     }
 
-    private float Remap(float value, float from1, float to1, float from2, float to2)
+    float Remap(float value, float from1, float to1, float from2, float to2)
     {
         return from2 + (value - from1) * (to2 - from2) / (to1 - from1);
     }
