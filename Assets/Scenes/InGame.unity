@@ -673,6 +673,22 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1347095189699926119, guid: 9ae7e5c944f6ffa4bb325a31ce087a72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1866852396118224155, guid: 9ae7e5c944f6ffa4bb325a31ce087a72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2457489701547815705, guid: 9ae7e5c944f6ffa4bb325a31ce087a72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4739364021023286199, guid: 9ae7e5c944f6ffa4bb325a31ce087a72, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 5060458953481015113, guid: 9ae7e5c944f6ffa4bb325a31ce087a72, type: 3}
       propertyPath: m_Name
       value: UI_Phone
