@@ -20,15 +20,10 @@ public class UISelector : UI_Base
     {
 
     }
-
-    public virtual void Show()
+    
+    public virtual void ClosePopupUI()
     {
-        content.SetActive(true);
-    }
-
-    public virtual void Hide()
-    {
-        content.SetActive(false);
+        UIManager.Instance.ClosePopupUI();
     }
 
     public virtual void Back()

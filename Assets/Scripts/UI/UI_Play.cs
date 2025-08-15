@@ -1,23 +1,9 @@
 using UnityEngine;
 
-public class UI_Play : MonoBehaviour
+public class UI_Play : UI_Scene
 {
-    UI_Phone uI_PhoneTest;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
-
     void OnShowPhone()
     {
+        UIManager.Instance.ShowPopup<UI_Phone>();
     }
-
 }

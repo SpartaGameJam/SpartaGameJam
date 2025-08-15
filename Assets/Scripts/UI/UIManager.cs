@@ -29,6 +29,13 @@ public class UIManager : MonoBehaviour
 
     private Stack<UISelector> panelStack = new Stack<UISelector>();
     
+    private UI_Scene _sceneUI = null;
+    public UI_Scene SceneUI
+    {
+        set { _sceneUI = value; }
+        get { return _sceneUI; }
+    }
+    
     public Dictionary<string, UI_Base> UIs = new();
 
     public void Init()
@@ -56,6 +63,27 @@ public class UIManager : MonoBehaviour
         }
     }
 
+
+    public T ShowSceneUI<T>(Action<T> callback = null) where T : UI_Scene
+    {
+        String key = typeof(T).Name;
+
+        if (UIs.TryGetValue(key, out UI_Base ui) == false)
+        {
+            Debug.LogError($"Popup not registered: {key}");
+        }
+
+        T sceneUI = ui as T;
+
+        sceneUI.gameObject.SetActive(true);
+		callback?.Invoke(sceneUI);
+
+        SceneUI = sceneUI;
+
+        return sceneUI;
+    }
+    
+
     public void ShowPopup<T>(Action<UISelector> callback = null, Transform parent = null) where T : UISelector
     {
         String key = typeof(T).Name;
@@ -64,7 +92,7 @@ public class UIManager : MonoBehaviour
         {
             Debug.LogError($"Popup not registered: {key}");
         }
-        
+
         T popuupUI = ui as T;
 
 
@@ -73,7 +101,7 @@ public class UIManager : MonoBehaviour
         if (panelStack.Count <= 0) return;
 
         UISelector top = panelStack.Peek();
-        top.Show();
+        top.gameObject.SetActive(true);
 
         callback?.Invoke(top);
 
@@ -92,11 +120,12 @@ public class UIManager : MonoBehaviour
     public void ClosePopupUI()
     {
         if (panelStack.Count == 0) return;
-        panelStack.Pop().Hide();
+        panelStack.Pop().gameObject.SetActive(false);
 
         if (panelStack.Count > 0)
-            panelStack.Peek().Show();
+            panelStack.Peek().gameObject.SetActive(true);
     }
+
 
     /// <summary>
     /// panelStack에 현재 패널을 추가합니다.
@@ -121,7 +150,7 @@ public class UIManager : MonoBehaviour
     public void TopPanelShow()
     {
         if (panelStack.Count <= 0) return;
-        panelStack.Peek().Show();
+        panelStack.Peek().gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -130,7 +159,7 @@ public class UIManager : MonoBehaviour
     public void TopPaneHide()
     {
         if (panelStack.Count != 1) return;
-        panelStack.Peek().Hide();
+        panelStack.Peek().gameObject.SetActive(false);
     }
 
     /// <summary>
@@ -145,9 +174,9 @@ public class UIManager : MonoBehaviour
         curUISelector = newSelector;
         curUISelector?.Show();*/
 
-        if (panelStack.Count > 0) panelStack?.Peek().Hide();
+        if (panelStack.Count > 0) panelStack?.Peek().gameObject.SetActive(false);
         AddPanel(newSelector);
-        panelStack.Peek().Show();
+        panelStack.Peek().gameObject.SetActive(true);
     }
 
     
@@ -158,11 +187,11 @@ public class UIManager : MonoBehaviour
     /// </summary>
     public void ChangePanel(UISelector newSelector, Action<UISelector> callback = null, Transform parent = null)
     {
-        if (panelStack.Count > 0) panelStack?.Peek().Hide();
+        if (panelStack.Count > 0) panelStack?.Peek().gameObject.SetActive(false);
 
         AddPanel(newSelector);
         UISelector top = panelStack.Peek();
-        panelStack.Peek().Show();
+        panelStack.Peek().gameObject.SetActive(true);
 
         callback?.Invoke(top);
 
@@ -177,9 +206,9 @@ public class UIManager : MonoBehaviour
     public void BackPannel()
     {
         if (panelStack.Count == 0) return; // 현재 활성화된 패널이 없으면 실행 x
-        panelStack.Pop().Hide();
+        panelStack.Pop().gameObject.SetActive(false);
         if (panelStack.Count > 0)
-            panelStack.Peek().Show();
+            panelStack.Peek().gameObject.SetActive(true);
     }
 
     /// <summary>
@@ -188,6 +217,6 @@ public class UIManager : MonoBehaviour
     public void InitializePannel()
     {
         while(panelStack.Count > 0)  
-            panelStack.Pop().Hide();
+            panelStack.Pop().gameObject.SetActive(false);
     }
 }
