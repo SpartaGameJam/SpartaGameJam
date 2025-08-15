@@ -16,6 +16,14 @@ public class MonitorPattern : MonoBehaviour
     //public Vector3 offsetPos = new Vector3(0, 450f, 0); // Monitor의 Rect Transform 값
     public float yOffset = 350f;
 
+    public bool CheckPattern(List<int> pointlist)
+    {
+        var setA = new HashSet<int>(patternSequence);
+        var setB = new HashSet<int>(pointlist);
+
+        return setA.SetEquals(setB);
+    }
+
     private void Start()
     {
         pointers = new List<GameObject>();
@@ -85,9 +93,6 @@ public class MonitorPattern : MonoBehaviour
             line.name = "Grade " + line.name;
             line.transform.localPosition = pointers[patternSequence[i]].transform.localPosition;
             lineRect = line.GetComponent<RectTransform>();
-
-            Debug.Log(i + " 다음 노드 : " + pointers[patternSequence[i + 1]].transform.localPosition);
-            Debug.Log(i + " 현재 노드 : " + pointers[patternSequence[i]].transform.localPosition);
 
             lineRect.sizeDelta = new Vector2(lineRect.sizeDelta.x / 2, Vector3.
                 Distance(pointers[patternSequence[i+1]].transform.localPosition, pointers[patternSequence[i]].transform.localPosition));

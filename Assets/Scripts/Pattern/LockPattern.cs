@@ -7,6 +7,8 @@ public class LockPattern : MonoBehaviour
 {
     public GameObject linePrefab;
     public Canvas canvas;
+    public MonitorPattern monitorPattern;
+
     public Vector3 offsetPos = new Vector3(0, -450f, 0); // PatternContent의 Rect Transform 값
 
     private Dictionary<int, PatternPointer> pointers;
@@ -22,6 +24,8 @@ public class LockPattern : MonoBehaviour
     private new bool enabled = true;
 
     public int gridSize = 3;
+
+    
 
     private void IdToRC(int id, out int r, out int c)
     {
@@ -84,6 +88,7 @@ public class LockPattern : MonoBehaviour
     private IEnumerator Release() // 패턴 제거
     {
         enabled = false;
+        monitorPattern.SetPatternSquence();
 
         yield return new WaitForSeconds(3);
 
@@ -146,10 +151,14 @@ public class LockPattern : MonoBehaviour
         pointerOnEdit = pp;
     }
 
-    private void EnableColorFade(Animator anim)
+    private void EnableColorFade(Animator anim, bool isPass = true)
     {
         anim.enabled = true;
-        anim.Rebind();
+
+        if (isPass) anim.SetTrigger("IsPass");
+        else anim.SetTrigger("IsFail");
+
+        //anim.Rebind();
     }
 
     public void MouseEnter(PatternPointer pp)
@@ -228,19 +237,27 @@ public class LockPattern : MonoBehaviour
         }
 
 
-        if (unlocking)
+        if (unlocking) // 패턴 그리기 완료
         {
-            foreach(var line in lines)
+            List<int> ids = new List<int>();
+
+            foreach (var line in lines) ids.Add(line.id);
+
+            bool checkResult = monitorPattern.CheckPattern(ids);
+
+
+            foreach (var line in lines)
             {
-                EnableColorFade(pointers[line.id].gameObject.GetComponent<Animator>());
+                EnableColorFade(pointers[line.id].gameObject.GetComponent<Animator>(), checkResult);
             }
+
 
             Destroy(lines[lines.Count - 1].gameObject);
             lines.RemoveAt(lines.Count - 1);
 
             foreach(var line in lines)
             {
-                EnableColorFade(line.GetComponent<Animator>());
+                EnableColorFade(line.GetComponent<Animator>(), checkResult);
             }
 
             StartCoroutine(Release());
