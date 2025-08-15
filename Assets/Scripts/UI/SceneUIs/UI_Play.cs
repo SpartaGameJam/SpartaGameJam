@@ -88,11 +88,12 @@ public class UI_Play : UI_Scene
         BindEvent(Btn_Phone.gameObject, OnShowPhone);
     }
 
-    
+
     #region Button
     public void OnShowPhone(PointerEventData eventData)
     {
         UIManager.Instance.ShowPopup<UI_Phone>();
+        UIManager.Instance.ShowPopup<UI_AppMenuPanel>(null, UIManager.Instance.FindUIPopup<UI_Phone>()?.UpgradePanelBox);
     }
     #endregion
 }

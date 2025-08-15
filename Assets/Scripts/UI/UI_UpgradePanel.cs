@@ -38,8 +38,7 @@ public class UI_UpgradePanel : UISelector
             us.SetupByUpgradeType();
         }
     }
-    
-    
+
     public void OnSlotClicked(int slotIndex)
     {
         _curIndex = slotIndex;

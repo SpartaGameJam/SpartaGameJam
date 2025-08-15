@@ -112,9 +112,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: GamerSlot, Assembly-CSharp
-        m_MethodName: OnclickButton
+      - m_Target: {fileID: 5015875006464423846}
+        m_TargetAssemblyTypeName: UpgradeSlot, Assembly-CSharp
+        m_MethodName: OnSlotClicked
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -174,6 +174,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a268a3067737a54c8efb190600dcbed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  Txt_UpgradeValue: {fileID: 5012762198148906429}
+  Txt_UpgradePrice: {fileID: 7280864012474131663}
+  UpgradeType: 0
+  Index: 0
 --- !u!1 &4297092345974478248
 GameObject:
   m_ObjectHideFlags: 0
@@ -184,7 +188,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8941137370398745987}
   m_Layer: 5
-  m_Name: UpgradeName
+  m_Name: UpgradeValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -258,7 +262,7 @@ GameObject:
   - component: {fileID: 5688918167127293501}
   - component: {fileID: 5012762198148906429}
   m_Layer: 5
-  m_Name: NameValue_Text
+  m_Name: Txt_UpgradeValue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -396,7 +400,7 @@ GameObject:
   - component: {fileID: 2445070881499705754}
   - component: {fileID: 7280864012474131663}
   m_Layer: 5
-  m_Name: SalaryValue_Text
+  m_Name: Txt_UpgradePrice
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

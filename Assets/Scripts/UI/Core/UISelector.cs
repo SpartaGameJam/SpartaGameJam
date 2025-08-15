@@ -7,9 +7,9 @@ public class UISelector : UI_Base
 {
     [Header("Content")]
     [SerializeField] protected GameObject content;
-
     [SerializeField] protected GameObject defaultButton;
-    
+
+
     public virtual void ClosePopupUI()
     {
         UIManager.Instance.ClosePopupUI();

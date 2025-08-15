@@ -56,6 +56,8 @@ public class UIManager : MonoBehaviour
 
         foreach (UI_Base ui in list)
         {
+            ui.Init();
+
             string key = ui.gameObject.name;
 
             if (UIs.ContainsKey(key))
@@ -66,7 +68,7 @@ public class UIManager : MonoBehaviour
 
             UIs.Add(key, ui);
 
-            ui.Init();
+            //ui.Init();
         }
     }
     
@@ -116,6 +118,7 @@ public class UIManager : MonoBehaviour
         T popuupUI = ui as T;
 
 
+        
         panelStack.Push(popuupUI);
 
         if (panelStack.Count <= 0) return;
@@ -145,7 +148,6 @@ public class UIManager : MonoBehaviour
         if (panelStack.Count > 0)
             panelStack.Peek().gameObject.SetActive(true);
     }
-
 
     /// <summary>
     /// panelStack에 현재 패널을 추가합니다.
