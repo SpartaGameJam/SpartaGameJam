@@ -323,5 +323,7 @@ public class LockPattern : MonoBehaviour
 
         yield return new WaitForSeconds(1f);
 
+        SpineController.Instance.skeletonGraphicTimeFiver.color = new Color(1f, 1f, 1f, 0f);
+
     }
 }
