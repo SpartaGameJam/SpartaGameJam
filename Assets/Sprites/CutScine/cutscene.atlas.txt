@@ -1,6 +1,7 @@
 cutscene.png
 size:1924,2099
 filter:Linear,Linear
+pma:true
 01
 bounds:1577,53,489,321
 offsets:3,0,492,321
