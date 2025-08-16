@@ -59,9 +59,11 @@ MonoBehaviour:
   - {fileID: 21300000, guid: b4b07d2cd5bcd4648b88db37e2da49bd, type: 3}
   noMatchPercent: 50
   twoMatchPercent: 25
-  threeMatchPercent: 4
   threeCarrotPercent: 1
-  oneMorePercent: 20
+  threeRabbitPercent: 3
+  threeRadishPercent: 3
+  threeScoopPercent: 3
+  oneMorePercent: 15
 --- !u!1 &5365583697514631439
 GameObject:
   m_ObjectHideFlags: 0

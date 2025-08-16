@@ -5,8 +5,10 @@ public enum LottoResult
 {
     NoMatch,
     TwoMatch,
-    ThreeMatch,
     ThreeCarrot,
+    ThreeRabbit,
+    ThreeRadish,
+    ThreeScoop,
     OneMore,
 }
 
@@ -23,8 +25,10 @@ public class LottoMaker : MonoBehaviour
     [Header("결과 확률 퍼센트. 반드시 합계가 100이 되도록 해야합니다.")]
     [Range(0, 100)] public float noMatchPercent;
     [Range(0, 100)] public float twoMatchPercent;
-    [Range(0, 100)] public float threeMatchPercent;
     [Range(0, 100)] public float threeCarrotPercent;
+    [Range(0, 100)] public float threeRabbitPercent;
+    [Range(0, 100)] public float threeRadishPercent;
+    [Range(0, 100)] public float threeScoopPercent;
     [Range(0, 100)] public float oneMorePercent;
 
     private void Start()
@@ -55,8 +59,10 @@ public class LottoMaker : MonoBehaviour
 
         if ((cumulative += noMatchPercent) > r) return LottoResult.NoMatch;
         if ((cumulative += twoMatchPercent) > r) return LottoResult.TwoMatch;
-        if ((cumulative += threeMatchPercent) > r) return LottoResult.ThreeMatch;
-        if ((cumulative += threeCarrotPercent) > r) return LottoResult.ThreeCarrot; // 🥕 추가
+        if ((cumulative += threeCarrotPercent) > r) return LottoResult.ThreeCarrot;
+        if ((cumulative += threeRabbitPercent) > r) return LottoResult.ThreeRabbit;
+        if ((cumulative += threeRadishPercent) > r) return LottoResult.ThreeRadish;
+        if ((cumulative += threeScoopPercent) > r) return LottoResult.ThreeScoop;
         if ((cumulative += oneMorePercent) > r) return LottoResult.OneMore;
 
         // 합이 100이 안 될 경우 대비
@@ -108,27 +114,38 @@ public class LottoMaker : MonoBehaviour
                     }
                 }
                 break;
-
-            case LottoResult.ThreeMatch:
-                {
-                    // 전부 같은 normal 아이콘
-                    Sprite matchSprite = normalIcons[Random.Range(0, normalIcons.Count)];
-                    resultSprites.Add(matchSprite);
-                    resultSprites.Add(matchSprite);
-                    resultSprites.Add(matchSprite);
-                }
-                break;
-
             case LottoResult.ThreeCarrot:
                 {
-                    // 전부 당근 아이콘
                     Sprite carrot = normalIcons[0];
                     resultSprites.Add(carrot);
                     resultSprites.Add(carrot);
                     resultSprites.Add(carrot);
                 }
                 break;
-
+            case LottoResult.ThreeRabbit:
+                {
+                    Sprite carrot = normalIcons[1];
+                    resultSprites.Add(carrot);
+                    resultSprites.Add(carrot);
+                    resultSprites.Add(carrot);
+                }
+                break;
+            case LottoResult.ThreeRadish:
+                {
+                    Sprite carrot = normalIcons[2];
+                    resultSprites.Add(carrot);
+                    resultSprites.Add(carrot);
+                    resultSprites.Add(carrot);
+                }
+                break;
+            case LottoResult.ThreeScoop:
+                {
+                    Sprite carrot = normalIcons[3];
+                    resultSprites.Add(carrot);
+                    resultSprites.Add(carrot);
+                    resultSprites.Add(carrot);
+                }
+                break;
             case LottoResult.OneMore:
                 // oneMore는 지정된 아이콘 사용
                 return new List<Sprite>(onemoreIcons);

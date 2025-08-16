@@ -303,7 +303,10 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
             case LottoResult.TwoMatch:
                 waitAfterTilt = shortWait;
                 break;
-            case LottoResult.ThreeMatch:
+            case LottoResult.ThreeCarrot:
+            case LottoResult.ThreeRabbit:
+            case LottoResult.ThreeRadish:
+            case LottoResult.ThreeScoop:
                 waitAfterTilt = longWait;
                 break;
             case LottoResult.OneMore:
@@ -317,7 +320,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         Sequence seq = DOTween.Sequence();
         LottoTiltShader tilt = rootTransform.GetComponent<LottoTiltShader>();
 
-        if (result == LottoResult.ThreeMatch || result == LottoResult.OneMore)
+        if (result == LottoResult.ThreeCarrot || result == LottoResult.ThreeRabbit || result == LottoResult.ThreeRadish || result == LottoResult.ThreeScoop || result == LottoResult.OneMore)
         {
             seq.Append(rootTransform.DOLocalMoveZ(rootTransform.localPosition.z + forwardMoveZ, forwardMoveDuration));
             if (tilt != null)
@@ -352,8 +355,17 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                 case LottoResult.TwoMatch:
                     Debug.Log("결과: 2개 일치");
                     break;
-                case LottoResult.ThreeMatch:
-                    Debug.Log("결과: 3개 일치! -> 엔딩씬으로 이동");
+                case LottoResult.ThreeCarrot:
+                    Debug.Log("결과: 당근 3개! -> 엔딩씬으로 이동");
+                    break;
+                case LottoResult.ThreeRabbit:
+                    Debug.Log("결과: 토끼 3개!");
+                    break;
+                case LottoResult.ThreeRadish:
+                    Debug.Log("결과: 무 3개!");
+                    break;
+                case LottoResult.ThreeScoop:
+                    Debug.Log("결과: 국자 3개!");
                     break;
                 case LottoResult.OneMore:
                     LottoMaker maker = FindAnyObjectByType<LottoMaker>();
