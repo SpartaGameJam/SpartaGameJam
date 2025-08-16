@@ -91,8 +91,6 @@ public class UI_Play : UI_Scene
         Obj_Enemy = GetObject((int)Objects.Obj_Enemy);
         Slider_Fever = GetSlider((int)Sliders.Slider_Fever);
 
-
-
         Img_BG01.sprite = Resources.Load<Sprite>("UI_Play/Img_BG01");
         Img_Desk.sprite = Resources.Load<Sprite>("UI_Play/Desks/Img_Monitor01");
         Img_Phone.sprite = Resources.Load<Sprite>("UI_Play/Img_Phone");
@@ -104,6 +102,8 @@ public class UI_Play : UI_Scene
 
         _workOriginPos = Obj_Desk.GetComponent<RectTransform>().anchoredPosition;
         workTargetPosY = -720;
+
+        
     }
     
     
