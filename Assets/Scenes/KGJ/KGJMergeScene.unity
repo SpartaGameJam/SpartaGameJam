@@ -6904,6 +6904,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 794c041f12e15f542ae6d68741b5cb44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  workTargetPosY: 180
+  workMoveDuration: 0.6
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
