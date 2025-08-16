@@ -44,8 +44,8 @@ public class UI_Play : UI_Scene
     Image Img_BG01;
     Image Img_Desk;
     Image Img_Phone;
-    Image Img_Document;
-    Image Img_Pattern01;
+    //Image Img_Document;
+    //Image Img_Pattern01;
 
 
 
@@ -64,14 +64,6 @@ public class UI_Play : UI_Scene
     // 기능을 추가한다면 이것을 UI로 잡고, 그 안의 내용을 세부적으로 컨트롤하게 하겠지만,
     // 단순히 이미지를 바꾸거나 오브젝트를 바꾸는 것이라면 이대로 사용
     GameObject Obj_WorkInstructionPanel;
-
-
-    [SerializeField] private float documentTargetPosY = 550f;
-    [SerializeField] private float documentMoveDuration = 0.6f;
-    [SerializeField] private float documentOvershoot = 1.2f;
-
-    private Vector2 _docOriginPos;
-    private bool _docIsAtTarget = false;
 
     
     [SerializeField] private float workTargetPosY = -900f;
@@ -103,8 +95,8 @@ public class UI_Play : UI_Scene
         Img_BG01 = GetImage((int)Images.Img_BG01);
         Img_Desk = GetImage((int)Images.Img_Desk);
         Img_Phone = GetImage((int)Images.Img_Phone);
-        Img_Document = GetImage((int)Images.Img_Document);
-        Img_Pattern01 = GetImage((int)Images.Img_Pattern01);
+        //Img_Document = GetImage((int)Images.Img_Document);
+        //Img_Pattern01 = GetImage((int)Images.Img_Pattern01);
 
         Img_Enemy = GetImage((int)Images.Img_Enemy);
 
@@ -114,15 +106,14 @@ public class UI_Play : UI_Scene
         Obj_Enemy = GetObject((int)Objects.Obj_Enemy);
 
         Img_BG01.sprite = Resources.Load<Sprite>("UI_Play/Img_BG01");
-        Img_Desk.sprite = Resources.Load<Sprite>("UI_Play/Img_Desk");
+        Img_Desk.sprite = Resources.Load<Sprite>("UI_Play/Desks/Img_Monitor01");
         Img_Phone.sprite = Resources.Load<Sprite>("UI_Play/Img_Phone");
-        Img_Document.sprite = Resources.Load<Sprite>("UI_Play/Img_Document");
-        Img_Pattern01.sprite = Resources.Load<Sprite>("UI_Play/Img_Pattern01");
+        //Img_Document.sprite = Resources.Load<Sprite>("UI_Play/Img_Document");
+        //Img_Pattern01.sprite = Resources.Load<Sprite>("UI_Play/Img_Pattern01");
 
         Img_Enemy.sprite = Resources.Load<Sprite>("Char/Img_BuJangNormal");
 
         BindEvent(Btn_Phone.gameObject, OnShowPhone);
-        BindEvent(Obj_DocumentPanel, OnClickDocumentPanel);
         BindEvent(Obj_Desk, OnClickWorkInstructionPanel);
         BindEvent(Obj_Enemy, OnClickWorkInstructionPanel);
 
@@ -154,25 +145,6 @@ public class UI_Play : UI_Scene
     }
 
     #region DOTWEEN
-    public void OnClickDocumentPanel(PointerEventData eventData)
-    {
-        RectTransform rt = Obj_DocumentPanel.GetComponent<RectTransform>();
-
-        // 없으면 자동으로 DG_BounceMove 부착
-        DG_BounceMove mover = Obj_DocumentPanel.GetComponent<DG_BounceMove>();
-        if (mover == null) mover = Obj_DocumentPanel.AddComponent<DG_BounceMove>();
-
-        mover.target = rt;
-        mover.duration = documentMoveDuration;
-        mover.overshoot = documentOvershoot;
-
-        // 토글 이동: 현재 위치에 따라 목표/원위치로 튕기듯 이동
-        Vector2 nextPos = _docIsAtTarget ? _docOriginPos : new Vector2(rt.anchoredPosition.x, documentTargetPosY);
-        mover.targetPos = nextPos;
-
-        mover.PlayBounceMove();
-        _docIsAtTarget = !_docIsAtTarget;
-    }
 
     public void OnClickWorkInstructionPanel(PointerEventData _)
     {
