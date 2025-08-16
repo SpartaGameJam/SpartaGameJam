@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 //Desk = 80 에서 -520
 //부장 = -50 에서 - 480
@@ -79,6 +80,13 @@ public class UI_Play : UI_Scene
     private Vector2 _workOriginPos;
     private bool _workIsAtTarget = false;
 
+    [Header("Enemy Auto Move")]
+    [SerializeField] private float[] enemyAutoPosY = new float[] { -50f, -480f }; // 예: 부장 -50 ↔ -480
+    [SerializeField] private float   enemyAutoInterval = 1.5f;     // 몇 초 간격으로 다음 위치로 이동할지
+    [SerializeField] private float   enemyMoveDuration = 0.6f;     // 튕김 이동 시간
+    [SerializeField] private float   enemyOvershoot    = 1.2f;     // 튕김 강도
+
+    private Coroutine _coEnemyAutoMove;
 
     protected override void Awake()
     {
@@ -120,6 +128,29 @@ public class UI_Play : UI_Scene
 
         _workOriginPos = Obj_Desk.GetComponent<RectTransform>().anchoredPosition;
         workTargetPosY = -720;
+    }
+    
+    
+    private void OnEnable()
+    {
+        // 자동 이동 시작
+        if (_coEnemyAutoMove == null)
+            _coEnemyAutoMove = StartCoroutine(CoAutoMoveEnemy());
+    }
+
+    
+    private void OnDisable()
+    {
+        // 자동 이동 정리
+        if (_coEnemyAutoMove != null)
+        {
+            StopCoroutine(_coEnemyAutoMove);
+            _coEnemyAutoMove = null;
+        }
+
+        // 트윈 안전 정리
+        var rt = Obj_Enemy.GetComponent<RectTransform>();
+        DOTween.Kill(rt);
     }
 
     #region DOTWEEN
@@ -166,6 +197,37 @@ public class UI_Play : UI_Scene
 
         _workIsAtTarget = !_workIsAtTarget;
     }
+
+    
+    private System.Collections.IEnumerator CoAutoMoveEnemy()
+    {
+        var go = Obj_Enemy; // 단일 이미지라면 Img_Enemy.gameObject 로 교체
+        var rt = go.GetComponent<RectTransform>();
+
+        // DG_BounceMove 없으면 부착
+        var mover = go.GetComponent<DG_BounceMove>();
+        if (mover == null) mover = go.AddComponent<DG_BounceMove>();
+
+        mover.target    = rt;
+        mover.duration  = enemyMoveDuration;
+        mover.overshoot = enemyOvershoot;
+
+        int idx = 0;
+        while (true)
+        {
+            if (enemyAutoPosY == null || enemyAutoPosY.Length == 0)
+                yield break;
+
+            // X는 유지, Y만 다음 목표로
+            var next = new Vector2(rt.anchoredPosition.x, enemyAutoPosY[idx]);
+            mover.targetPos = next;
+            mover.PlayBounceMove();
+
+            idx = (idx + 1) % enemyAutoPosY.Length;
+            yield return new WaitForSeconds(enemyAutoInterval);
+        }
+    }
+
     #endregion
 
 
