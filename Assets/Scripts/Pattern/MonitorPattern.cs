@@ -233,7 +233,7 @@ public class MonitorPattern : MonoBehaviour
     private IEnumerator test()
     {
         yield return null;
-        //SetPatternSquence();
+        SetPatternSquence();
 
         /*patternSequence.Add(5);
         patternSequence.Add(8);
@@ -248,10 +248,10 @@ public class MonitorPattern : MonoBehaviour
         patternSequence.Add(2);
         patternSequence.Add(8);*/
 
-        patternSequence.Add(2);
+        /*patternSequence.Add(2);
         patternSequence.Add(4);
         patternSequence.Add(8);
-        patternSequence.Add(0);
+        patternSequence.Add(0);*/
 
         SetLine();
     }

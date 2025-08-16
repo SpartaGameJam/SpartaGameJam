@@ -1656,6 +1656,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   settingPanel: {fileID: 7942742013820861214}
+  mainMenu: {fileID: 1799812448}
 --- !u!1 &1261269025
 GameObject:
   m_ObjectHideFlags: 0
@@ -2223,6 +2224,8 @@ MonoBehaviour:
   defaultButton: {fileID: 891290757}
   startButton: {fileID: 0}
   optionButton: {fileID: 0}
+  backGroundImg: {fileID: 1912745286}
+  titleObject: {fileID: 465490133}
 --- !u!1 &1912745286
 GameObject:
   m_ObjectHideFlags: 0

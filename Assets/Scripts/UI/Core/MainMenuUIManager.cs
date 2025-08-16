@@ -15,6 +15,8 @@ public class MainMenuUIManager : MonoBehaviour
     //[SerializeField] private UISelector pausePanel;
     [SerializeField] private UISelector settingPanel;
     //public UISelector PausePanel => pausePanel;
+    public MainMenu mainMenu;
+
     public UISelector SettingPanel => settingPanel;
 
     private Stack<UISelector> panelStack = new Stack<UISelector>();

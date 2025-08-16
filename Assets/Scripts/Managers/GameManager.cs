@@ -92,4 +92,17 @@ public class GameManager : Singleton<GameManager>
     }
 
     public bool IsFeverTime = false;
+
+    public void ClearData()
+    {
+        _stats.Clear();
+
+        _money = 0;
+        failCount = 0;
+        useLottoCount = 0;
+        completeWork = 0;
+        fiverCount = 0;
+        upgradeCount = 0;
+
+    }
 }

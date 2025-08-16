@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -72,7 +72,6 @@ public class UI_Play : UI_Scene
         BindButtons(typeof(Buttons));
         BindImages(typeof(Images));
         BindObjects(typeof(Objects));
-        BindSliders(typeof(Slider));
 
         Txt_EnemyDialogue = GetText((int)Texts.Txt_EnemyDialogue);
 
@@ -105,6 +104,10 @@ public class UI_Play : UI_Scene
         {
             Btn_Phone.interactable = false;
         }
+        else
+        {
+            Btn_Phone.interactable = true;
+        }
     }
 
     
@@ -128,8 +131,8 @@ public class UI_Play : UI_Scene
         }
 
         // 트윈 안전 정리
-        var rt = Obj_Enemy.GetComponent<RectTransform>();
-        DOTween.Kill(rt);
+        /*var rt = Obj_Enemy.GetComponent<RectTransform>();
+        DOTween.Kill(rt);*/
     }
 
     #region DOTWEEN

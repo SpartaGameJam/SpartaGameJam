@@ -19,4 +19,9 @@ public class EndingResult : MonoBehaviour
         upgradeText.text = "업그레이드 수: " + GameManager.Instance.upgradeCount.ToString();
         useMoneyText.text = "사용한 돈: " + GameManager.Instance.useMoney.ToString();
     }
+
+    public void Init()
+    {
+        MainMenuUIManager.Instance.mainMenu.Init();
+    }
 }

@@ -12,9 +12,25 @@ public class MainMenu : UISelector
 
     public event EventHandler OnIngameEnter;
 
+    public GameObject backGroundImg;
+    public GameObject titleObject;
+
     private void Start()
     {
         MainMenuUIManager.Instance.AddPanel(this);
+    }
+
+    public void Init()
+    {
+        LoadSceneManager.Instance.UnLoadScene(SceneName.Ending);
+
+        titleObject.SetActive(true);
+        backGroundImg.SetActive(true);
+        SpineController.Instance.StartTitle(false, 1);
+
+        GameManager.Instance.ClearData();
+
+        MainMenuUIManager.Instance.ChangePanel(this);
     }
 
 
@@ -24,6 +40,7 @@ public class MainMenu : UISelector
         MainMenuUIManager.Instance.InitializePannel();
 
         LoadSceneManager.Instance.LoadScene(SceneName.Ingame);
+        SoundManager.instance.PlayBGM(GameplaySound.Main);
 
         Debug.Log("NewStartButton");
     }
