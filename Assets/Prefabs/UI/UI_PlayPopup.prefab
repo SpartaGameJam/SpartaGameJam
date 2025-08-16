@@ -2019,7 +2019,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1398307571414226927, guid: 037322520b36d5e4d8ad0a240ab9116e, type: 3}
       propertyPath: offY.y
-      value: 550
+      value: 350
       objectReference: {fileID: 0}
     - target: {fileID: 1398307571414226927, guid: 037322520b36d5e4d8ad0a240ab9116e, type: 3}
       propertyPath: spawnPoint
