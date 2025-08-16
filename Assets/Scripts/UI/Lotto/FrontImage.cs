@@ -1,6 +1,8 @@
 ﻿using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
@@ -34,6 +36,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
     // 코인 진입 여부
     bool coinInside = false;
+    private Vector2? lastScratchPos;
 
     void Start()
     {
@@ -119,7 +122,13 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
             int px = Mathf.RoundToInt(u * scratchTex.width);
             int py = Mathf.RoundToInt(v * scratchTex.height);
 
-            bool erased = Erase(px, py);
+            bool erased;
+            if (lastScratchPos.HasValue)
+                erased = DrawLine(lastScratchPos.Value, new Vector2(px, py));
+            else
+                erased = Erase(px, py);
+
+            lastScratchPos = new Vector2(px, py);
 
             if (erased)
             {
@@ -151,15 +160,39 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         }
     }
 
+    void ShowMoneyAnimation(int amount)
+    {
+        UI_TextAnimation textAni = FindAnyObjectByType<UI_TextAnimation>();
+
+        if (textAni != null)
+            textAni.Play(amount);
+    }
+
 
     // 코인 드래그 시작할 때 Reset (UI_Coin에서 호출해줘야 함)
     public void ResetCoinState()
     {
         coinInside = false;
+        lastScratchPos = null;
 
         LottoTiltShader tilt = rootTransform.GetComponent<LottoTiltShader>();
         if (tilt != null)
             tilt.ReleaseExternalTilt();
+    }
+
+    bool DrawLine(Vector2 start, Vector2 end)
+    {
+        bool erased = false;
+        float distance = Vector2.Distance(start, end);
+        float diameter = brushTexture.width;
+        int steps = Mathf.CeilToInt(distance / diameter);
+        if (steps == 0) steps = 1;
+        for (int i = 1; i <= steps; i++)
+        {
+            Vector2 point = Vector2.Lerp(start, end, i / (float)steps);
+            erased |= Erase(Mathf.RoundToInt(point.x), Mathf.RoundToInt(point.y));
+        }
+        return erased;
     }
 
     // 실제 스크래치 지우기
@@ -310,7 +343,8 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                 seq.AppendInterval(shakeTime);
                 seq.AppendInterval(waitAfterTilt);
             }
-            seq.Append(rootTransform.DOMoveX(moveX, moveXDuration));
+            if (result != LottoResult.ThreeCarrot)
+                seq.Append(rootTransform.DOMoveX(moveX, moveXDuration));
         }
         else if (result == LottoResult.TwoMatch || result == LottoResult.NoMatch)
         {
@@ -321,7 +355,8 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                 seq.AppendInterval(shakeTime);
                 seq.AppendInterval(waitAfterTilt);
             }
-            seq.Append(rootTransform.DOMoveX(moveX, moveXDuration));
+            if (result != LottoResult.ThreeCarrot)
+                seq.Append(rootTransform.DOMoveX(moveX, moveXDuration));
         }
 
         // 여기서 결과에 따라 디버그 로그 출력
@@ -331,9 +366,13 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
             {
                 case LottoResult.NoMatch:
                     Debug.Log("결과: 꽝!");
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 case LottoResult.TwoMatch:
                     Debug.Log("결과: 2개 일치");
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 case LottoResult.ThreeCarrot:
                     Debug.Log("결과: 당근 3개! -> 엔딩씬으로 이동");
@@ -342,18 +381,27 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                     break;
                 case LottoResult.ThreeRabbit:
                     Debug.Log("결과: 토끼 3개! 100000G 획득");
+                    ShowMoneyAnimation(100000);
                     GameManager.Instance.Money += 100000;
                     EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 case LottoResult.ThreeRadish:
                     Debug.Log("결과: 무 3개! 50000G 획득");
+                    ShowMoneyAnimation(50000);
                     GameManager.Instance.Money += 50000;
                     EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 case LottoResult.ThreeScoop:
                     Debug.Log("결과: 국자 3개! 30000G 획득");
+                    ShowMoneyAnimation(30000);
                     GameManager.Instance.Money += 30000;
                     EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 case LottoResult.OneMore:
                     LottoMaker maker = FindAnyObjectByType<LottoMaker>();
@@ -364,12 +412,19 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                         if (lottoButton != null)
                             lottoButton.HandleLotto(autoLotto);
                     }
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 default:
                     break;
             }
-            Destroy(rootTransform.parent.gameObject);
         });
+    }
+
+    IEnumerator LoadSceneAfterDelay(string sceneName, float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        SceneManager.LoadScene(sceneName);
     }
 
 

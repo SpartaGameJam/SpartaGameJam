@@ -17,13 +17,6 @@ public class UI_Lotto : MonoBehaviour
 
     public event Action OnLottoDestroyed;
 
-    void Start()
-    {
-        canvas = GetComponent<Canvas>();
-        canvas.worldCamera = Camera.main;
-        canvas.sortingOrder = 5;
-    }
-
     public void Init(LottoResult result, List<Sprite> sprites, Transform targetPosition)
     {
         currentResult = result;
@@ -41,6 +34,13 @@ public class UI_Lotto : MonoBehaviour
 
         // targetPosition���� �̵� �ִϸ��̼�
         MoveToTarget(targetPosition);
+    }
+
+    public void SetCamera(Camera cam)
+    {
+        canvas = GetComponent<Canvas>();
+        canvas.sortingOrder = 5;
+        canvas.worldCamera = cam;
     }
 
     private void MoveToTarget(Transform targetPosition)
