@@ -16,6 +16,7 @@ public class UI_Shop : UI_Scene
     enum Buttons
     {
         Btn_ReturnToOffice,
+        Obj_Cashier,
         //Btn_Lotto
     }
 
@@ -28,14 +29,11 @@ public class UI_Shop : UI_Scene
         Img_Cashier
     }
 
-    enum Objects
-    {
-        Obj_Cashier,
-    }
-
     #endregion
 
     Button Btn_ReturnToOffice;
+    Button Btn_Cashier;
+
     //Button Btn_Lotto;
 
     Image Img_BG02;
@@ -45,15 +43,11 @@ public class UI_Shop : UI_Scene
     TextMeshProUGUI Txt_CashierDialogue;
     Image Img_Cashier;
 
-    GameObject Obj_Cashier;
-
-
     protected override void Awake()
     {
         BindTexts(typeof(Texts));
         BindButtons(typeof(Buttons));
         BindImages(typeof(Images));
-        BindObjects(typeof(Objects));
 
         Txt_CashierDialogue = GetText((int)Texts.Txt_CashierDialogue);
 
@@ -65,8 +59,7 @@ public class UI_Shop : UI_Scene
         Img_ReturnToOffice = GetImage((int)Images.Img_ReturnToOffice);
 
         Img_Cashier = GetImage((int)Images.Img_Cashier);
-
-        Obj_Cashier = GetObject((int)Objects.Obj_Cashier);
+        Btn_Cashier = GetButton((int)Buttons.Obj_Cashier);
 
         Img_BG02.sprite = Resources.Load<Sprite>("UI_Shop/Img_BG02");
         Img_Counter.sprite = Resources.Load<Sprite>("UI_Shop/Img_Counter");
@@ -74,10 +67,9 @@ public class UI_Shop : UI_Scene
         Img_Cashier.sprite = Resources.Load<Sprite>("Char/Img_Juno002");
 
         Btn_ReturnToOffice.onClick.AddListener(OnReturnToOffice);
+        Btn_Cashier.onClick.AddListener(CashierClick);
 
-        BindEvent(Obj_Cashier, CashierClick);
-
-        _workOriginPos = Obj_Cashier.GetComponent<RectTransform>().anchoredPosition;
+        _workOriginPos = Btn_Cashier.GetComponent<RectTransform>().anchoredPosition;
     }
 
     
@@ -95,7 +87,7 @@ public class UI_Shop : UI_Scene
         return emotion;
     }
 
-    void CashierClick(PointerEventData pointerEventData)
+    void CashierClick()
     {
         OnClickWorkInstructionPanel();
 
@@ -115,11 +107,8 @@ public class UI_Shop : UI_Scene
 
     public void OnClickWorkInstructionPanel()
     {
-        RectTransform rt = Obj_Cashier.GetComponent<RectTransform>();
-
-        // DG_MoveEase 없으면 자동 부착
-        DG_MoveEase mover = Obj_Cashier.GetComponent<DG_MoveEase>();
-        if (mover == null) mover = Obj_Cashier.AddComponent<DG_MoveEase>();
+        RectTransform rt = Btn_Cashier.GetComponent<RectTransform>();
+        DG_MoveEase mover = Btn_Cashier.GetComponent<DG_MoveEase>();
 
         // 현재 위치 기준 토글 (X는 유지, Y만 변경)
         Vector2 nextPosAnchored = _workIsAtTarget ? _workOriginPos : new Vector2(rt.anchoredPosition.x, 180);
