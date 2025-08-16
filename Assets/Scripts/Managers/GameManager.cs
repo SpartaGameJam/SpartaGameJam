@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : Singleton<GameManager>
@@ -40,4 +40,9 @@ public class GameManager : Singleton<GameManager>
         set { _money = value; }
     }
     #endregion
+
+    public float GetGainPer()
+    {
+        return UpgradeManager.Instance.GetCurrentValue(UpgradeType.CurrencyGain);
+    }
 }

@@ -5,10 +5,8 @@ using UnityEngine.SceneManagement;
 
 public enum SceneName
 {
-    Core,
-    UI,
+    MainMenu,
     Ingame,
-    GameClear,
     None
 }
 
@@ -16,6 +14,8 @@ public class LoadSceneManager : MonoBehaviour
 {
     private static LoadSceneManager instance;
     public static LoadSceneManager Instance => instance;
+
+    public SceneName curSceneName;
 
     private void Awake()
     {

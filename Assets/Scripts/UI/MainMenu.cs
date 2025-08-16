@@ -14,16 +14,17 @@ public class MainMenu : UISelector
 
     private void Start()
     {
-        UIManager.Instance.AddPanel(this);
+        MainMenuUIManager.Instance.AddPanel(this);
     }
 
 
     public void NewStartButton()
     {
         OnIngameEnter?.Invoke(this, EventArgs.Empty);
-        UIManager.Instance.InitializePannel();
+        MainMenuUIManager.Instance.InitializePannel();
 
-        //LoadSceneManager.Instance.LoadScene(SceneName.Ingame);
+        LoadSceneManager.Instance.ChangeScene(SceneName.Ingame, LoadSceneManager.Instance.curSceneName);
+        LoadSceneManager.Instance.curSceneName = SceneName.Ingame;
 
         Debug.Log("NewStartButton");
     }
@@ -37,7 +38,7 @@ public class MainMenu : UISelector
 
     public void SettingButton()
     {
-        UIManager.Instance.ChangePanel(UIManager.Instance.SettingPanel);
+        MainMenuUIManager.Instance.ChangePanel(MainMenuUIManager.Instance.SettingPanel);
     }
 
     public void ExitButton()

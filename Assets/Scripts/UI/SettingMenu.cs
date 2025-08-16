@@ -57,6 +57,6 @@ public class SettingMenu : UISelector
     public override void Back()
     {
 		ChangeView(SettingOption.Gameplay);
-		base.Back();
+        MainMenuUIManager.Instance.BackPannel();
     }
 }
