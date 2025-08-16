@@ -12,7 +12,7 @@ public class LockPattern : MonoBehaviour
     public Sprite[] pointerSprites; // 0 기본 , 1 현재, 2 확정
 
     public Vector3 offsetPos = new Vector3(0, -450f, 0); // PatternContent의 Rect Transform 값
-    private Vector3 offY = new Vector3(0, 150, 0);
+    public Vector3 offY = new Vector3(0, 565, 0);
 
     private Dictionary<int, PatternPointer> pointers;
 
