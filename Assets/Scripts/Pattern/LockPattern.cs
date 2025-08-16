@@ -53,6 +53,15 @@ public class LockPattern : MonoBehaviour
         return -1;
     }
 
+    private void Awake()
+    {
+        if (canvas == null)
+        {
+            canvas = GetComponentInParent<Canvas>();
+        }
+    }
+
+
     private void Start()
     {
         pointers = new Dictionary<int, PatternPointer>();

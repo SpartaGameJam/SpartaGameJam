@@ -16,7 +16,8 @@ public class UI_Shop : UI_Scene
     enum Buttons
     {
         Btn_ReturnToOffice,
-        Btn_Lotto
+        Obj_Cashier,
+        //Btn_Lotto
     }
 
     enum Images
@@ -28,15 +29,12 @@ public class UI_Shop : UI_Scene
         Img_Cashier
     }
 
-    enum Objects
-    {
-        Obj_Cashier,
-    }
-
     #endregion
 
     Button Btn_ReturnToOffice;
-    Button Btn_Lotto;
+    Button Btn_Cashier;
+
+    //Button Btn_Lotto;
 
     Image Img_BG02;
     Image Img_Counter;
@@ -45,40 +43,33 @@ public class UI_Shop : UI_Scene
     TextMeshProUGUI Txt_CashierDialogue;
     Image Img_Cashier;
 
-    GameObject Obj_Cashier;
-
-
     protected override void Awake()
     {
         BindTexts(typeof(Texts));
         BindButtons(typeof(Buttons));
         BindImages(typeof(Images));
-        BindObjects(typeof(Objects));
 
         Txt_CashierDialogue = GetText((int)Texts.Txt_CashierDialogue);
 
         Btn_ReturnToOffice = GetButton((int)Buttons.Btn_ReturnToOffice);
-        Btn_Lotto = GetButton((int)Buttons.Btn_Lotto);
+        //Btn_Lotto = GetButton((int)Buttons.Btn_Lotto);
 
         Img_BG02 = GetImage((int)Images.Img_BG02);
         Img_Counter = GetImage((int)Images.Img_Counter);
         Img_ReturnToOffice = GetImage((int)Images.Img_ReturnToOffice);
 
         Img_Cashier = GetImage((int)Images.Img_Cashier);
-
-        Obj_Cashier = GetObject((int)Objects.Obj_Cashier);
+        Btn_Cashier = GetButton((int)Buttons.Obj_Cashier);
 
         Img_BG02.sprite = Resources.Load<Sprite>("UI_Shop/Img_BG02");
         Img_Counter.sprite = Resources.Load<Sprite>("UI_Shop/Img_Counter");
         Img_ReturnToOffice.sprite = Resources.Load<Sprite>("UI_Shop/Img_ReturnToOffice");
         Img_Cashier.sprite = Resources.Load<Sprite>("Char/Img_Juno002");
 
-        BindEvent(Btn_Lotto.gameObject, OnClickLotto);
-        BindEvent(Btn_ReturnToOffice.gameObject, OnReturnToOffice);
+        Btn_ReturnToOffice.onClick.AddListener(OnReturnToOffice);
+        Btn_Cashier.onClick.AddListener(CashierClick);
 
-        BindEvent(Obj_Cashier, CashierClick);
-
-        _workOriginPos = Obj_Cashier.GetComponent<RectTransform>().anchoredPosition;
+        _workOriginPos = Btn_Cashier.GetComponent<RectTransform>().anchoredPosition;
     }
 
     
@@ -96,7 +87,7 @@ public class UI_Shop : UI_Scene
         return emotion;
     }
 
-    void CashierClick(PointerEventData pointerEventData)
+    void CashierClick()
     {
         OnClickWorkInstructionPanel();
 
@@ -116,11 +107,8 @@ public class UI_Shop : UI_Scene
 
     public void OnClickWorkInstructionPanel()
     {
-        RectTransform rt = Obj_Cashier.GetComponent<RectTransform>();
-
-        // DG_MoveEase 없으면 자동 부착
-        DG_MoveEase mover = Obj_Cashier.GetComponent<DG_MoveEase>();
-        if (mover == null) mover = Obj_Cashier.AddComponent<DG_MoveEase>();
+        RectTransform rt = Btn_Cashier.GetComponent<RectTransform>();
+        DG_MoveEase mover = Btn_Cashier.GetComponent<DG_MoveEase>();
 
         // 현재 위치 기준 토글 (X는 유지, Y만 변경)
         Vector2 nextPosAnchored = _workIsAtTarget ? _workOriginPos : new Vector2(rt.anchoredPosition.x, 180);
@@ -139,13 +127,10 @@ public class UI_Shop : UI_Scene
 
 
     #region Button
-    void OnClickLotto(PointerEventData eventData)
+    void OnReturnToOffice()
     {
-        //void StartScratchTicket()
-    }
+        FindAnyObjectByType<LottoSystem>(FindObjectsInactive.Include).gameObject.SetActive(false);
 
-    void OnReturnToOffice(PointerEventData eventData)
-    {
         UIManager.Instance.CloseAllPopupUI();
         UIManager.Instance.ChangeSceneUI<UI_Play>();
     }

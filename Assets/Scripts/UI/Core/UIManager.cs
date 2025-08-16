@@ -36,6 +36,9 @@ public class UIManager : MonoBehaviour
         set { _sceneUI = value; }
         get { return _sceneUI; }
     }
+
+    
+	int _order = 80;
     
     public Dictionary<string, UI_Base> UIs = new();
 
@@ -73,6 +76,24 @@ public class UIManager : MonoBehaviour
             //ui.Init();
         }
     }
+
+    
+	public void SetCanvas(GameObject go, bool sort = true)
+	{
+		Canvas canvas = ComponentHelper.GetOrAddComponent<Canvas>(go);
+		canvas.renderMode = RenderMode.WorldSpace;
+		canvas.overrideSorting = true;
+
+		if (sort)
+		{
+			canvas.sortingOrder = _order;
+			_order++;
+		}
+		else
+		{
+			canvas.sortingOrder = 0;
+		}
+	}
 
     public UISelector PeekCurPopup()
     {
