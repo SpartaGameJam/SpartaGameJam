@@ -12,7 +12,6 @@ public class UI_BlurPanel : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceCamera;
-        canvas.worldCamera = Camera.main;
 
         canvasGroup = GetComponent<CanvasGroup>();
         if (canvasGroup == null)

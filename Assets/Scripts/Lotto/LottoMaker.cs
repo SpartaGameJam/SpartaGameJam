@@ -18,6 +18,9 @@ public class LottoMaker : MonoBehaviour
     [SerializeField] Transform targetPoint;
     GameObject lottoPrefab;
 
+    [Header("카메라")]
+    [SerializeField] Camera currentSceneCamera;
+
     [Header("스프라이트")]
     [SerializeField] List<Sprite> normalIcons;
     [SerializeField] List<Sprite> onemoreIcons;
@@ -33,6 +36,8 @@ public class LottoMaker : MonoBehaviour
 
     float baseNoMatchPercent;
     float baseOneMorePercent;
+
+    LottoSystem lottoSystem;
 
     private void Awake()
     {
@@ -53,6 +58,7 @@ public class LottoMaker : MonoBehaviour
     private void Start()
     {
         lottoPrefab = Resources.Load<GameObject>("Prefabs/UI_Lotto");
+        lottoSystem = FindAnyObjectByType<LottoSystem>();
     }
 
     void ApplyExtraChance()
@@ -69,8 +75,9 @@ public class LottoMaker : MonoBehaviour
         LottoResult result = GetRandomResult();
 
         // 프리팹 생성
-        GameObject lottoObj = Instantiate(lottoPrefab, spawnPoint.position, Quaternion.identity);
+        GameObject lottoObj = Instantiate(lottoPrefab, spawnPoint.position, Quaternion.identity, lottoSystem.transform);
         UI_Lotto lotto = lottoObj.GetComponent<UI_Lotto>();
+        lotto.SetCamera(currentSceneCamera);
 
         // 초기화
         List<Sprite> backSprites = GetSpritesForResult(result);
