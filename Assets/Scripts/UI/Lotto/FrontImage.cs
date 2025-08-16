@@ -121,6 +121,8 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     // 코인 긁기 (지우기 + Dust + 부모 이벤트 + 회전)
     public void ScratchAtWorldPos(Vector3 worldPos)
     {
+        if (isCleared) return;
+
         Vector2 localPos;
         if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
             scratchImage.rectTransform,
@@ -141,6 +143,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
             {
                 isScratching = true; // 긁는 중 상태
                 CheckClear();
+                if (isCleared) return;
                 EmitScratchDust(localPos);
 
                 // 코인이 처음 닿았을 때 PointerDown 이벤트 실행
@@ -262,6 +265,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         if (percent >= clearThreshold)
         {
             isCleared = true;
+            ResetCoinState();
             ClearAllScratch();
             PlayResultAnimation();
         }
