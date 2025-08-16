@@ -54,6 +54,8 @@ public class UI_AppMenuPanel : UISelector
         UIManager.Instance.ChangeSceneUI<UI_Shop>();
         FindAnyObjectByType<LottoSystem>(FindObjectsInactive.Include).gameObject.SetActive(true);
 
+        UIManager.Instance.FindUIScene<UI_Shop>().ShowLottoInfo();
+
         SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
 

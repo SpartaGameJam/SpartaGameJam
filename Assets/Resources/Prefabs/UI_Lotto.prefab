@@ -252,6 +252,7 @@ MonoBehaviour:
   moveXDuration: 0.5
   scratchDustPrefab: {fileID: 3760524574569458440, guid: 0d439325bcb32404fae340852b09b65d, type: 3}
   particleSpacing: 10
+  _sfxCooldown: 0.3
 --- !u!1 &3384540603905702842
 GameObject:
   m_ObjectHideFlags: 0
@@ -524,7 +525,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
-  m_PresetInfoIsWorld: 0
+  m_PresetInfoIsWorld: 1
 --- !u!114 &6657135176389642721
 MonoBehaviour:
   m_ObjectHideFlags: 0

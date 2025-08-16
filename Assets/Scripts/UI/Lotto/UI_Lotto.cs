@@ -36,12 +36,32 @@ public class UI_Lotto : MonoBehaviour
         MoveToTarget(targetPosition);
     }
 
+    RectTransform target;
+    
+    void Start()
+    {
+        if (!target)
+            target = GetComponent<RectTransform>();
+    }
+
     public void SetCamera(Camera cam)
     {
         canvas = GetComponent<Canvas>();
         canvas.sortingOrder = 5;
         canvas.worldCamera = cam;
     }
+
+    public void PlaySpin(RectTransform RectTransform)
+    {
+        float rpm = 120f;
+        Tween spinT;
+
+        float duration = 60f / rpm * 4;
+        spinT = RectTransform.DOBlendableLocalRotateBy(new Vector3(0, 360f * 3.5f, 0), duration, RotateMode.FastBeyond360)
+                      .SetEase(Ease.OutCubic)
+                      .OnComplete(() => spinT = null);
+    }
+
 
     private void MoveToTarget(Transform targetPosition)
     {
