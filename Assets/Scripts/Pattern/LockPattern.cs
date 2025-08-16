@@ -154,6 +154,7 @@ public class LockPattern : MonoBehaviour
     private void EnableColorFade(Animator anim, bool isPass = true)
     {
         anim.enabled = true;
+        anim.Rebind();
 
         if (isPass) anim.SetTrigger("IsPass");
         else anim.SetTrigger("IsFail");
@@ -244,7 +245,7 @@ public class LockPattern : MonoBehaviour
             foreach (var line in lines) ids.Add(line.id);
 
             bool checkResult = monitorPattern.CheckPattern(ids);
-
+            Debug.Log("결과값 받아옴:" + checkResult);
 
             foreach (var line in lines)
             {
