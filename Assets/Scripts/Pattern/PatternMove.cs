@@ -8,13 +8,13 @@ public class PatternMove : MonoBehaviour
     public Vector2 targetPos; // 목표 위치
     public float duration = 0.5f;    // 이동 시간
 
-    public bool isUp = false;
+    public bool isUp = true; // 올라온 상태인지
 
     private void Awake()
     {
         target = GetComponent<RectTransform>();
 
-        curPos = transform.localPosition;
+        //curPos = transform.localPosition;
     }
 
     public void Move()
