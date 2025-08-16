@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
@@ -130,7 +130,7 @@ public class UI_Shop : UI_Scene
     }
 
 
-    [SerializeField] private float workTargetPosY = 180f;
+    [SerializeField] private float workTargetPosY = 150f;
     [SerializeField] private float workMoveDuration = 0.6f;
 
     private Vector2 _workOriginPos;
@@ -143,7 +143,7 @@ public class UI_Shop : UI_Scene
         DG_MoveEase mover = Btn_Cashier.GetComponent<DG_MoveEase>();
 
         // 현재 위치 기준 토글 (X는 유지, Y만 변경)
-        Vector2 nextPosAnchored = _workIsAtTarget ? _workOriginPos : new Vector2(rt.anchoredPosition.x, 180);
+        Vector2 nextPosAnchored = _workIsAtTarget ? _workOriginPos : new Vector2(rt.anchoredPosition.x, 150);
 
         mover.target = rt;
         mover.duration = workMoveDuration;

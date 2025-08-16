@@ -376,12 +376,14 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                 case LottoResult.NoMatch:
                     Debug.Log("결과: 꽝!");
                     GameManager.Instance.FailLotto();
+                    SoundManager.instance.PlaySFX(SFXSound.LoseLotto);
                     Destroy(rootTransform.parent.gameObject);
 
                     break;
                 case LottoResult.TwoMatch:
                     Debug.Log("결과: 2개 일치");
                     GameManager.Instance.FailLotto();
+                    SoundManager.instance.PlaySFX(SFXSound.LoseLotto);
                     Destroy(rootTransform.parent.gameObject);
 
                     break;
@@ -392,12 +394,14 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                     EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
                     DOVirtual.DelayedCall(1.5f, () =>
                     LoadSceneManager.Instance.ChangeScene(SceneName.Ending, LoadSceneManager.Instance.curSceneName));
+                    SoundManager.instance.PlaySFX(SFXSound.CongratGetLottoHuge);
                     break;
                 case LottoResult.ThreeRabbit:
                     Debug.Log("결과: 토끼 3개! 100000G 획득");
                     ShowMoneyAnimation(100000);
                     GameManager.Instance.UpdateMoney(100000);
                     EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+                    SoundManager.instance.PlaySFX(SFXSound.GetGold);
                     Destroy(rootTransform.parent.gameObject);
 
                     break;
@@ -406,6 +410,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                     ShowMoneyAnimation(50000);
                     GameManager.Instance.UpdateMoney(50000);
                     EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+                    SoundManager.instance.PlaySFX(SFXSound.GetGold);
                     Destroy(rootTransform.parent.gameObject);
 
                     break;
@@ -414,6 +419,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                     ShowMoneyAnimation(30000);
                     GameManager.Instance.UpdateMoney(30000);
                     EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+                    SoundManager.instance.PlaySFX(SFXSound.GetGold);
                     Destroy(rootTransform.parent.gameObject);
 
                     break;
@@ -426,6 +432,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                         if (lottoButton != null)
                             lottoButton.HandleLotto(autoLotto);
                     }
+                    SoundManager.instance.PlaySFX(SFXSound.BuyLotto);
                     Destroy(rootTransform.parent.gameObject);
 
                     break;

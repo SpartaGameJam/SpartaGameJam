@@ -35,8 +35,9 @@ public class LockPattern : MonoBehaviour
 
     [SerializeField] private Slider fiverSlider;
     private float tiverTime = 30f;
-    public int curfiverCount = 0;
-    public int maxCurfiverCount = 20;
+    private float curTiverTime = 0;
+    private int curfiverCount = 0;
+    private int maxCurfiverCount = 20;
 
     private void IdToRC(int id, out int r, out int c)
     {
@@ -90,10 +91,22 @@ public class LockPattern : MonoBehaviour
 
     private void Update()
     {
-        if(enabled == false)
+        if (GameManager.Instance.IsFeverTime)
+        {
+            curTiverTime += Time.deltaTime;
+            fiverSlider.value = (tiverTime - curTiverTime) / tiverTime;
+
+            if (curTiverTime > tiverTime)
+            {
+                curTiverTime = tiverTime;
+            }
+        }
+
+        if (enabled == false)
         {
             return;
         }
+
 
         if(unlocking)
         {
@@ -299,12 +312,13 @@ public class LockPattern : MonoBehaviour
                 if (!GameManager.Instance.IsFeverTime)
                 {
                     curfiverCount++;
-                    fiverSlider.value = (float)curfiverCount / (float)(maxCurfiverCount - 15); // 15는 임시 
+                    fiverSlider.value = (float)curfiverCount / (float)(maxCurfiverCount); // 15는 임시 
                 }
 
-                if(!GameManager.Instance.IsFeverTime && curfiverCount >= maxCurfiverCount -15) // 잠시 테스트를 위해 15초 감소
+                if(!GameManager.Instance.IsFeverTime && curfiverCount >= maxCurfiverCount) // 잠시 테스트를 위해 15초 감소
                 {
                     curfiverCount = 0;
+                    curTiverTime = 0;
                     GameManager.Instance.IsFeverTime = true;
                     GameManager.Instance.UpdateFiver();
                     StartCoroutine(FiverTime());
@@ -341,7 +355,7 @@ public class LockPattern : MonoBehaviour
         
         SpineController.Instance.ChangeFiver(FiverState.Ing, true, 1f);
 
-        yield return new WaitForSeconds(tiverTime - 20); // 잠시 테스트를 위해 감소
+        yield return new WaitForSeconds(tiverTime); // 잠시 테스트를 위해 감소
 
         SpineController.Instance.ChangeFiver(FiverState.End, false, 1f);
 
