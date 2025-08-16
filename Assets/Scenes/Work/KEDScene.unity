@@ -4857,7 +4857,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -1562, y: 0}
   m_SizeDelta: {x: 1080, y: 1920}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &3789726006253710263
@@ -5506,7 +5506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3703789500369429036, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 5465
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3703789500369429036, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5524,12 +5524,33 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4957247124830224997, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957247124830224997, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4957247124830224997, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5884719655580064425, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -165
+      objectReference: {fileID: 0}
+    - target: {fileID: 5884719655580064425, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 157
+      objectReference: {fileID: 0}
     - target: {fileID: 9167359207145274897, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_Name
       value: UI_Play
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6428314186283940684, guid: 55a435d865e978944809129896f5ba3d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 55a435d865e978944809129896f5ba3d, type: 3}

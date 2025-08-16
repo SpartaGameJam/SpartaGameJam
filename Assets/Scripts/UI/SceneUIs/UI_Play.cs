@@ -87,6 +87,8 @@ public class UI_Play : UI_Scene
         Img_Document.sprite = Resources.Load<Sprite>("UI_Play/Img_Document");
         Img_Pattern01.sprite = Resources.Load<Sprite>("UI_Play/Img_Pattern01");
 
+        Img_Enemy.sprite = Resources.Load<Sprite>("Char/Img_BuJangNormal");
+
         BindEvent(Btn_Phone.gameObject, OnShowPhone);
     }
 
