@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      lottery_ticket_back_0: -4969234309951222394
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

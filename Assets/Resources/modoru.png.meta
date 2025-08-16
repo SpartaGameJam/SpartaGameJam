@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      modoru_0: -6211317631759328367
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

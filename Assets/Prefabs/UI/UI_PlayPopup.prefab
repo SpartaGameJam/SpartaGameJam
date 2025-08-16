@@ -1090,7 +1090,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 7408934991387065845}
   m_FillRect: {fileID: 3653034344235767595}
   m_HandleRect: {fileID: 7477115249255218935}
@@ -1280,14 +1280,14 @@ RectTransform:
   m_GameObject: {fileID: 8120809855153637887}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.7943, y: 2.7943, z: 2.7943}
+  m_LocalScale: {x: 4.5480027, y: 4.5480027, z: 4.5480027}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8603049950287375582}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 10, y: 16}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7082373072583289358
@@ -1697,7 +1697,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2210697125035200841}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4524972305950660225}
+        m_TargetAssemblyTypeName: UI_Play, Assembly-CSharp
+        m_MethodName: OnShowPhone
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &9167359207145274897
 GameObject:
   m_ObjectHideFlags: 0
@@ -1797,7 +1809,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1398307571414226927, guid: 037322520b36d5e4d8ad0a240ab9116e, type: 3}
       propertyPath: offY.y
-      value: 450
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 1398307571414226927, guid: 037322520b36d5e4d8ad0a240ab9116e, type: 3}
       propertyPath: spawnPoint
@@ -1882,6 +1894,10 @@ PrefabInstance:
     - target: {fileID: 3681237130181837770, guid: 037322520b36d5e4d8ad0a240ab9116e, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4188155288235420144, guid: 037322520b36d5e4d8ad0a240ab9116e, type: 3}
+      propertyPath: m_Color.a
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4226831655017513154, guid: 037322520b36d5e4d8ad0a240ab9116e, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -2241,11 +2257,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7739021988566600683, guid: 037322520b36d5e4d8ad0a240ab9116e, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 650
+      value: 800
       objectReference: {fileID: 0}
     - target: {fileID: 7739021988566600683, guid: 037322520b36d5e4d8ad0a240ab9116e, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 35
+      value: 15
       objectReference: {fileID: 0}
     - target: {fileID: 7819505690797328666, guid: 037322520b36d5e4d8ad0a240ab9116e, type: 3}
       propertyPath: m_AnchorMax.y
