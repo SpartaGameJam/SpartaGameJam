@@ -23,9 +23,11 @@ public class UpgradeData
     public long baseCost;
     public long costIncrease;
 
-
     public long GetCurStatValue() => baseStatValue + level * valueIncrease;
-    public long GetUpgradeCost() => baseCost + level * level * level * costIncrease;
+    public long GetUpgradeCost()
+    {
+        return (long)(baseCost * Math.Pow(1.5, level));
+    }
 }
 
 

@@ -44,6 +44,8 @@ public class UI_Play : UI_Scene
     Image Img_Document;
     Image Img_Pattern01;
 
+
+
     // 랜덤한 적을 뽑고,
     // 적마다 대사가 다르다고 전제함.
     TextMeshProUGUI Txt_EnemyDialogue;
@@ -57,6 +59,14 @@ public class UI_Play : UI_Scene
     // 기능을 추가한다면 이것을 UI로 잡고, 그 안의 내용을 세부적으로 컨트롤하게 하겠지만,
     // 단순히 이미지를 바꾸거나 오브젝트를 바꾸는 것이라면 이대로 사용
     GameObject Obj_WorkInstructionPanel;
+
+
+    [SerializeField] private float documentTargetPosY = 550f;
+    [SerializeField] private float documentMoveDuration = 0.6f;
+    [SerializeField] private float documentOvershoot = 1.2f;
+
+    private Vector2 _docOriginPos;
+    private bool _docIsAtTarget = false;
 
 
     protected override void Awake()
@@ -90,6 +100,27 @@ public class UI_Play : UI_Scene
         Img_Enemy.sprite = Resources.Load<Sprite>("Char/Img_BuJangNormal");
 
         BindEvent(Btn_Phone.gameObject, OnShowPhone);
+        BindEvent(Obj_DocumentPanel, OnClickDocumentPanel);
+    }
+
+    public void OnClickDocumentPanel(PointerEventData eventData)
+    {
+        RectTransform rt = Obj_DocumentPanel.GetComponent<RectTransform>();
+
+        // 없으면 자동으로 DG_BounceMove 부착
+        DG_BounceMove mover = Obj_DocumentPanel.GetComponent<DG_BounceMove>();
+        if (mover == null) mover = Obj_DocumentPanel.AddComponent<DG_BounceMove>();
+
+        mover.target = rt;
+        mover.duration = documentMoveDuration;
+        mover.overshoot = documentOvershoot;
+
+        // 토글 이동: 현재 위치에 따라 목표/원위치로 튕기듯 이동
+        Vector2 nextPos = _docIsAtTarget ? _docOriginPos : new Vector2(rt.anchoredPosition.x, documentTargetPosY);
+        mover.targetPos = nextPos;
+
+        mover.PlayBounceMove();
+        _docIsAtTarget = !_docIsAtTarget;
     }
 
 
