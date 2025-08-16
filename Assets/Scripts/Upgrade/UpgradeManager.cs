@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,40 +17,63 @@ public class UpgradeData
     public UpgradeType statType;
     public int level;
 
-    public float baseStatValue;
-    public float valueIncrease;
+    public long baseStatValue;
+    public long valueIncrease;
 
-    public float baseCost;
-    public float costIncrease;
+    public long baseCost;
+    public long costIncrease;
 
 
-    public float GetCurStatValue() => baseStatValue + level * valueIncrease;
-    public float GetUpgradeCost() => baseCost + level * costIncrease;
+    public long GetCurStatValue() => baseStatValue + level * level * valueIncrease ;
+    public long GetUpgradeCost() => baseCost + level * costIncrease;
 }
 
 
-public class UpgradeManager : MonoBehaviour
+public class UpgradeManager : Singleton<UpgradeManager>
 {
-    public static UpgradeManager Instance;
     public List<UpgradeData> upgradeData;
 
     private readonly Dictionary<UpgradeType, UpgradeData> _cache = new Dictionary<UpgradeType, UpgradeData>();
 
     void Awake()
     {
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
 
         Init();
     }
 
     void Init()
     {
+        EnsureAllTypes();
         BuildCache();
+    }
+
+
+    void EnsureAllTypes()
+    {
+        if (upgradeData == null) upgradeData = new List<UpgradeData>();
+
+        HashSet<UpgradeType> exist = new HashSet<UpgradeType>();
+        foreach (UpgradeData ud in upgradeData)
+        {
+            if (ud == null) continue;
+            exist.Add(ud.statType);
+        }
+
+        foreach (UpgradeType type in Enum.GetValues(typeof(UpgradeType)))
+        {
+            if (type == UpgradeType.None) continue;
+            if (exist.Contains(type)) continue;
+
+            upgradeData.Add(new UpgradeData
+            {
+                statType = type,
+                level = 0,
+                baseStatValue = 1000,
+                valueIncrease = 30,
+                baseCost = 1000,
+                costIncrease = 30
+            });
+        }
     }
 
     private void BuildCache()
@@ -64,6 +88,7 @@ public class UpgradeManager : MonoBehaviour
         }
     }
 
+
     public int GetLevel(UpgradeType stat)
     {
         return _cache.TryGetValue(stat, out var u) ? u.level : 0;
@@ -72,16 +97,17 @@ public class UpgradeManager : MonoBehaviour
 
     public float GetCurrentValue(UpgradeType stat)
     {
-        if (_cache.TryGetValue(stat, out var u))
-            return u.GetCurStatValue();
+        if (_cache.TryGetValue(stat, out UpgradeData ug))
+            return ug.GetCurStatValue();
         return GameManager.Instance.GetStatValue(stat);
     }
 
 
-    public float GetUpgradeCost(UpgradeType stat)
+    public long GetUpgradeCost(UpgradeType stat)
     {
-        return _cache.TryGetValue(stat, out var u) ? u.GetUpgradeCost() : -1f;
+        return _cache.TryGetValue(stat, out UpgradeData ug) ? ug.GetUpgradeCost() : -1;
     }
+
 
     public void TryUpgrade(UpgradeType stat)
     {

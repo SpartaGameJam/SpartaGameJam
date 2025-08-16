@@ -14,12 +14,12 @@ public class UI_HUD : UI_Scene
 
     void OnEnable()
     {
-
+        EventManager.Instance.AddEvent(EEventType.MoneyChanged, RefreshUI);
     }
 
     void OnDisable()
     {
-
+        EventManager.Instance.RemoveEvent(EEventType.MoneyChanged, RefreshUI);
     }
 
     public void SetUP()
@@ -34,8 +34,14 @@ public class UI_HUD : UI_Scene
         Txt_Money = GetText((int)Texts.Txt_Money);
     }
 
-    void UpdateUI()
+    void RefreshUI()
     {
+        Txt_Money.text = $"{GameManager.Instance.Money}G";
+    }
 
+    public void SHOWMETHEMONEY()
+    {
+        GameManager.Instance.Money += 22312323;
+        EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
     }
 }

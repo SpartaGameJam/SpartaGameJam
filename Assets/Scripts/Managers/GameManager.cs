@@ -32,13 +32,12 @@ public class GameManager : Singleton<GameManager>
     #endregion
 
     #region Money
-    public float _money;
+    public long _money;
 
-    public float Money
+    public long Money
     {
         get { return _money; }
         set { _money = value; }
     }
     #endregion
-
 }

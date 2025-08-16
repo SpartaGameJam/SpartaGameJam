@@ -57,7 +57,9 @@ public class UI_AppMenuPanel : UISelector
     void OnShowUpgradePanel(PointerEventData eventData)
     {
         ClosePopupUI();
-        UIManager.Instance.ShowPopup<UI_UpgradePanel>(null, UIManager.Instance.FindUIPopup<UI_Phone>()?.UpgradePanelBox);
+        UIManager.Instance.ShowPopup<UI_UpgradePanel>(popup =>
+        { popup.UpdateSlots(); },
+        UIManager.Instance.FindUIPopup<UI_Phone>()?.UpgradePanelBox);
     }
 
     void OnShowSetting(PointerEventData eventData)

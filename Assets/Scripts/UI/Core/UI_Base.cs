@@ -23,6 +23,7 @@ public abstract class UI_Base : MonoBehaviour
     {
     }
 
+
     public virtual void Init()
     {
         gameObject.name = GetType().Name;

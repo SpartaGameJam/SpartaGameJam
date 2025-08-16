@@ -3,10 +3,10 @@ using UnityEngine;
 public class UI_UpgradePanel : UISelector
 {
     Transform SlotPanel;
-    UpgradeSlot[] slots = new UpgradeSlot[5];
+    public UpgradeSlot[] slots = new UpgradeSlot[5];
     int _curIndex = -1;
 
-    void Start()
+    public void SetUp()
     {
         SlotPanel = ComponentHelper.TryFindChild(this, "SlotPanel");
 
@@ -32,6 +32,7 @@ public class UI_UpgradePanel : UISelector
     public void OnSlotClicked(int slotIndex)
     {
         _curIndex = slotIndex;
+        UpgradeManager.Instance.TryUpgrade(slots[_curIndex].UpgradeType);
         UpdateSlots();
     }
 }

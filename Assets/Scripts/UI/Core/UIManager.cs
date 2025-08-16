@@ -46,6 +46,7 @@ public class UIManager : MonoBehaviour
 
         ChangeSceneUI<UI_Play>();
         FindUIScene<UI_HUD>().SetUP();
+        FindUIPopup<UI_UpgradePanel>().SetUp();
     }
 
 
@@ -115,7 +116,7 @@ public class UIManager : MonoBehaviour
     }
     
 
-    public void ShowPopup<T>(Action<UISelector> callback = null, Transform parent = null) where T : UISelector
+    public void ShowPopup<T>(Action<T> callback = null, Transform parent = null) where T : UISelector
     {
         String key = typeof(T).Name;
 
@@ -132,7 +133,7 @@ public class UIManager : MonoBehaviour
 
         if (panelStack.Count <= 0) return;
 
-        UISelector top = panelStack.Peek();
+        T top = (T)panelStack.Peek();
         top.gameObject.SetActive(true);
 
         callback?.Invoke(top);
