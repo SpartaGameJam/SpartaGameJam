@@ -63,7 +63,10 @@ public class UI_Lotto : MonoBehaviour
         if (currentResult != LottoResult.OneMore)
         {
             blurPanel.FadeOut();
-            officeBtn.Btn.interactable = true;
+            if (officeBtn != null && officeBtn.Btn != null)
+            {
+                officeBtn.Btn.interactable = true;
+            }
 
             OnLottoDestroyed?.Invoke();
             OnLottoDestroyed = null;

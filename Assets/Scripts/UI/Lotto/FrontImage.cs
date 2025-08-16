@@ -375,9 +375,12 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
                     break;
                 case LottoResult.ThreeCarrot:
-                    Debug.Log("결과: 당근 3개! -> 엔딩씬으로 이동");
-                    LoadSceneManager.Instance.ChangeScene(SceneName.Ending, LoadSceneManager.Instance.curSceneName);
-
+                    Debug.Log($"결과: 당근 3개! 2000000000 획득 -> 엔딩씬으로 이동");
+                    ShowMoneyAnimation(2000000000);
+                    GameManager.Instance.Money += 2000000000;
+                    EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+                    DOVirtual.DelayedCall(1.5f, () =>
+                    LoadSceneManager.Instance.ChangeScene(SceneName.Ending, LoadSceneManager.Instance.curSceneName));
                     break;
                 case LottoResult.ThreeRabbit:
                     Debug.Log("결과: 토끼 3개! 100000G 획득");

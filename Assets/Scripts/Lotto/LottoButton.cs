@@ -82,7 +82,7 @@ public class LottoButton : MonoBehaviour
         button.interactable = false;
         lotto.OnLottoDestroyed += () =>
         {
-            if (lotto.CurrentResult != LottoResult.OneMore)
+            if (lotto.CurrentResult != LottoResult.OneMore && button != null)
                 button.interactable = true;
         };
     }
