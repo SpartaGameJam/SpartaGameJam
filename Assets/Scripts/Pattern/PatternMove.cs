@@ -19,6 +19,8 @@ public class PatternMove : MonoBehaviour
 
     public void Move()
     {
+        Debug.Log("클릭 체크");
+
         if(isUp) target.DOMove(targetPos, duration).SetEase(Ease.InOutQuad);
         else target.DOMove(curPos, duration).SetEase(Ease.InOutQuad);
     }
