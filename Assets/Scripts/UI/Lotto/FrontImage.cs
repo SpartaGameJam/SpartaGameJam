@@ -34,8 +34,6 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
     // 코인 진입 여부
     bool coinInside = false;
-    // 현재 코인 긁는 중 여부
-    bool isScratching = false;
 
     void Start()
     {
@@ -78,22 +76,6 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
             shineMat.SetVector("_Rotation", new Vector2(remapX, remapY));
         }
-
-        if (scratchImage.canvas == null)
-            return;
-
-        // 긁는 중일 때 rootTransform을 마우스 방향으로 회전
-        /*if (isScratching && rootTransform != null)
-        {
-            Vector3 mousePos = Input.mousePosition;
-            Vector3 worldPos = scratchImage.canvas.worldCamera.ScreenToWorldPoint(mousePos);
-
-            Vector3 dir = (worldPos - rootTransform.position).normalized;
-            Quaternion targetRot = Quaternion.LookRotation(dir, Vector3.up);
-
-            // 부드럽게 회전
-            rootTransform.rotation = Quaternion.Slerp(rootTransform.rotation, targetRot, Time.deltaTime * 5f);
-        }*/
     }
 
     // 마우스로 긁기 (지우지 않고, dust도 없음, 부모 이벤트만)
@@ -141,7 +123,6 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
             if (erased)
             {
-                isScratching = true; // 긁는 중 상태
                 CheckClear();
                 if (isCleared) return;
                 EmitScratchDust(localPos);
@@ -175,7 +156,6 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     public void ResetCoinState()
     {
         coinInside = false;
-        isScratching = false; // 긁기 상태 해제
 
         LottoTiltShader tilt = rootTransform.GetComponent<LottoTiltShader>();
         if (tilt != null)
@@ -359,13 +339,19 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                     Debug.Log("결과: 당근 3개! -> 엔딩씬으로 이동");
                     break;
                 case LottoResult.ThreeRabbit:
-                    Debug.Log("결과: 토끼 3개!");
+                    Debug.Log("결과: 토끼 3개! 100000G 획득");
+                    GameManager.Instance.Money += 100000;
+                    EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
                     break;
                 case LottoResult.ThreeRadish:
-                    Debug.Log("결과: 무 3개!");
+                    Debug.Log("결과: 무 3개! 50000G 획득");
+                    GameManager.Instance.Money += 50000;
+                    EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
                     break;
                 case LottoResult.ThreeScoop:
-                    Debug.Log("결과: 국자 3개!");
+                    Debug.Log("결과: 국자 3개! 30000G 획득");
+                    GameManager.Instance.Money += 30000;
+                    EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
                     break;
                 case LottoResult.OneMore:
                     LottoMaker maker = FindAnyObjectByType<LottoMaker>();

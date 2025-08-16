@@ -29,6 +29,7 @@ public class MonitorPattern : MonoBehaviour
     //public Vector3 offsetPos = new Vector3(0, 450f, 0); // Monitor의 Rect Transform 값
     public float yOffset = 350f;
 
+
     // 세 점이 같은 행/열/대각선(↘ 또는 ↙) 위에 있는지
     private bool IsStraightLine(int a, int b, int c)
     {

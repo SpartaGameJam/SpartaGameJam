@@ -92,7 +92,7 @@ public class LottoButton : MonoBehaviour
         if (buttonText != null)
         {
             int currentPrice = GetCurrentPrice();
-            buttonText.text = $"로또 구매\n\u20A9{currentPrice}";
+            buttonText.text = $"복권 구매 \u20A9{currentPrice}";
         }
     }
 }
