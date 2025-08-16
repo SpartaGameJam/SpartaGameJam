@@ -274,7 +274,7 @@ public class MonitorPattern : MonoBehaviour
 
         for(int i=0; i<patternSequence.Count-1; i++) // 마지막 라인은 생성 제한
         {
-            var line = GameObject.Instantiate(linePrefab, transform);
+            var line = GameObject.Instantiate(linePrefab, spawnPoint);
             line.name = "Grade " + line.name;
             line.transform.localPosition = pointers[patternSequence[i]].transform.localPosition;
             lineRect = line.GetComponent<RectTransform>();

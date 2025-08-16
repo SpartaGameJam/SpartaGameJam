@@ -12,6 +12,7 @@ public class LockPattern : MonoBehaviour
     public Sprite[] pointerSprites; // 0 기본 , 1 현재, 2 확정
 
     public Vector3 offsetPos = new Vector3(0, -450f, 0); // PatternContent의 Rect Transform 값
+    private Vector3 offY = new Vector3(0, 150, 0);
 
     private Dictionary<int, PatternPointer> pointers;
 
@@ -77,7 +78,7 @@ public class LockPattern : MonoBehaviour
         if(unlocking)
         {
             Vector3 mousePos = canvas.transform.InverseTransformPoint(Input.mousePosition);
-            mousePos -= offsetPos; // 마우스 위치 동기화
+            mousePos += offsetPos + offY; // 마우스 위치 동기화
 
             lineOnEditRect.sizeDelta = new Vector2(lineOnEditRect.sizeDelta.x, 
                 Vector3.Distance(mousePos, pointerOnEdit.transform.localPosition));
