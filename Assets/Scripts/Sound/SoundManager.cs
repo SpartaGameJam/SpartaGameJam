@@ -24,7 +24,23 @@ public enum LobbySound
 
 public enum SFXSound
 {
-	Booting, Rolling, Event
+	ButtonClick = 0,
+	PatternBGM_gameboy = 1,
+	PattrenSuccess = 2,
+	FailPattern = 3,
+	GetGold = 4,
+	DragPattern = 5,
+	PutPattern = 6,
+	BuyLotto = 7 ,
+	ScratchLotto = 8,
+	CongratGetLottoHuge = 9,
+	LoseLotto = 10,
+	FeverTimeStart = 11,
+	Bujang01 = 12,
+	Bujang02 = 13,
+	Bujang03 = 14,
+	Bujang04 = 15,
+	SkipBuJangTalk = 16,
 }
 
 
