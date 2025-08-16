@@ -24,6 +24,7 @@ public class LottoButton : MonoBehaviour
         _defaultColor = buttonImage.color;
 
         button.onClick.AddListener(GetLotto);
+        button.onClick.AddListener(CloseShopScene);
 
         UpdateButtonText();
     }

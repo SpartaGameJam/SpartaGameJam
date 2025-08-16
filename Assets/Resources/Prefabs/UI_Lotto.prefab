@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4628558592514336972}
   - component: {fileID: 6062845002553317729}
   - component: {fileID: 5681630791612814405}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 550864560748584839}
   - component: {fileID: 1532015058436533855}
   - component: {fileID: 802111928612479752}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: BackImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - component: {fileID: 1300846473602114163}
   - component: {fileID: 604598475222951518}
   - component: {fileID: 6763325316238886264}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: FrontImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -263,7 +263,7 @@ GameObject:
   - component: {fileID: 2124606966543677599}
   - component: {fileID: 7268468476863319067}
   - component: {fileID: 2695329507416689883}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -336,7 +336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6121850502359359123}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ScratchCard
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: 4142194935687032305}
   - component: {fileID: 1862000269278303235}
   - component: {fileID: 8639082051261364210}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: LottoImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -452,7 +452,7 @@ GameObject:
   - component: {fileID: 4928791497448616842}
   - component: {fileID: 6657135176389642721}
   - component: {fileID: 6904271431266060796}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: UI_Lotto
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -569,7 +569,7 @@ GameObject:
   - component: {fileID: 1722437701374310768}
   - component: {fileID: 4135893179551327326}
   - component: {fileID: 4128602152995270632}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: ShadowImage
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -644,7 +644,7 @@ GameObject:
   - component: {fileID: 3546869932375578250}
   - component: {fileID: 4020540597275095571}
   - component: {fileID: 6936977201047319622}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: PerText
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -780,7 +780,7 @@ GameObject:
   - component: {fileID: 8063586003583957475}
   - component: {fileID: 6702868283450233100}
   - component: {fileID: 1196250776307019183}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: LottoParent
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -848,7 +848,7 @@ GameObject:
   - component: {fileID: 3655406453489863052}
   - component: {fileID: 5690985806271128903}
   - component: {fileID: 3039372213193333580}
-  m_Layer: 5
+  m_Layer: 6
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
