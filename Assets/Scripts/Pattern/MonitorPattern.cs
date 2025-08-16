@@ -3,6 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+public enum Level
+{
+    level1=1, level2=4, level3=8, level4=13,
+    level5=19, level6=26
+}
+
 public class MonitorPattern : MonoBehaviour
 {
     public List<PatternPointer> pointers;
@@ -13,6 +19,10 @@ public class MonitorPattern : MonoBehaviour
     public Canvas canvas; // 하이어라키창 스폿
     public Sprite[] pointerSprites; // 0 기본 , 1 현재, 2 확정
     public Transform spawnPoint;
+
+    private readonly int[] levelList = new int[] { 1, 4, 8, 13, 19, 26 };
+    private int level = 3; // 레벨 (디폴트 3으로 설정 2~2)
+    private int clearCount = 0; // 클리어 횟수
 
     private int gridSize = 3;
 
@@ -51,7 +61,6 @@ public class MonitorPattern : MonoBehaviour
                 if (first != -1) last = i+1; // 마지막에서 2번째 위치 ex) 6 7 8 이면 7의 인덱스가 선택
             }
         }
-
         string tmp1 = ""; // 그대로
         string tmp2 = ""; // 앞만 뒤집
         string tmp3 = ""; // 뒤만 뒤집
@@ -61,32 +70,41 @@ public class MonitorPattern : MonoBehaviour
         for(int i=0; i<patternSequence.Count; i++)
         {
             tmp1 += patternSequence[i].ToString();
+        }
 
-            if (first == i) // 앞에 뒤집을 순간
-            {
-                tmp1 += patternSequence[i + 1].ToString(); // 건너뜀 방지
-                tmp2 += patternSequence[i+1].ToString() + patternSequence[i].ToString();
-                tmp3 += patternSequence[i].ToString() + patternSequence[i + 1].ToString();
-                tmp4 += patternSequence[i+1].ToString() + patternSequence[i].ToString();
-                i++;
-                continue;
-            }
-            else if (last == i) // 뒤에 뒤집을 순간
-            {
-                tmp1 += patternSequence[i + 1].ToString();
-                tmp2 += patternSequence[i].ToString() + patternSequence[i + 1].ToString();
-                tmp3 += patternSequence[i + 1].ToString() + patternSequence[i].ToString();
-                tmp4 += patternSequence[i + 1].ToString() + patternSequence[i].ToString();
+        for (int i = 0; i < patternSequence.Count; i++)
+        {
+            if (first == i) tmp2 += patternSequence[i + 1].ToString() + patternSequence[i++].ToString();
+            else tmp2 += patternSequence[i].ToString();
+        }
 
-                i++;
-                continue;
-            }
-            else // 아무것도 아닐 때
+        for (int i = 0; i < patternSequence.Count; i++)
+        {
+            if (last == i) tmp3 += patternSequence[i + 1].ToString() + patternSequence[i++].ToString();
+            else tmp3 += patternSequence[i].ToString();
+        }
+
+        for (int i = 0; i < patternSequence.Count; i++)
+        {
+            if (first == i) tmp4 += patternSequence[i + 1].ToString() + patternSequence[i++].ToString();
+            else if (i < first) tmp4 = patternSequence[i].ToString();
+
+            if (last == i)
             {
-                tmp2 += patternSequence[i].ToString();
-                tmp3 += patternSequence[i].ToString();
-                tmp4 += patternSequence[i].ToString();
+                if (first == i - 1) // 이전이 first 증가 였다면
+                {
+                    if (last + 2 < patternSequence.Count) //여유 공간 체크
+                    {
+                        tmp4 += patternSequence[++i + 1].ToString() + patternSequence[i].ToString();
+                    }
+                    else tmp4 += patternSequence[i + 1].ToString(); // 그냥 다음 추가
+                }
+                else
+                {
+                    tmp4 += patternSequence[i + 1].ToString() + patternSequence[i].ToString();
+                }
             }
+            else if (i < last) tmp4 = patternSequence[i].ToString();
         }
 
         for (int i = tmp1.Length - 1; i >= 0; i--)
@@ -116,36 +134,47 @@ public class MonitorPattern : MonoBehaviour
             }
         }
 
+        Debug.Log("리버스 후 first와 라스트 " + first + " / " + last);
+
         tmp2 = ""; // 앞만 뒤집
         tmp3 = ""; // 뒤만 뒤집
         tmp4 = ""; // 둘다 뒤집
 
-        for (int i = 0; i < reverse.Length; i++)
+        for (int i = 0; i < patternSequence.Count; i++)
         {
-            if (first == i) // 앞에 뒤집을 순간
-            {
-                tmp2 += reverse[i + 1].ToString() + reverse[i].ToString();
-                tmp3 += reverse[i].ToString() + reverse[i + 1].ToString();
-                tmp4 += reverse[i + 1].ToString() + reverse[i].ToString();
-                i++;
-                continue;
-            }
-            else if (last == i) // 뒤에 뒤집을 순간
-            {
-                tmp2 += reverse[i].ToString() + reverse[i + 1].ToString();
-                tmp3 += reverse[i + 1].ToString() + reverse[i].ToString();
-                tmp4 += reverse[i + 1].ToString() + reverse[i].ToString();
-
-                i++;
-                continue;
-            }
-            else // 아무것도 아닐 때
-            {
-                tmp2 += reverse[i].ToString();
-                tmp3 += reverse[i].ToString();
-                tmp4 += reverse[i].ToString();
-            }
+            if (first == i) tmp2 += reverse[i + 1].ToString() + reverse[i++].ToString();
+            else tmp2 += reverse[i].ToString();
         }
+
+        for (int i = 0; i < patternSequence.Count; i++)
+        {
+            if (last == i) tmp3 += reverse[i + 1].ToString() + reverse[i++].ToString();
+            else tmp3 += reverse[i].ToString();
+        }
+
+        for (int i = 0; i < patternSequence.Count; i++)
+        {
+            if (first == i) tmp4 += reverse[i + 1].ToString() + reverse[i++].ToString();
+            else if(i < first) tmp4 = reverse[i].ToString();
+
+            if (last == i)
+            {
+                if(first == i -1) // 이전이 first 증가 였다면
+                {
+                    if (last + 2 < patternSequence.Count) //여유 공간 체크
+                    {
+                        tmp4 += reverse[++i + 1].ToString() + reverse[i].ToString();
+                    }
+                    else tmp4 += reverse[i+1].ToString(); // 그냥 다음 추가
+                }
+                else
+                {
+                    tmp4 += reverse[i + 1].ToString() + reverse[i].ToString();
+                }
+            }
+            else if (i < last) tmp4 = reverse[i].ToString();
+        }
+
 
         Debug.Log("리버스 계산 완료");
 
@@ -211,13 +240,17 @@ public class MonitorPattern : MonoBehaviour
         patternSequence.Add(1);
         patternSequence.Add(0);*/
 
-        
-        patternSequence.Add(3);
+
+        /*patternSequence.Add(3);
         patternSequence.Add(4);
         patternSequence.Add(5);
         patternSequence.Add(2);
+        patternSequence.Add(8);*/
+
+        patternSequence.Add(2);
+        patternSequence.Add(4);
         patternSequence.Add(8);
-        
+        patternSequence.Add(0);
 
         SetLine();
     }
@@ -226,7 +259,8 @@ public class MonitorPattern : MonoBehaviour
     {
         Release();
 
-        int cnt = Random.Range(2, pointers.Count); // 선은 점 2개부터 시작이니
+        //int cnt = Random.Range(2, pointers.Count); // 선은 점 2개부터 시작이니
+        int cnt = Random.Range(2, level);
         int check = 0; // 현재 들어온 값을 카운트
 
         foreach (var point in pointers)
@@ -322,5 +356,20 @@ public class MonitorPattern : MonoBehaviour
         if (dc == dr && dc + dr == 4) return (a + b) / 2; // 대각선
 
         return -1;
+    }
+
+    public void UpdateClearCount()
+    {
+        clearCount++;
+
+        if (level > 6) return;
+        for(int i=0; i< levelList.Length; i++)
+        {
+            if(clearCount == levelList[i])
+            {
+                level++;
+                break;
+            }
+        }
     }
 }
