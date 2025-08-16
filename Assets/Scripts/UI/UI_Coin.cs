@@ -76,7 +76,7 @@ public class UI_Coin : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
         if (Time.time - _lastPlayTime >= _sfxCooldown)
         {
-            SoundManager.instance.PlaySFX(SFXSound.GetGold);
+            SoundManager.instance.PlaySFX(SFXSound.ScratchLotto);
             _lastPlayTime = Time.time;
         }
     }
