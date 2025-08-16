@@ -994,6 +994,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3653034344235767595, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3653034344235767595, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3703789500369429036, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -1146,6 +1154,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5500076901666227862, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_Name
+      value: Slider_Fever
+      objectReference: {fileID: 0}
     - target: {fileID: 5556409644354444424, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1312,6 +1324,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7159572993317843420, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477115249255218935, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477115249255218935, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7477115249255218935, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8209728754062072282, guid: 55a435d865e978944809129896f5ba3d, type: 3}
