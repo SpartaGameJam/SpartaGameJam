@@ -16,7 +16,7 @@ public class UI_Play : UI_Scene
 
     enum Buttons
     {
-        Btn_Phone
+        Btn_Phone,
     }
 
     enum Images
@@ -59,9 +59,9 @@ public class UI_Play : UI_Scene
 
     [Header("Enemy Auto Move")]
     [SerializeField] private float[] enemyAutoPosY = new float[] { -50f, -480f }; // 예: 부장 -50 ↔ -480
-    [SerializeField] private float   enemyAutoInterval = 1.5f;     // 몇 초 간격으로 다음 위치로 이동할지
-    [SerializeField] private float   enemyMoveDuration = 0.6f;     // 튕김 이동 시간
-    [SerializeField] private float   enemyOvershoot    = 1.2f;     // 튕김 강도
+    [SerializeField] private float enemyAutoInterval = 1.5f;     // 몇 초 간격으로 다음 위치로 이동할지
+    [SerializeField] private float enemyMoveDuration = 0.6f;     // 튕김 이동 시간
+    [SerializeField] private float enemyOvershoot = 1.2f;     // 튕김 강도
 
     private Coroutine _coEnemyAutoMove;
 
@@ -87,7 +87,7 @@ public class UI_Play : UI_Scene
         Img_BG01.sprite = Resources.Load<Sprite>("UI_Play/Img_BG01");
         Img_Desk.sprite = Resources.Load<Sprite>("UI_Play/Desks/Img_Monitor01");
         Img_Phone.sprite = Resources.Load<Sprite>("UI_Play/Img_Phone");
-        Img_Enemy.sprite = Resources.Load<Sprite>("Char/Img_BuJangNormal");
+        Img_Enemy.sprite = Resources.Load<Sprite>("Char/Img_BuJang001");
 
         //BindEvent(Btn_Phone.gameObject, OnShowPhone);
         BindEvent(Obj_Desk, OnClickWorkInstructionPanel);
@@ -99,7 +99,7 @@ public class UI_Play : UI_Scene
     }
 
 
-    [SerializeField ]GameObject PhoneLockOverLay;
+    [SerializeField] GameObject PhoneLockOverLay;
 
     void Update()
     {
@@ -117,9 +117,9 @@ public class UI_Play : UI_Scene
         }
     }
 
-    
-    
-    
+
+
+
     private void OnEnable()
     {
         // 자동 이동 시작
@@ -127,7 +127,7 @@ public class UI_Play : UI_Scene
             _coEnemyAutoMove = StartCoroutine(CoAutoMoveEnemy());
     }
 
-    
+
     private void OnDisable()
     {
         // 자동 이동 정리
@@ -142,11 +142,33 @@ public class UI_Play : UI_Scene
         DOTween.Kill(rt);*/
     }
 
+
+    public Sprite LoadEmotion(int emotionId)
+    {
+        string emotionName = "Img_BuJang" + emotionId.ToString("000");
+        Sprite emotion = Resources.Load<Sprite>($"Char/{emotionName}");
+
+        return emotion;
+    }
+
+
+    void BuJangClick()
+    {
+        //OnClickWorkInstructionPanel();
+
+        //Txt_EnemyDialogue.text = GetRandomDialogue().ToString();
+    }
+
+    // public string GetRandomDialogue()
+    // {
+    //     int index = Random.Range(0, StringNameSpace.BuJangDialogues.Length);
+    //     return StringNameSpace.dialogues[index];
+    // }
+
     #region DOTWEEN
 
     public void OnClickWorkInstructionPanel(PointerEventData _)
     {
-        
         SoundManager.instance.PlaySFX(SFXSound.Bujang01);
 
 
@@ -161,7 +183,7 @@ public class UI_Play : UI_Scene
             ? _workOriginPos
             : new Vector2(rt.anchoredPosition.x, workTargetPosY);
 
-        mover.target   = rt;
+        mover.target = rt;
         mover.duration = workMoveDuration;
 
         mover.targetPos = nextPosAnchored;
@@ -172,7 +194,7 @@ public class UI_Play : UI_Scene
         _workIsAtTarget = !_workIsAtTarget;
     }
 
-    
+
     private System.Collections.IEnumerator CoAutoMoveEnemy()
     {
         var go = Obj_Enemy; // 단일 이미지라면 Img_Enemy.gameObject 로 교체
@@ -182,8 +204,8 @@ public class UI_Play : UI_Scene
         var mover = go.GetComponent<DG_BounceMove>();
         if (mover == null) mover = go.AddComponent<DG_BounceMove>();
 
-        mover.target    = rt;
-        mover.duration  = enemyMoveDuration;
+        mover.target = rt;
+        mover.duration = enemyMoveDuration;
         mover.overshoot = enemyOvershoot;
 
         int idx = 0;
@@ -196,6 +218,14 @@ public class UI_Play : UI_Scene
             var next = new Vector2(rt.anchoredPosition.x, enemyAutoPosY[idx]);
             mover.targetPos = next;
             mover.PlayBounceMove();
+
+            if (idx % 2 == 0)
+            {
+                int randomIndex = UnityEngine.Random.Range(0, 4);
+                Img_Enemy.sprite = LoadEmotion(randomIndex);
+            }
+
+
 
             idx = (idx + 1) % enemyAutoPosY.Length;
             yield return new WaitForSeconds(enemyAutoInterval);
