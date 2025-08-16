@@ -7,6 +7,7 @@ public enum LottoResult
     TwoMatch,
     ThreeMatch,
     OneMore,
+    Fever,
 }
 
 public class LottoMaker : MonoBehaviour
@@ -18,12 +19,14 @@ public class LottoMaker : MonoBehaviour
     [Header("스프라이트")]
     [SerializeField] List<Sprite> normalIcons;
     [SerializeField] List<Sprite> onemoreIcons;
+    [SerializeField] Sprite feverIcon;
 
-    [Header("결과 확률 퍼센트. 반드시 모든 퍼센트들의 합이 100이 되도록 해야합니다.")]
-    [Range(0, 100)] public float noMatchPercent = 50f;
-    [Range(0, 100)] public float twoMatchPercent = 30f;
+    [Header("결과 확률 퍼센트. 반드시 합계가 100이 되도록 해야합니다.")]
+    [Range(0, 100)] public float noMatchPercent = 40f;
+    [Range(0, 100)] public float twoMatchPercent = 25f;
     [Range(0, 100)] public float threeMatchPercent = 5f;
-    [Range(0, 100)] public float oneMorePercent = 15f;
+    [Range(0, 100)] public float oneMorePercent = 20f;
+    [Range(0, 100)] public float feverPercent = 10f;
 
     private void Start()
     {
@@ -53,6 +56,7 @@ public class LottoMaker : MonoBehaviour
         if ((cumulative += twoMatchPercent) > r) return LottoResult.TwoMatch;
         if ((cumulative += threeMatchPercent) > r) return LottoResult.ThreeMatch;
         if ((cumulative += oneMorePercent) > r) return LottoResult.OneMore;
+        if ((cumulative += feverPercent) > r) return LottoResult.Fever;
 
         // 합이 100이 안 될 경우 대비
         return LottoResult.NoMatch;
@@ -66,8 +70,10 @@ public class LottoMaker : MonoBehaviour
         {
             case LottoResult.NoMatch:
                 {
-                    // normalIcons에서 랜덤으로 3개 다른 거 뽑기
+                    // normalIcons + feverIcon 포함해서 랜덤 3개 다른 거 뽑기
                     List<Sprite> pool = new List<Sprite>(normalIcons);
+                    if (feverIcon != null) pool.Add(feverIcon);
+
                     for (int i = 0; i < 3 && pool.Count > 0; i++)
                     {
                         int idx = Random.Range(0, pool.Count);
@@ -79,13 +85,15 @@ public class LottoMaker : MonoBehaviour
 
             case LottoResult.TwoMatch:
                 {
-                    // 같은 아이콘 2개 + 다른 아이콘 1개
-                    Sprite matchSprite = normalIcons[Random.Range(0, normalIcons.Count)];
+                    // 같은 아이콘 2개 (feverIcon 포함 가능)
+                    List<Sprite> pool = new List<Sprite>(normalIcons);
+                    if (feverIcon != null) pool.Add(feverIcon);
+
+                    Sprite matchSprite = pool[Random.Range(0, pool.Count)];
                     resultSprites.Add(matchSprite);
                     resultSprites.Add(matchSprite);
 
                     // 다른 아이콘 1개
-                    List<Sprite> pool = new List<Sprite>(normalIcons);
                     pool.Remove(matchSprite);
                     if (pool.Count > 0)
                     {
@@ -104,7 +112,7 @@ public class LottoMaker : MonoBehaviour
 
             case LottoResult.ThreeMatch:
                 {
-                    // 전부 같은 아이콘
+                    // 전부 같은 normal 아이콘 (feverIcon은 제외)
                     Sprite matchSprite = normalIcons[Random.Range(0, normalIcons.Count)];
                     resultSprites.Add(matchSprite);
                     resultSprites.Add(matchSprite);
@@ -113,15 +121,19 @@ public class LottoMaker : MonoBehaviour
                 break;
 
             case LottoResult.OneMore:
-                return onemoreIcons;
-        }
+                // oneMore는 지정된 아이콘 사용
+                return new List<Sprite>(onemoreIcons);
 
-        foreach (Sprite matchSprite in resultSprites)
-        {
-            Debug.Log($"{matchSprite.name}");
+            case LottoResult.Fever:
+                {
+                    // 전부 fever 아이콘
+                    resultSprites.Add(feverIcon);
+                    resultSprites.Add(feverIcon);
+                    resultSprites.Add(feverIcon);
+                }
+                break;
         }
 
         return resultSprites;
     }
-
 }

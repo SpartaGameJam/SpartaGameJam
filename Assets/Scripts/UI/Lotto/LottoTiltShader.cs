@@ -21,6 +21,8 @@ public class LottoTiltShader : MonoBehaviour, IPointerDownHandler, IDragHandler,
     bool isInteracting = false;
     float idleTime;
 
+    bool useExternalTilt = false;
+
     public void OnPointerDown(PointerEventData eventData)
     {
         // 클릭 시 부르르
@@ -32,6 +34,8 @@ public class LottoTiltShader : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (useExternalTilt) return;
+
         Vector2 delta = eventData.position - lastPos;
         lastPos = eventData.position;
 
@@ -42,13 +46,15 @@ public class LottoTiltShader : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnPointerUp(PointerEventData eventData)
     {
+        if (useExternalTilt) return;
+
         isInteracting = false;
         targetRotation = Vector3.zero;
     }
 
     void Update()
     {
-        if (!isInteracting)
+        if (!isInteracting && !useExternalTilt)
         {
             // 대기 상태 회전
             idleTime += Time.deltaTime * idleTiltSpeed;
@@ -75,5 +81,29 @@ public class LottoTiltShader : MonoBehaviour, IPointerDownHandler, IDragHandler,
         transform.DOLocalRotate(shakeAngle, shakeStepTime)
                  .SetLoops(shakeLoops, LoopType.Yoyo)
                  .SetEase(Ease.InOutSine);
+    }
+
+    /// <summary>
+    /// 외부에서 기울임 값을 전달하여 회전을 제어합니다.
+    /// </summary>
+    /// <param name="tilt">x,y 값이 각각 X,Y 회전 각도</param>
+    public void SetExternalTilt(Vector2 tilt)
+    {
+        useExternalTilt = true;
+        isInteracting = true;
+        targetRotation = new Vector3(
+            Mathf.Clamp(tilt.x, -maxTilt, maxTilt),
+            Mathf.Clamp(tilt.y, -maxTilt, maxTilt),
+            0f);
+    }
+
+    /// <summary>
+    /// 외부 기울임 제어를 해제합니다.
+    /// </summary>
+    public void ReleaseExternalTilt()
+    {
+        useExternalTilt = false;
+        isInteracting = false;
+        targetRotation = Vector3.zero;
     }
 }

@@ -246,10 +246,10 @@ MonoBehaviour:
   clearThreshold: 65
   shineImage: {fileID: 604598475222951518}
   rootTransform: {fileID: 8063586003583957475}
-  forwardMoveZ: -50
+  forwardMoveZ: -100
   forwardMoveDuration: 0.4
   moveXOffset: 100
-  moveXDuration: 1
+  moveXDuration: 0.5
   scratchDustPrefab: {fileID: 3760524574569458440, guid: 0d439325bcb32404fae340852b09b65d, type: 3}
   particleSpacing: 10
 --- !u!1 &3384540603905702842

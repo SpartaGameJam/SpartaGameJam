@@ -15,7 +15,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     public Transform rootTransform;
 
     [Header("Animation Settings")]
-    [SerializeField] private float forwardMoveZ = -50f;
+    [SerializeField] private float forwardMoveZ = -100f;
     [SerializeField] private float forwardMoveDuration = 0.1f;
     [SerializeField] private float moveXOffset = 300f;
     [SerializeField] private float moveXDuration = 1f;
@@ -79,8 +79,11 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
             shineMat.SetVector("_Rotation", new Vector2(remapX, remapY));
         }
 
+        if (scratchImage.canvas == null)
+            return;
+
         // 긁는 중일 때 rootTransform을 마우스 방향으로 회전
-        if (isScratching && rootTransform != null)
+        /*if (isScratching && rootTransform != null)
         {
             Vector3 mousePos = Input.mousePosition;
             Vector3 worldPos = scratchImage.canvas.worldCamera.ScreenToWorldPoint(mousePos);
@@ -90,7 +93,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
             // 부드럽게 회전
             rootTransform.rotation = Quaternion.Slerp(rootTransform.rotation, targetRot, Time.deltaTime * 5f);
-        }
+        }*/
     }
 
     // 마우스로 긁기 (지우지 않고, dust도 없음, 부모 이벤트만)
@@ -156,7 +159,10 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                 Vector3 dir = (worldPos - rootTransform.position).normalized;
                 float tiltX = Mathf.Clamp(-dir.y * 10f, -15f, 15f);
                 float tiltY = Mathf.Clamp(dir.x * 10f, -15f, 15f);
-                rootTransform.localRotation = Quaternion.Euler(tiltX, tiltY, 0f);
+
+                LottoTiltShader tilt = rootTransform.GetComponent<LottoTiltShader>();
+                if (tilt != null)
+                    tilt.SetExternalTilt(new Vector2(tiltX, tiltY));
             }
         }
     }
@@ -166,7 +172,11 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     public void ResetCoinState()
     {
         coinInside = false;
-        isScratching = false; // ✅ 긁기 상태 해제
+        isScratching = false; // 긁기 상태 해제
+
+        LottoTiltShader tilt = rootTransform.GetComponent<LottoTiltShader>();
+        if (tilt != null)
+            tilt.ReleaseExternalTilt();
     }
 
     // 실제 스크래치 지우기
@@ -278,11 +288,33 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     {
         LottoResult result = GetLottoResult();
         float moveX = rootTransform.position.x + moveXOffset;
+        float longWait = 1f;
+        float middleWait = 0.5f;
+        float shortWait = 0.25f;
+        float waitAfterTilt = shortWait;
+
+        switch (result)
+        {
+            case LottoResult.NoMatch:
+            case LottoResult.TwoMatch:
+                waitAfterTilt = shortWait;
+                break;
+            case LottoResult.ThreeMatch:
+            case LottoResult.Fever:
+                waitAfterTilt = longWait;
+                break;
+            case LottoResult.OneMore:
+                waitAfterTilt = middleWait;
+                break;
+            default:
+                waitAfterTilt = shortWait;
+                break;
+        }
 
         Sequence seq = DOTween.Sequence();
         LottoTiltShader tilt = rootTransform.GetComponent<LottoTiltShader>();
 
-        if (result == LottoResult.ThreeMatch || result == LottoResult.OneMore)
+        if (result == LottoResult.ThreeMatch || result == LottoResult.OneMore || result == LottoResult.Fever)
         {
             seq.Append(rootTransform.DOLocalMoveZ(rootTransform.localPosition.z + forwardMoveZ, forwardMoveDuration));
             if (tilt != null)
@@ -290,26 +322,49 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                 seq.AppendCallback(() => tilt.DoShake());
                 float shakeTime = tilt.shakeStepTime * tilt.shakeLoops * 2f;
                 seq.AppendInterval(shakeTime);
+                seq.AppendInterval(waitAfterTilt);
             }
             seq.Append(rootTransform.DOMoveX(moveX, moveXDuration));
         }
-        else if (result == LottoResult.TwoMatch)
+        else if (result == LottoResult.TwoMatch || result == LottoResult.NoMatch)
         {
             if (tilt != null)
             {
                 seq.AppendCallback(() => tilt.DoShake());
                 float shakeTime = tilt.shakeStepTime * tilt.shakeLoops * 2f;
                 seq.AppendInterval(shakeTime);
+                seq.AppendInterval(waitAfterTilt);
             }
             seq.Append(rootTransform.DOMoveX(moveX, moveXDuration));
         }
-        else
-        {
-            seq.Append(rootTransform.DOMoveX(moveX, moveXDuration));
-        }
 
-        seq.OnComplete(() => Destroy(rootTransform.parent.gameObject));
+        // 여기서 결과에 따라 디버그 로그 출력
+        seq.OnComplete(() =>
+        {
+            switch (result)
+            {
+                case LottoResult.NoMatch:
+                    Debug.Log("결과: 꽝!");
+                    break;
+                case LottoResult.TwoMatch:
+                    Debug.Log("결과: 2개 일치");
+                    break;
+                case LottoResult.ThreeMatch:
+                    Debug.Log("결과: 3개 일치! -> 엔딩씬으로 이동");
+                    break;
+                case LottoResult.OneMore:
+                    Debug.Log("결과: 한번 더!");
+                    break;
+                case LottoResult.Fever:
+                    Debug.Log("결과: Fever 모드 돌입! -> 일하는씬으로 이동");
+                    break;
+                default:
+                    break;
+            }
+            Destroy(rootTransform.parent.gameObject);
+        });
     }
+
 
     float ClampAngle(float angle, float min, float max)
     {
