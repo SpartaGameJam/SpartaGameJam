@@ -46,7 +46,7 @@ public class MonitorPattern : MonoBehaviour
             if (IsStraightLine(patternSequence[i], patternSequence[i+1], patternSequence[i+2]))
             {
                 if (first == -1) first = i; // 첫번째 위치 선택 ex) 0 1 2 라면 0을 선택
-                else last = i+1; // 마지막에서 2번째 위치 ex) 6 7 8 이면 7의 인덱스가 선택
+                if (first != -1) last = i+1; // 마지막에서 2번째 위치 ex) 6 7 8 이면 7의 인덱스가 선택
             }
         }
 
@@ -102,6 +102,58 @@ public class MonitorPattern : MonoBehaviour
         Debug.Log(tmp3);
         Debug.Log(tmp4);
         Debug.Log(reverse);
+
+        first = -1;
+        last = -1;
+        for (int i = 0; i < reverse.Length - 2; i++)
+        {
+            if (IsStraightLine(reverse[i], reverse[i + 1], reverse[i + 2]))
+            {
+                if (first == -1) first = i; // 첫번째 위치 선택 ex) 0 1 2 라면 0을 선택
+                if (first != -1) last = i + 1; // 마지막에서 2번째 위치 ex) 6 7 8 이면 7의 인덱스가 선택
+            }
+        }
+
+        tmp2 = ""; // 앞만 뒤집
+        tmp3 = ""; // 뒤만 뒤집
+        tmp4 = ""; // 둘다 뒤집
+
+        for (int i = 0; i < reverse.Length; i++)
+        {
+            if (first == i) // 앞에 뒤집을 순간
+            {
+                tmp2 += reverse[i + 1].ToString() + reverse[i].ToString();
+                tmp3 += reverse[i].ToString() + reverse[i + 1].ToString();
+                tmp4 += reverse[i + 1].ToString() + reverse[i].ToString();
+                i++;
+                continue;
+            }
+            else if (last == i) // 뒤에 뒤집을 순간
+            {
+                tmp2 += reverse[i].ToString() + reverse[i + 1].ToString();
+                tmp3 += reverse[i + 1].ToString() + reverse[i].ToString();
+                tmp4 += reverse[i + 1].ToString() + reverse[i].ToString();
+
+                i++;
+                continue;
+            }
+            else // 아무것도 아닐 때
+            {
+                tmp2 += reverse[i].ToString();
+                tmp3 += reverse[i].ToString();
+                tmp4 += reverse[i].ToString();
+            }
+        }
+
+        Debug.Log("리버스 계산 완료");
+
+        Debug.Log(tmp2);
+        Debug.Log(tmp3);
+        Debug.Log(tmp4);
+
+        if (first != -1) answerSet.Add(tmp2);
+        if (last != -1) answerSet.Add(tmp3);
+        if (first != -1 && last != -1) answerSet.Add(tmp4);
     }
 
     public bool CheckPattern(List<int> pointlist)
@@ -149,11 +201,19 @@ public class MonitorPattern : MonoBehaviour
         yield return null;
         //SetPatternSquence();
 
+        /*patternSequence.Add(5);
+        patternSequence.Add(8);
+        patternSequence.Add(2);
+        patternSequence.Add(1);
+        patternSequence.Add(0);*/
+
+        
         patternSequence.Add(3);
         patternSequence.Add(4);
         patternSequence.Add(5);
         patternSequence.Add(2);
         patternSequence.Add(8);
+        
 
         SetLine();
     }
