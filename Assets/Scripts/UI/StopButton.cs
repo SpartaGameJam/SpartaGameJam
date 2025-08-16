@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
 
 public class StopButton : MonoBehaviour
@@ -13,7 +13,7 @@ public class StopButton : MonoBehaviour
 
     void Stop()
     {
-        // TODO : È¸»ç ¾ÀÀ¸·Î µ¹¾Æ°©´Ï´Ù
-        Debug.Log("È¸»ç ¾ÀÀ¸·Î µ¹¾Æ°©´Ï´Ù");
+        // TODO : íšŒì‚¬ ì”¬ìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤
+        Debug.Log("íšŒì‚¬ ì”¬ìœ¼ë¡œ ëŒì•„ê°‘ë‹ˆë‹¤");
     }
 }

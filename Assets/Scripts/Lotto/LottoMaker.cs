@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using System.Collections.Generic;
 
 public enum LottoResult
@@ -7,7 +7,6 @@ public enum LottoResult
     TwoMatch,
     ThreeMatch,
     OneMore,
-    Fever,
 }
 
 public class LottoMaker : MonoBehaviour
@@ -16,49 +15,48 @@ public class LottoMaker : MonoBehaviour
     [SerializeField] Transform targetPoint;
     GameObject lottoPrefab;
 
-    [Header("½ºÇÁ¶óÀÌÆ®")]
+    [Header("ìŠ¤í”„ë¼ì´íŠ¸")]
     [SerializeField] List<Sprite> normalIcons;
     [SerializeField] List<Sprite> onemoreIcons;
-    [SerializeField] Sprite feverIcon;
 
-    [Header("°á°ú È®·ü ÆÛ¼¾Æ®. ¹İµå½Ã ÇÕ°è°¡ 100ÀÌ µÇµµ·Ï ÇØ¾ßÇÕ´Ï´Ù.")]
+    [Header("ê²°ê³¼ í™•ë¥  í¼ì„¼íŠ¸. ë°˜ë“œì‹œ í•©ê³„ê°€ 100ì´ ë˜ë„ë¡ í•´ì•¼í•©ë‹ˆë‹¤.")]
     [Range(0, 100)] public float noMatchPercent = 40f;
     [Range(0, 100)] public float twoMatchPercent = 25f;
     [Range(0, 100)] public float threeMatchPercent = 5f;
     [Range(0, 100)] public float oneMorePercent = 20f;
-    [Range(0, 100)] public float feverPercent = 10f;
 
     private void Start()
     {
         lottoPrefab = Resources.Load<GameObject>("Prefabs/UI_Lotto");
     }
 
-    public void CreateLotto()
+    public UI_Lotto CreateLotto()
     {
-        // °á°ú °áÁ¤
+        // ê²°ê³¼ ê²°ì •
         LottoResult result = GetRandomResult();
 
-        // ÇÁ¸®ÆÕ »ı¼º
+        // í”„ë¦¬íŒ¹ ìƒì„±
         GameObject lottoObj = Instantiate(lottoPrefab, spawnPoint.position, Quaternion.identity);
         UI_Lotto lotto = lottoObj.GetComponent<UI_Lotto>();
 
-        // ÃÊ±âÈ­
+        // ì´ˆê¸°í™”
         List<Sprite> backSprites = GetSpritesForResult(result);
         lotto.Init(result, backSprites, targetPoint);
+
+        return lotto;
     }
 
     LottoResult GetRandomResult()
     {
-        float r = Random.value * 100f; // 0~100 »çÀÌ
+        float r = Random.value * 100f; // 0~100 ì‚¬ì´
         float cumulative = 0f;
 
         if ((cumulative += noMatchPercent) > r) return LottoResult.NoMatch;
         if ((cumulative += twoMatchPercent) > r) return LottoResult.TwoMatch;
         if ((cumulative += threeMatchPercent) > r) return LottoResult.ThreeMatch;
         if ((cumulative += oneMorePercent) > r) return LottoResult.OneMore;
-        if ((cumulative += feverPercent) > r) return LottoResult.Fever;
 
-        // ÇÕÀÌ 100ÀÌ ¾È µÉ °æ¿ì ´ëºñ
+        // í•©ì´ 100ì´ ì•ˆ ë  ê²½ìš° ëŒ€ë¹„
         return LottoResult.NoMatch;
     }
 
@@ -70,9 +68,8 @@ public class LottoMaker : MonoBehaviour
         {
             case LottoResult.NoMatch:
                 {
-                    // normalIcons + feverIcon Æ÷ÇÔÇØ¼­ ·£´ı 3°³ ´Ù¸¥ °Å »Ì±â
+                    // normalIcons + feverIcon í¬í•¨í•´ì„œ ëœë¤ 3ê°œ ë‹¤ë¥¸ ê±° ë½‘ê¸°
                     List<Sprite> pool = new List<Sprite>(normalIcons);
-                    if (feverIcon != null) pool.Add(feverIcon);
 
                     for (int i = 0; i < 3 && pool.Count > 0; i++)
                     {
@@ -85,15 +82,14 @@ public class LottoMaker : MonoBehaviour
 
             case LottoResult.TwoMatch:
                 {
-                    // °°Àº ¾ÆÀÌÄÜ 2°³ (feverIcon Æ÷ÇÔ °¡´É)
+                    // ê°™ì€ ì•„ì´ì½˜ 2ê°œ (feverIcon í¬í•¨ ê°€ëŠ¥)
                     List<Sprite> pool = new List<Sprite>(normalIcons);
-                    if (feverIcon != null) pool.Add(feverIcon);
 
                     Sprite matchSprite = pool[Random.Range(0, pool.Count)];
                     resultSprites.Add(matchSprite);
                     resultSprites.Add(matchSprite);
 
-                    // ´Ù¸¥ ¾ÆÀÌÄÜ 1°³
+                    // ë‹¤ë¥¸ ì•„ì´ì½˜ 1ê°œ
                     pool.Remove(matchSprite);
                     if (pool.Count > 0)
                     {
@@ -101,7 +97,7 @@ public class LottoMaker : MonoBehaviour
                         resultSprites.Add(differentSprite);
                     }
 
-                    // ·£´ı ¼¯±â
+                    // ëœë¤ ì„ê¸°
                     for (int i = 0; i < resultSprites.Count; i++)
                     {
                         int rnd = Random.Range(0, resultSprites.Count);
@@ -112,7 +108,7 @@ public class LottoMaker : MonoBehaviour
 
             case LottoResult.ThreeMatch:
                 {
-                    // ÀüºÎ °°Àº normal ¾ÆÀÌÄÜ (feverIconÀº Á¦¿Ü)
+                    // ì „ë¶€ ê°™ì€ normal ì•„ì´ì½˜ (feverIconì€ ì œì™¸)
                     Sprite matchSprite = normalIcons[Random.Range(0, normalIcons.Count)];
                     resultSprites.Add(matchSprite);
                     resultSprites.Add(matchSprite);
@@ -121,17 +117,8 @@ public class LottoMaker : MonoBehaviour
                 break;
 
             case LottoResult.OneMore:
-                // oneMore´Â ÁöÁ¤µÈ ¾ÆÀÌÄÜ »ç¿ë
+                // oneMoreëŠ” ì§€ì •ëœ ì•„ì´ì½˜ ì‚¬ìš©
                 return new List<Sprite>(onemoreIcons);
-
-            case LottoResult.Fever:
-                {
-                    // ÀüºÎ fever ¾ÆÀÌÄÜ
-                    resultSprites.Add(feverIcon);
-                    resultSprites.Add(feverIcon);
-                    resultSprites.Add(feverIcon);
-                }
-                break;
         }
 
         return resultSprites;

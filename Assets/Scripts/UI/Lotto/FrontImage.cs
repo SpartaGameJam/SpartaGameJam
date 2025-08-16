@@ -304,7 +304,6 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                 waitAfterTilt = shortWait;
                 break;
             case LottoResult.ThreeMatch:
-            case LottoResult.Fever:
                 waitAfterTilt = longWait;
                 break;
             case LottoResult.OneMore:
@@ -318,7 +317,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         Sequence seq = DOTween.Sequence();
         LottoTiltShader tilt = rootTransform.GetComponent<LottoTiltShader>();
 
-        if (result == LottoResult.ThreeMatch || result == LottoResult.OneMore || result == LottoResult.Fever)
+        if (result == LottoResult.ThreeMatch || result == LottoResult.OneMore)
         {
             seq.Append(rootTransform.DOLocalMoveZ(rootTransform.localPosition.z + forwardMoveZ, forwardMoveDuration));
             if (tilt != null)
@@ -357,10 +356,9 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                     Debug.Log("결과: 3개 일치! -> 엔딩씬으로 이동");
                     break;
                 case LottoResult.OneMore:
-                    Debug.Log("결과: 한번 더!");
-                    break;
-                case LottoResult.Fever:
-                    Debug.Log("결과: Fever 모드 돌입! -> 일하는씬으로 이동");
+                    LottoMaker maker = FindAnyObjectByType<LottoMaker>();
+                    if (maker != null)
+                        maker.CreateLotto();
                     break;
                 default:
                     break;

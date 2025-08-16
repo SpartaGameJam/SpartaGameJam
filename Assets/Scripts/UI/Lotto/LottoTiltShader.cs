@@ -1,20 +1,20 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.EventSystems;
 using DG.Tweening;
 
 public class LottoTiltShader : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
 {
-    public float maxTilt = 10f;           // ÀÔ·Â ½Ã ÃÖ´ë ±â¿ï±â °¢µµ
-    public float tiltLerpSpeed = 10f;     // È¸Àü º¸°£ ¼Óµµ
+    public float maxTilt = 10f;           // ì…ë ¥ ì‹œ ìµœëŒ€ ê¸°ìš¸ê¸° ê°ë„
+    public float tiltLerpSpeed = 10f;     // íšŒì „ ë³´ê°„ ì†ë„
 
     [Header("Idle Tilt Settings")]
-    public float idleTiltAmount = 3f;     // ´ë±â »óÅÂ¿¡¼­ ÃÖ´ë ±â¿ï±â
-    public float idleTiltSpeed = 1f;      // ´ë±â È¸Àü ¼Óµµ
+    public float idleTiltAmount = 3f;     // ëŒ€ê¸° ìƒíƒœì—ì„œ ìµœëŒ€ ê¸°ìš¸ê¸°
+    public float idleTiltSpeed = 1f;      // ëŒ€ê¸° íšŒì „ ì†ë„
 
     [Header("Shake Settings")]
-    public Vector3 shakeAngle = new Vector3(5f, -5f, 0f); // Áøµ¿ È¸Àü °¢µµ
-    public float shakeStepTime = 0.05f;                   // ÇÑ ¹ø ¿òÁ÷ÀÌ´Â µ¥ °É¸®´Â ½Ã°£
-    public int shakeLoops = 6;                            // ¹İº¹ È½¼ö(¿Õº¹ Æ÷ÇÔ)
+    public Vector3 shakeAngle = new Vector3(5f, -5f, 0f); // ì§„ë™ íšŒì „ ê°ë„
+    public float shakeStepTime = 0.05f;                   // í•œ ë²ˆ ì›€ì§ì´ëŠ” ë° ê±¸ë¦¬ëŠ” ì‹œê°„
+    public int shakeLoops = 6;                            // ë°˜ë³µ íšŸìˆ˜(ì™•ë³µ í¬í•¨)
 
     Vector2 lastPos;
     Vector3 targetRotation;
@@ -25,7 +25,7 @@ public class LottoTiltShader : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        // Å¬¸¯ ½Ã ºÎ¸£¸£
+        // í´ë¦­ ì‹œ ë¶€ë¥´ë¥´
         DoShake();
 
         isInteracting = true;
@@ -56,14 +56,14 @@ public class LottoTiltShader : MonoBehaviour, IPointerDownHandler, IDragHandler,
     {
         if (!isInteracting && !useExternalTilt)
         {
-            // ´ë±â »óÅÂ È¸Àü
+            // ëŒ€ê¸° ìƒíƒœ íšŒì „
             idleTime += Time.deltaTime * idleTiltSpeed;
             float tiltX = Mathf.Sin(idleTime) * idleTiltAmount;
             float tiltY = Mathf.Cos(idleTime * 0.8f) * idleTiltAmount;
             targetRotation = new Vector3(tiltX, tiltY, 0);
         }
 
-        // µå·¡±×³ª ¾ÆÀÌµé Æ¿Æ® Àû¿ë
+        // ë“œë˜ê·¸ë‚˜ ì•„ì´ë“¤ í‹¸íŠ¸ ì ìš©
         transform.localRotation = Quaternion.Lerp(
             transform.localRotation,
             Quaternion.Euler(targetRotation),
@@ -73,10 +73,10 @@ public class LottoTiltShader : MonoBehaviour, IPointerDownHandler, IDragHandler,
 
     public void DoShake()
     {
-        // ÇöÀç ½ÇÇà ÁßÀÎ Æ®À© Áß´Ü
+        // í˜„ì¬ ì‹¤í–‰ ì¤‘ì¸ íŠ¸ìœˆ ì¤‘ë‹¨
         transform.DOKill();
 
-        // ÃÊ±âÈ­ ÈÄ Áøµ¿ ½ÃÀÛ
+        // ì´ˆê¸°í™” í›„ ì§„ë™ ì‹œì‘
         transform.DOLocalRotate(Vector3.zero, 0f);
         transform.DOLocalRotate(shakeAngle, shakeStepTime)
                  .SetLoops(shakeLoops, LoopType.Yoyo)
@@ -84,9 +84,9 @@ public class LottoTiltShader : MonoBehaviour, IPointerDownHandler, IDragHandler,
     }
 
     /// <summary>
-    /// ¿ÜºÎ¿¡¼­ ±â¿ïÀÓ °ªÀ» Àü´ŞÇÏ¿© È¸ÀüÀ» Á¦¾îÇÕ´Ï´Ù.
+    /// ì™¸ë¶€ì—ì„œ ê¸°ìš¸ì„ ê°’ì„ ì „ë‹¬í•˜ì—¬ íšŒì „ì„ ì œì–´í•©ë‹ˆë‹¤.
     /// </summary>
-    /// <param name="tilt">x,y °ªÀÌ °¢°¢ X,Y È¸Àü °¢µµ</param>
+    /// <param name="tilt">x,y ê°’ì´ ê°ê° X,Y íšŒì „ ê°ë„</param>
     public void SetExternalTilt(Vector2 tilt)
     {
         useExternalTilt = true;
@@ -98,7 +98,7 @@ public class LottoTiltShader : MonoBehaviour, IPointerDownHandler, IDragHandler,
     }
 
     /// <summary>
-    /// ¿ÜºÎ ±â¿ïÀÓ Á¦¾î¸¦ ÇØÁ¦ÇÕ´Ï´Ù.
+    /// ì™¸ë¶€ ê¸°ìš¸ì„ ì œì–´ë¥¼ í•´ì œí•©ë‹ˆë‹¤.
     /// </summary>
     public void ReleaseExternalTilt()
     {

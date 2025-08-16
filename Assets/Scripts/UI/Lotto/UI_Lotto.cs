@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 using System.Collections.Generic;
 using DG.Tweening;
 
@@ -11,6 +12,8 @@ public class UI_Lotto : MonoBehaviour
     Canvas canvas;
 
     [SerializeField] List<Image> images;
+
+    public event Action OnLottoDestroyed;
 
     void Start()
     {
@@ -37,7 +40,7 @@ public class UI_Lotto : MonoBehaviour
         float moveDuration = 0.5f; // 이동 시간
 
         // 시작할 때 랜덤 회전
-        transform.rotation = Quaternion.Euler(0f, 0f, Random.Range(-50, 50f));
+        transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-50, 50f));
 
         // 이동과 회전을 동시에
         transform.DOMove(targetPosition.position, moveDuration)
@@ -47,4 +50,8 @@ public class UI_Lotto : MonoBehaviour
                  .SetEase(Ease.OutCubic);
     }
 
+    private void OnDestroy()
+    {
+        OnLottoDestroyed?.Invoke();
+    }
 }

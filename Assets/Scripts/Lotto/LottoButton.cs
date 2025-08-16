@@ -1,11 +1,11 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.UI;
-using TMPro; // TMP ÅØ½ºÆ®¸¦ ¾²·Á¸é ÇÊ¿ä
+using TMPro;
 
 public class LottoButton : MonoBehaviour
 {
-    [SerializeField] private int price = 1000;       // ·Î¶Ç °¡°İ
-    private TMP_Text buttonText;    // ¹öÆ° ÅØ½ºÆ®
+    [SerializeField] private int price = 1000;       // ë¡œë˜ ê°€ê²©
+    private TMP_Text buttonText;    // ë²„íŠ¼ í…ìŠ¤íŠ¸
 
     private Button button;
     private LottoMaker lottoMaker;
@@ -22,10 +22,15 @@ public class LottoButton : MonoBehaviour
 
     void GetLotto()
     {
-        // TODO : µ·À» Â÷°¨ÇÏ´Â ·ÎÁ÷ ÇÊ¿ä
-        lottoMaker.CreateLotto();
+        // TODO : ëˆì„ ì°¨ê°í•˜ëŠ” ë¡œì§ í•„ìš”
+        button.interactable = false;
+        UI_Lotto lotto = lottoMaker.CreateLotto();
+        if (lotto != null)
+        {
+            lotto.OnLottoDestroyed += () => button.interactable = true;
+        }
 
-        // ¹öÆ° ÅØ½ºÆ® ¾÷µ¥ÀÌÆ® (°¡°İÀÌ º¯µ¿ÇÒ ¼ö ÀÖ´Ù¸é)
+        // ë²„íŠ¼ í…ìŠ¤íŠ¸ ì—…ë°ì´íŠ¸ (ê°€ê²©ì´ ë³€ë™í•  ìˆ˜ ìˆë‹¤ë©´)
         UpdateButtonText();
     }
 
@@ -33,7 +38,7 @@ public class LottoButton : MonoBehaviour
     {
         if (buttonText != null)
         {
-            buttonText.text = $"Ãß°¡ ±¸¸Å\n\u20A9{price}";
+            buttonText.text = $"ì¶”ê°€ êµ¬ë§¤\n\u20A9{price}";
         }
     }
 }
