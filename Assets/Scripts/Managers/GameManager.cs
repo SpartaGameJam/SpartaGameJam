@@ -58,14 +58,14 @@ public class GameManager : Singleton<GameManager>
 
     public void UpdateMoney(long money)
     {
-        if(money < 0)
+        if (money < 0)
         {
             useMoney -= money; // 음수니 빼서 양수로
         }
 
         _money += money;
     }
-   
+
     public void FailLotto()
     {
         failCount++;
@@ -90,4 +90,6 @@ public class GameManager : Singleton<GameManager>
     {
         upgradeCount++;
     }
+
+    bool IsFeverTime = false;
 }
