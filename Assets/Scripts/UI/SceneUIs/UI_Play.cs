@@ -36,7 +36,7 @@ public class UI_Play : UI_Scene
 
     enum Sliders
     {
-        Slider_Fever
+        //Slider_Fever
     }
     #endregion
 
@@ -53,7 +53,7 @@ public class UI_Play : UI_Scene
     GameObject Obj_Desk;
     GameObject Obj_Enemy;
 
-    Slider Slider_Fever;
+    //Slider Slider_Fever;
 
 
     [SerializeField] private float workTargetPosY = -300f;
@@ -77,7 +77,7 @@ public class UI_Play : UI_Scene
         BindButtons(typeof(Buttons));
         BindImages(typeof(Images));
         BindObjects(typeof(Objects));
-        BindSliders(typeof(Slider));
+        //BindSliders(typeof(Slider));
 
         Txt_EnemyDialogue = GetText((int)Texts.Txt_EnemyDialogue);
 
@@ -89,7 +89,7 @@ public class UI_Play : UI_Scene
         Img_Enemy = GetImage((int)Images.Img_Enemy);
         Obj_Desk = GetObject((int)Objects.Obj_Desk);
         Obj_Enemy = GetObject((int)Objects.Obj_Enemy);
-        Slider_Fever = GetSlider((int)Sliders.Slider_Fever);
+        //Slider_Fever = GetSlider((int)Sliders.Slider_Fever);
 
         Img_BG01.sprite = Resources.Load<Sprite>("UI_Play/Img_BG01");
         Img_Desk.sprite = Resources.Load<Sprite>("UI_Play/Desks/Img_Monitor01");
