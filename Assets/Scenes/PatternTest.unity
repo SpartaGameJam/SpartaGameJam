@@ -1060,6 +1060,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   linePrefab: {fileID: 4950675185286845147, guid: 7b2df3278d7acf541b8615856da5b042, type: 3}
   canvas: {fileID: 882111959}
+  monitorPattern: {fileID: 1689733313}
   offsetPos: {x: 0, y: -450, z: 0}
   lines: []
   gridSize: 3
