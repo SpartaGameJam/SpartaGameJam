@@ -945,6 +945,18 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1614399422}
+    - target: {fileID: 1460799929954980007, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1460799929954980007, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1460799929954980007, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1563898745048683315, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1008,6 +1020,14 @@ PrefabInstance:
     - target: {fileID: 3653034344235767595, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3653034344235767595, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3653034344235767595, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3703789500369429036, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_Pivot.x
@@ -1463,12 +1483,35 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8775434357224675162, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1370126165}
+    - targetCorrespondingSourceObject: {fileID: 1608246261452925897, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 284621381}
   m_SourcePrefab: {fileID: 100100000, guid: 55a435d865e978944809129896f5ba3d, type: 3}
 --- !u!224 &284621379 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3703789500369429036, guid: 55a435d865e978944809129896f5ba3d, type: 3}
   m_PrefabInstance: {fileID: 284621378}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &284621380 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1608246261452925897, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+  m_PrefabInstance: {fileID: 284621378}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &284621381
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 284621380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e19747de3f5aca642ab2be37e372fb86, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_EffectColor: {r: 0, g: 0, b: 0, a: 1}
+  m_EffectDistance: {x: 10, y: -10}
+  m_UseGraphicAlpha: 1
 --- !u!1 &350518236
 GameObject:
   m_ObjectHideFlags: 0
