@@ -91,5 +91,5 @@ public class GameManager : Singleton<GameManager>
         upgradeCount++;
     }
 
-    bool IsFeverTime = false;
+    public bool IsFeverTime = false;
 }
