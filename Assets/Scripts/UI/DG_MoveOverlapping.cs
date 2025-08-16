@@ -17,4 +17,16 @@ public class DG_BounceMove : MonoBehaviour
         target.DOAnchorPos(targetPos, duration)
               .SetEase(Ease.OutBack, overshoot);
     }
+    
+    public Tween PlayBounceMoveTween(bool unscaledTime = false)
+    {
+        if (target == null) target = GetComponent<RectTransform>();
+
+        DOTween.Kill(target);
+        var tw = target.DOAnchorPos(targetPos, duration)
+                       .SetEase(Ease.OutBack, overshoot)
+                       .SetLink(target.gameObject); // 비활성/파괴 시 자동 Kill
+        if (unscaledTime) tw.SetUpdate(true);    // 일시정지 무시 옵션
+        return tw;
+    }
 }
