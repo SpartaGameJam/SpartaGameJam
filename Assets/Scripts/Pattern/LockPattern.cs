@@ -94,10 +94,10 @@ public class LockPattern : MonoBehaviour
             mousePos += offsetPos + offY; // 마우스 위치 동기화
 
             lineOnEditRect.sizeDelta = new Vector2(lineOnEditRect.sizeDelta.x, 
-                Vector3.Distance(mousePos, pointerOnEdit.transform.localPosition));
+                Vector3.Distance(mousePos, pointerOnEdit.transform.position));
 
             lineOnEditRect.rotation = Quaternion.FromToRotation(
-                Vector3.up, (mousePos - pointerOnEdit.transform.localPosition).normalized);
+                Vector3.up, (mousePos - pointerOnEdit.transform.position).normalized);
         }
     }
 
