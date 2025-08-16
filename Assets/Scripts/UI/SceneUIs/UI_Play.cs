@@ -89,7 +89,7 @@ public class UI_Play : UI_Scene
         Img_Phone.sprite = Resources.Load<Sprite>("UI_Play/Img_Phone");
         Img_Enemy.sprite = Resources.Load<Sprite>("Char/Img_BuJangNormal");
 
-        BindEvent(Btn_Phone.gameObject, OnShowPhone);
+        //BindEvent(Btn_Phone.gameObject, OnShowPhone);
         BindEvent(Obj_Desk, OnClickWorkInstructionPanel);
         BindEvent(Obj_Enemy, OnClickWorkInstructionPanel);
 
@@ -98,15 +98,22 @@ public class UI_Play : UI_Scene
 
     }
 
+
+    [SerializeField ]GameObject PhoneLockOverLay;
+
     void Update()
     {
         if (GameManager.Instance.IsFeverTime)
         {
             Btn_Phone.interactable = false;
+            PhoneLockOverLay.SetActive(true);
+            Img_Phone.raycastTarget = false;
         }
         else
         {
             Btn_Phone.interactable = true;
+            PhoneLockOverLay.SetActive(false);
+            Img_Phone.raycastTarget = true;
         }
     }
 
@@ -199,7 +206,7 @@ public class UI_Play : UI_Scene
 
 
     #region Button
-    public void OnShowPhone(PointerEventData eventData)
+    public void OnShowPhone()
     {
         SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
         //SoundManager.instance.PlaySFX(SFXSound.Bujang);

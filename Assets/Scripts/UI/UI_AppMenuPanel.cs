@@ -71,6 +71,8 @@ public class UI_AppMenuPanel : UISelector
     {
         UIManager.Instance.CloseAllPopupUI();
         MainMenuUIManager.Instance.ChangePanel(MainMenuUIManager.Instance.SettingPanel);
+        
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
     #endregion
 }
