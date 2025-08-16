@@ -21,6 +21,7 @@ public class UI_Shop : UI_Scene
     {
         Img_BG02,
         Img_Counter,
+        Img_ReturnToOffice,
 
         Img_Cashier
     }
@@ -32,6 +33,7 @@ public class UI_Shop : UI_Scene
 
     Image Img_BG02;
     Image Img_Counter;
+    Image Img_ReturnToOffice;
 
     TextMeshProUGUI Txt_CashierDialogue;
     Image Img_Cashier;
@@ -50,11 +52,13 @@ public class UI_Shop : UI_Scene
 
         Img_BG02 = GetImage((int)Images.Img_BG02);
         Img_Counter = GetImage((int)Images.Img_Counter);
+        Img_ReturnToOffice = GetImage((int)Images.Img_ReturnToOffice);
 
         Img_Cashier = GetImage((int)Images.Img_Cashier);
 
         Img_BG02.sprite = Resources.Load<Sprite>("UI_Shop/Img_BG02");
         Img_Counter.sprite = Resources.Load<Sprite>("UI_Shop/Img_Counter");
+        Img_ReturnToOffice.sprite = Resources.Load<Sprite>("UI_Shop/Img_ReturnToOffice");
 
         BindEvent(Btn_Lotto.gameObject, OnClickLotto);
         BindEvent(Btn_ReturnToOffice.gameObject, OnReturnToOffice);

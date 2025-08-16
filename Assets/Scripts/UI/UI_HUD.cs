@@ -22,6 +22,11 @@ public class UI_HUD : UI_Scene
         EventManager.Instance.RemoveEvent(EEventType.MoneyChanged, RefreshUI);
     }
 
+    void Start()
+    {
+        EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+    }
+
     public void SetUP()
     {
         gameObject.SetActive(true);

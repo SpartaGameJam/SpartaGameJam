@@ -13,13 +13,15 @@ public class UI_Phone : UISelector
 
     enum Images
     {
-        Img_Phone
+        Img_Phone,
+        Img_SafeAreaBottom
     }
     #endregion
 
     Button Btn_Back;
     Button Btn_Home;
     Image Img_Phone;
+    Image Img_SafeAreaBottom;
 
     public Transform UpgradePanelBox;
     public Transform AppMenuPanelBox;
@@ -35,8 +37,10 @@ public class UI_Phone : UISelector
         Btn_Back = GetButton((int)Buttons.Btn_Back);
         Btn_Home = GetButton((int)Buttons.Btn_Home);
         Img_Phone = GetImage((int)Images.Img_Phone);
+        Img_SafeAreaBottom = GetImage((int)Images.Img_SafeAreaBottom);
 
         Img_Phone.sprite = Resources.Load<Sprite>("UI_Phone/Img_Phone");
+        Img_SafeAreaBottom.sprite = Resources.Load<Sprite>("UI_Phone/Img_SafeAreaBottom");
 
         BindEvent(Btn_Back.gameObject, OnBackPannel);
         BindEvent(Btn_Home.gameObject, OnHomeButton);

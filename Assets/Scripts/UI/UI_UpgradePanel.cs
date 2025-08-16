@@ -2,6 +2,12 @@ using UnityEngine;
 
 public class UI_UpgradePanel : UISelector
 {
+    #region enum
+    enum image
+    {
+        
+    }
+    #endregion
     Transform SlotPanel;
     public UpgradeSlot[] slots = new UpgradeSlot[5];
     int _curIndex = -1;
