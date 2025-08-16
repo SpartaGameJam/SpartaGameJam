@@ -2,12 +2,6 @@ using UnityEngine;
 
 public class UI_UpgradePanel : UISelector
 {
-    #region enum
-    enum image
-    {
-        
-    }
-    #endregion
     Transform SlotPanel;
     public UpgradeSlot[] slots = new UpgradeSlot[5];
     int _curIndex = -1;
@@ -40,5 +34,7 @@ public class UI_UpgradePanel : UISelector
         _curIndex = slotIndex;
         UpgradeManager.Instance.TryUpgrade(slots[_curIndex].UpgradeType);
         UpdateSlots();
+        
+        EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
     }
 }
