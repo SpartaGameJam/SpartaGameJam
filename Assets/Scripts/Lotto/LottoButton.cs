@@ -62,7 +62,9 @@ public class LottoButton : MonoBehaviour
 
             return;
         }
-
+        
+        SoundManager.instance.PlaySFX(SFXSound.BuyLotto);
+        
         GameManager.Instance.Money -= currentPrice;
         EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
 

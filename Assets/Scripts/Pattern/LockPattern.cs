@@ -30,6 +30,10 @@ public class LockPattern : MonoBehaviour
 
     private float waitTime = 1f; // 패턴 애니메이션 시간
 
+
+    private float tiverTime = 30f;
+    private bool isFiver = false;
+    public int tempFiverGuage = 0; // 임시 게이지 카운트 변수
     private void IdToRC(int id, out int r, out int c)
     {
         int z = id;
@@ -269,9 +273,19 @@ public class LockPattern : MonoBehaviour
                 Debug.Log("퍼센트 :" + GameManager.Instance.GetGainPer());
                 float gold = 800;
                 //Debug.Log("돈 : " + Mathf.FloorToInt(gold * (1 + GameManager.Instance.GetGainPer())));
-                GameManager.Instance.Money += Mathf.FloorToInt(gold * (100 + GameManager.Instance.GetGainPer())/100); // 일단 1씩 증가
+                float GainPer = (100 + GameManager.Instance.GetGainPer()) / 100;
+                float fiverGold = isFiver ? 1 : 0;
+
+                GameManager.Instance.Money += Mathf.FloorToInt(gold * (GainPer + fiverGold)); // 일단 1씩 증가
                 EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
                 monitorPattern.UpdateClearCount();
+
+                tempFiverGuage++;
+
+                if(!isFiver && tempFiverGuage > 2) // 피버 타임이 아니고 임시로 게이지가 넘어간 상태라면
+                {
+                    StartCoroutine(FiverTime());
+                }
             }
 
             foreach (var line in lines)
@@ -292,8 +306,22 @@ public class LockPattern : MonoBehaviour
         }
 
         unlocking = false;
+    }
 
+    public IEnumerator FiverTime()
+    {
+        SpineController.Instance.ChangeFiver(FiverState.Start, false, 1f);
+
+        yield return new WaitForSeconds(1f);
+        isFiver = true;
         
+        SpineController.Instance.ChangeFiver(FiverState.Ing, true, 1f);
+
+        yield return new WaitForSeconds(tiverTime);
+
+        SpineController.Instance.ChangeFiver(FiverState.End, false, 1f);
+
+        yield return new WaitForSeconds(1f);
 
     }
 }
