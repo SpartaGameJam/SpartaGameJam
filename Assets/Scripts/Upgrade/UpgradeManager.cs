@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -121,7 +121,8 @@ public class UpgradeManager : Singleton<UpgradeManager>
 
         UpgradeData upgradeData = _cache[stat];
 
-        GameManager.Instance.Money -= upgradeData.GetUpgradeCost();
+        GameManager.Instance.UpdateMoney(-upgradeData.GetUpgradeCost());
+        GameManager.Instance.UpdateUpgrade();
 
         upgradeData.level++;
         float newValue = upgradeData.GetCurStatValue();

@@ -22,6 +22,8 @@ public class LockPattern : MonoBehaviour
     private RectTransform lineOnEditRect; // 마우스 위치를 저장
     private PatternPointer pointerOnEdit; // 포인터를 저장
 
+    UI_TextAnimation textAni;
+
     private bool unlocking;
 
     private new bool enabled = true;
@@ -63,6 +65,8 @@ public class LockPattern : MonoBehaviour
         {
             canvas = GetComponentInParent<Canvas>();
         }
+
+        textAni = FindAnyObjectByType<UI_TextAnimation>();
     }
 
 
@@ -275,8 +279,11 @@ public class LockPattern : MonoBehaviour
                 //Debug.Log("돈 : " + Mathf.FloorToInt(gold * (1 + GameManager.Instance.GetGainPer())));
                 float GainPer = (100 + GameManager.Instance.GetGainPer()) / 100;
                 float fiverGold = isFiver ? 1 : 0;
+                int money = Mathf.FloorToInt(gold * (GainPer + fiverGold));
+                textAni.Play(money);
 
-                GameManager.Instance.Money += Mathf.FloorToInt(gold * (GainPer + fiverGold)); // 일단 1씩 증가
+                GameManager.Instance.UpdateMoney(money); // 일단 1씩 증가
+                GameManager.Instance.CompleteWork();
                 EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
                 monitorPattern.UpdateClearCount();
 
@@ -284,6 +291,7 @@ public class LockPattern : MonoBehaviour
 
                 if(!isFiver && tempFiverGuage > 2) // 피버 타임이 아니고 임시로 게이지가 넘어간 상태라면
                 {
+                    GameManager.Instance.UpdateFiver();
                     StartCoroutine(FiverTime());
                 }
             }
@@ -321,8 +329,8 @@ public class LockPattern : MonoBehaviour
 
         SpineController.Instance.ChangeFiver(FiverState.End, false, 1f);
 
+        isFiver = false;
         yield return new WaitForSeconds(1f);
-
         SpineController.Instance.skeletonGraphicTimeFiver.color = new Color(1f, 1f, 1f, 0f);
 
     }

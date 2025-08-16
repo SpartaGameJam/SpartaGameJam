@@ -1,4 +1,4 @@
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
 public class UI_HUD : UI_Scene
@@ -46,7 +46,7 @@ public class UI_HUD : UI_Scene
 
     public void SHOWMETHEMONEY()
     {
-        GameManager.Instance.Money += 22312323;
+        GameManager.Instance.UpdateMoney(22312323);
         EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
     }
 }
