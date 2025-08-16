@@ -69,7 +69,7 @@ public class UI_AppMenuPanel : UISelector
 
     void OnShowSetting(PointerEventData eventData)
     {
-
+        MainMenuUIManager.Instance.ChangePanel(MainMenuUIManager.Instance.SettingPanel);
     }
     #endregion
 }

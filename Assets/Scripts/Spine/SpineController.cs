@@ -6,18 +6,20 @@ public enum FiverState
     Start, Ing, End
 }
 
-
 public class SpineController : MonoBehaviour
 {
     public static SpineController Instance { get; private set; }
 
     public SkeletonGraphic skeletonGraphicTimeFiver;
+    public SkeletonGraphic skeletonGraphicTitle;
+    public SkeletonGraphic skeletonGraphicCutscine;
+
     public AnimationReferenceAsset[] fiverClip;
+    public AnimationReferenceAsset titleClip;
+    public AnimationReferenceAsset cutsceneClip;
 
     private FiverState fiverState;
 
-    private string CurrentAnimation;
-    
 
     private void Awake()
     {
@@ -35,5 +37,21 @@ public class SpineController : MonoBehaviour
         skeletonGraphicTimeFiver.color = Color.white;
         skeletonGraphicTimeFiver.startingLoop = isLoop;
         skeletonGraphicTimeFiver.timeScale = timeScale;
+    }
+
+    public void StartTitle(bool isLoop, float timeScale)
+    {
+        skeletonGraphicTitle.AnimationState.SetAnimation(0, titleClip, isLoop).TimeScale = timeScale;
+        skeletonGraphicTitle.color = Color.white;
+        skeletonGraphicTitle.startingLoop = isLoop;
+        skeletonGraphicTitle.timeScale = timeScale;
+    }
+ 
+    public void StartCutScene(bool isLoop, float timeScale)
+    {
+        skeletonGraphicCutscine.AnimationState.SetAnimation(0, cutsceneClip, isLoop).TimeScale = timeScale;
+        skeletonGraphicCutscine.color = Color.white;
+        skeletonGraphicCutscine.startingLoop = isLoop;
+        skeletonGraphicCutscine.timeScale = timeScale;
     }
 }

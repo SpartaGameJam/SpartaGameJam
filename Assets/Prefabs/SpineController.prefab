@@ -45,7 +45,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   skeletonGraphicTimeFiver: {fileID: 0}
+  skeletonGraphicTitle: {fileID: 0}
+  skeletonGraphicCutscine: {fileID: 0}
   fiverClip:
   - {fileID: 11400000, guid: 32271d262935fa946b43e55044784e70, type: 2}
   - {fileID: 11400000, guid: c9cadaa8392c2464daf9da3aed144d5f, type: 2}
   - {fileID: 11400000, guid: 923aacd6ca2df3848b6b8e21250744fd, type: 2}
+  titleClip: {fileID: 11400000, guid: 25e5395210084574f87c7d1397547fb7, type: 2}
+  cutsceneClip: {fileID: 11400000, guid: df2445512ad7f484db243a6ea8d15802, type: 2}
