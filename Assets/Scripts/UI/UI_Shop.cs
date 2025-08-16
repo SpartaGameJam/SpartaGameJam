@@ -133,6 +133,8 @@ public class UI_Shop : UI_Scene
 
         UIManager.Instance.CloseAllPopupUI();
         UIManager.Instance.ChangeSceneUI<UI_Play>();
+
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
     #endregion
 }

@@ -48,5 +48,8 @@ public class UI_HUD : UI_Scene
     {
         GameManager.Instance.Money += 22312323;
         EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+
+        
+        SoundManager.instance.PlaySFX(SFXSound.GetGold);
     }
 }

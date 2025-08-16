@@ -60,7 +60,7 @@ public class UI_Play : UI_Scene
     // 단순히 이미지를 바꾸거나 오브젝트를 바꾸는 것이라면 이대로 사용
 
     
-    [SerializeField] private float workTargetPosY = -300f;
+    [SerializeField] private float workTargetPosY = -900f;
     [SerializeField] private float workMoveDuration = 0.6f;
 
     private Vector2 _workOriginPos;
@@ -150,7 +150,6 @@ public class UI_Play : UI_Scene
 
     public void OnClickWorkInstructionPanel(PointerEventData _)
     {
-        
         SoundManager.instance.PlaySFX(SFXSound.Bujang01);
 
 

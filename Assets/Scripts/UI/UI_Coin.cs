@@ -8,9 +8,9 @@ public class UI_Coin : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
     RectTransform imageRect;
     Image image;
 
-    Vector3 _originalPosition; // ½ÃÀÛ À§Ä¡ ÀúÀå
-    Canvas _canvas;            // µå·¡±× ½Ã ÁÂÇ¥ º¯È¯¿ë
-    FrontImage frontImage; // ±ÜÀ» ´ë»ó (Inspector¿¡¼­ ¿¬°á)
+    Vector3 _originalPosition; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½ï¿½
+    Canvas _canvas;            // ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½Ç¥ ï¿½ï¿½È¯ï¿½ï¿½
+    FrontImage frontImage; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ (Inspectorï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 
     void Start()
     {
@@ -18,12 +18,12 @@ public class UI_Coin : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         imageRect = image.GetComponent<RectTransform>();
 
         _canvas = GetComponentInParent<Canvas>();
-        _originalPosition = imageRect.localPosition; // ½ÃÀÛ À§Ä¡ ±â¾ï
+        _originalPosition = imageRect.localPosition; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
     }
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        // µå·¡±× ½ÃÀÛ ½Ã ÇÊ¿äÇÏ¸é È¿°ú ³Ö±â
+        // ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½Ï¸ï¿½ È¿ï¿½ï¿½ ï¿½Ö±ï¿½
         frontImage = FindAnyObjectByType<FrontImage>();
         if (frontImage != null) 
         {
@@ -35,7 +35,7 @@ public class UI_Coin : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
     {
         if (_canvas == null) return;
 
-        // Overlay Coin À§Ä¡ ÀÌµ¿
+        // Overlay Coin ï¿½ï¿½Ä¡ ï¿½Ìµï¿½
         Vector2 localPos;
         RectTransformUtility.ScreenPointToLocalPointInRectangle(
             _canvas.transform as RectTransform,
@@ -45,20 +45,20 @@ public class UI_Coin : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
         imageRect.localPosition = localPos;
 
-        // FrontImage ±Ü±â
+        // FrontImage ï¿½Ü±ï¿½
         if (frontImage != null)
         {
-            // 1) Overlay Coin ¡æ Screen ÁÂÇ¥
+            // 1) Overlay Coin ï¿½ï¿½ Screen ï¿½ï¿½Ç¥
             Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(
                 _canvas.worldCamera, imageRect.position);
 
-            // 2) FrontImage ¿µ¿ª ¾È¿¡ µé¾î¿Ô´ÂÁö È®ÀÎ
+            // 2) FrontImage ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½Ô´ï¿½ï¿½ï¿½ È®ï¿½ï¿½
             if (RectTransformUtility.RectangleContainsScreenPoint(
                 frontImage.scratchImage.rectTransform,
                 screenPos,
                 frontImage.scratchImage.canvas.worldCamera))
             {
-                // 3) Screen ¡æ World ÁÂÇ¥ º¯È¯
+                // 3) Screen ï¿½ï¿½ World ï¿½ï¿½Ç¥ ï¿½ï¿½È¯
                 Vector3 worldPos;
                 RectTransformUtility.ScreenPointToWorldPointInRectangle(
                     frontImage.scratchImage.rectTransform,
@@ -66,15 +66,17 @@ public class UI_Coin : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
                     frontImage.scratchImage.canvas.worldCamera,
                     out worldPos);
 
-                // 4) ±Ü±â ½ÇÇà
+                // 4) ï¿½Ü±ï¿½ ï¿½ï¿½ï¿½ï¿½
                 frontImage.ScratchAtWorldPos(worldPos);
             }
         }
+        
+        SoundManager.instance.PlaySFX(SFXSound.GetGold);
     }
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        // µå·¡±× ³¡³ª¸é ¿ø·¡ ÀÚ¸®·Î º¹±Í
+        // ï¿½å·¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ú¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         imageRect.localPosition = _originalPosition;
     }
 }

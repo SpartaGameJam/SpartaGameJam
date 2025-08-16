@@ -119,6 +119,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
             return;
         }
 
+
         UpgradeData upgradeData = _cache[stat];
 
         GameManager.Instance.Money -= upgradeData.GetUpgradeCost();

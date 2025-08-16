@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,10 +30,6 @@ public class LockPattern : MonoBehaviour
 
     private float waitTime = 1f; // 패턴 애니메이션 시간
 
-
-    private float tiverTime = 30f;
-    private bool isFiver = false;
-    public int tempFiverGuage = 0; // 임시 게이지 카운트 변수
     private void IdToRC(int id, out int r, out int c)
     {
         int z = id;
@@ -137,6 +133,8 @@ public class LockPattern : MonoBehaviour
     /// <param name="id">포인터 id</param>
     private GameObject CreateLine(Vector3 pos, int id)
     {
+        SoundManager.instance.PlaySFX(SFXSound.DragPattern);
+
         var line = GameObject.Instantiate(linePrefab, spawnPoint);
 
         line.transform.localPosition = pos;
@@ -154,21 +152,23 @@ public class LockPattern : MonoBehaviour
     /// 포인터를 고려하여 라인을 생성
     /// </summary>
     /// <param name="pp"></param>
-    private void TrySetLineEdit(PatternPointer pp) 
+    private void TrySetLineEdit(PatternPointer pp)
     {
-        foreach(var line in lines)
+        foreach (var line in lines)
         {
-            if(line.id == pp.id) // 이미 해당 포인터에 라인이 생성됨
+            if (line.id == pp.id) // 이미 해당 포인터에 라인이 생성됨
             {
                 return;
             }
         }
 
-        if(pointerOnEdit != null) pointerOnEdit.image.sprite = pointerSprites[2]; 
+        if (pointerOnEdit != null) pointerOnEdit.image.sprite = pointerSprites[2];
         pp.image.sprite = pointerSprites[1];
-        lineOnEdit = CreateLine(pp.transform.localPosition + offsetPos , pp.id); // 첫 생성 위치 동기화
+        lineOnEdit = CreateLine(pp.transform.localPosition + offsetPos, pp.id); // 첫 생성 위치 동기화
         lineOnEditRect = lineOnEdit.GetComponent<RectTransform>();
         pointerOnEdit = pp;
+        
+        SoundManager.instance.PlaySFX(SFXSound.PatternBGM_gameboy);
     }
 
     private void EnableColorFade(Animator anim, bool isPass = true)
@@ -270,28 +270,25 @@ public class LockPattern : MonoBehaviour
             if (checkResult)
             {
 
+                SoundManager.instance.PlaySFX(SFXSound.PattrenSuccess);
+
                 Debug.Log("퍼센트 :" + GameManager.Instance.GetGainPer());
                 float gold = 800;
                 //Debug.Log("돈 : " + Mathf.FloorToInt(gold * (1 + GameManager.Instance.GetGainPer())));
-                float GainPer = (100 + GameManager.Instance.GetGainPer()) / 100;
-                float fiverGold = isFiver ? 1 : 0;
-
-                GameManager.Instance.Money += Mathf.FloorToInt(gold * (GainPer + fiverGold)); // 일단 1씩 증가
+                GameManager.Instance.Money += Mathf.FloorToInt(gold * (100 + GameManager.Instance.GetGainPer()) / 100); // 일단 1씩 증가
                 EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
                 monitorPattern.UpdateClearCount();
-
-                tempFiverGuage++;
-
-                if(!isFiver && tempFiverGuage > 2) // 피버 타임이 아니고 임시로 게이지가 넘어간 상태라면
-                {
-                    StartCoroutine(FiverTime());
-                }
+            }
+            else
+            {
+                SoundManager.instance.PlaySFX(SFXSound.FailPattern);
+                
             }
 
             foreach (var line in lines)
-            {
-                EnableColorFade(pointers[line.id].gameObject.GetComponent<Animator>(), checkResult);
-            }
+                {
+                    EnableColorFade(pointers[line.id].gameObject.GetComponent<Animator>(), checkResult);
+                }
 
 
             Destroy(lines[lines.Count - 1].gameObject);
@@ -306,22 +303,8 @@ public class LockPattern : MonoBehaviour
         }
 
         unlocking = false;
-    }
 
-    public IEnumerator FiverTime()
-    {
-        SpineController.Instance.ChangeFiver(FiverState.Start, false, 1f);
-
-        yield return new WaitForSeconds(1f);
-        isFiver = true;
         
-        SpineController.Instance.ChangeFiver(FiverState.Ing, true, 1f);
-
-        yield return new WaitForSeconds(tiverTime);
-
-        SpineController.Instance.ChangeFiver(FiverState.End, false, 1f);
-
-        yield return new WaitForSeconds(1f);
 
     }
 }

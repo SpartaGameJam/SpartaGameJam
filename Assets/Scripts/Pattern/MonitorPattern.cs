@@ -323,7 +323,6 @@ public class MonitorPattern : MonoBehaviour
 
             lineRect.anchoredPosition += new Vector2(0,yOffset);
 
-
             lines.Add(line);
         }
     }

@@ -35,6 +35,8 @@ public class UI_UpgradePanel : UISelector
         UpgradeManager.Instance.TryUpgrade(slots[_curIndex].UpgradeType);
         UpdateSlots();
         
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
+        
         EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
     }
 }

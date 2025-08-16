@@ -192,6 +192,9 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
             }
         }
         if (erasedAny) scratchTex.Apply();
+
+        
+        SoundManager.instance.PlaySFX(SFXSound.DragPattern);
         return erasedAny;
     }
 

@@ -53,6 +53,8 @@ public class UI_AppMenuPanel : UISelector
         UIManager.Instance.CloseAllPopupUI();
         UIManager.Instance.ChangeSceneUI<UI_Shop>();
         FindAnyObjectByType<LottoSystem>(FindObjectsInactive.Include).gameObject.SetActive(true);
+        
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
 
     void OnShowUpgradePanel(PointerEventData eventData)
@@ -61,6 +63,8 @@ public class UI_AppMenuPanel : UISelector
         UIManager.Instance.ShowPopup<UI_UpgradePanel>(popup =>
         { popup.UpdateSlots(); },
         UIManager.Instance.FindUIPopup<UI_Phone>()?.UpgradePanelBox);
+        
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
 
     void OnShowSetting(PointerEventData eventData)
