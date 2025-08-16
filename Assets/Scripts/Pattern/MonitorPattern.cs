@@ -12,6 +12,7 @@ public class MonitorPattern : MonoBehaviour
     public GameObject linePrefab;
     public Canvas canvas; // 하이어라키창 스폿
     public Sprite[] pointerSprites; // 0 기본 , 1 현재, 2 확정
+    public Transform spawnPoint;
 
     private int gridSize = 3;
 
@@ -273,7 +274,7 @@ public class MonitorPattern : MonoBehaviour
 
         for(int i=0; i<patternSequence.Count-1; i++) // 마지막 라인은 생성 제한
         {
-            var line = GameObject.Instantiate(linePrefab, canvas.transform);
+            var line = GameObject.Instantiate(linePrefab, transform);
             line.name = "Grade " + line.name;
             line.transform.localPosition = pointers[patternSequence[i]].transform.localPosition;
             lineRect = line.GetComponent<RectTransform>();

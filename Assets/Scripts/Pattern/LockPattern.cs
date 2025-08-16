@@ -7,6 +7,7 @@ public class LockPattern : MonoBehaviour
 {
     public GameObject linePrefab;
     public Canvas canvas;
+    public Transform spawnPoint;
     public MonitorPattern monitorPattern;
     public Sprite[] pointerSprites; // 0 기본 , 1 현재, 2 확정
 
@@ -122,7 +123,7 @@ public class LockPattern : MonoBehaviour
     /// <param name="id">포인터 id</param>
     private GameObject CreateLine(Vector3 pos, int id)
     {
-        var line = GameObject.Instantiate(linePrefab, canvas.transform);
+        var line = GameObject.Instantiate(linePrefab, spawnPoint);
 
         line.transform.localPosition = pos;
 
