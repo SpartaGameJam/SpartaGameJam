@@ -52,6 +52,7 @@ public class UI_AppMenuPanel : UISelector
     {
         UIManager.Instance.CloseAllPopupUI();
         UIManager.Instance.ChangeSceneUI<UI_Shop>();
+        FindAnyObjectByType<LottoSystem>(FindObjectsInactive.Include).gameObject.SetActive(true);
     }
 
     void OnShowUpgradePanel(PointerEventData eventData)

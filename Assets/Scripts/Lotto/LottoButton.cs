@@ -47,7 +47,7 @@ public class LottoButton : MonoBehaviour
     {
         if (buttonText != null)
         {
-            buttonText.text = $"추가 구매\n\u20A9{price}";
+            buttonText.text = $"로또 구매\n\u20A9{price}";
         }
     }
 }

@@ -60,18 +60,14 @@ public class UI_Shop : UI_Scene
         Img_Counter.sprite = Resources.Load<Sprite>("UI_Shop/Img_Counter");
         Img_ReturnToOffice.sprite = Resources.Load<Sprite>("UI_Shop/Img_ReturnToOffice");
 
-        BindEvent(Btn_Lotto.gameObject, OnClickLotto);
-        BindEvent(Btn_ReturnToOffice.gameObject, OnReturnToOffice);
+        Btn_ReturnToOffice.onClick.AddListener(OnReturnToOffice);
     }
 
     #region Button
-    void OnClickLotto(PointerEventData eventData)
+    void OnReturnToOffice()
     {
-        //void StartScratchTicket()
-    }
+        FindAnyObjectByType<LottoSystem>(FindObjectsInactive.Include).gameObject.SetActive(false);
 
-    void OnReturnToOffice(PointerEventData eventData)
-    {
         UIManager.Instance.CloseAllPopupUI();
         UIManager.Instance.ChangeSceneUI<UI_Play>();
     }

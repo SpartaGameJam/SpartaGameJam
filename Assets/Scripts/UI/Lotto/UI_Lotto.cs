@@ -10,6 +10,8 @@ public class UI_Lotto : MonoBehaviour
     LottoResult currentResult;
 
     Canvas canvas;
+    UI_BlurPanel blurPanel;
+    Btn_ReturnToOffice officeBtn;
 
     [SerializeField] List<Image> images;
 
@@ -19,11 +21,17 @@ public class UI_Lotto : MonoBehaviour
     {
         canvas = GetComponent<Canvas>();
         canvas.worldCamera = Camera.main;
+        canvas.sortingOrder = 5;
     }
 
     public void Init(LottoResult result, List<Sprite> sprites, Transform targetPosition)
     {
         currentResult = result;
+
+        blurPanel = FindAnyObjectByType<UI_BlurPanel>(FindObjectsInactive.Include);
+        blurPanel.FadeIn();
+        officeBtn = FindAnyObjectByType<Btn_ReturnToOffice>(FindObjectsInactive.Include);
+        officeBtn.Btn.interactable = false;
 
         for (int i = 0; i < images.Count; i++)
         {
@@ -54,6 +62,9 @@ public class UI_Lotto : MonoBehaviour
     {
         if (currentResult != LottoResult.OneMore)
         {
+            blurPanel.FadeOut();
+            officeBtn.Btn.interactable = true;
+
             OnLottoDestroyed?.Invoke();
             OnLottoDestroyed = null;
         }
