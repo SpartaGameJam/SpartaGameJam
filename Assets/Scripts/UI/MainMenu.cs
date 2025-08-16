@@ -55,16 +55,22 @@ public class MainMenu : UISelector
     public void SettingButton()
     {
         MainMenuUIManager.Instance.ChangePanel(MainMenuUIManager.Instance.SettingPanel);
+
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
 
     public void ExitButton()
     {
         Application.Quit();
         Debug.Log("게임 종료");
+
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
 
     public override void Back()
     {
         Debug.Log("Back 지원 안함");
+
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
 }

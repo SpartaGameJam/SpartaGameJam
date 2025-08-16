@@ -32,22 +32,30 @@ public class PauseMenu : UISelector
         //UIManager.Instance.ChangePanel(UIManager.Instance.gameplayPanel);
         UIManager.Instance.TopPaneHide(); // 일시정지 비활성화
         Debug.Log("계속하기");
+
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
 
     public void SettingButton()
     {
         UIManager.Instance.ChangePanel(UIManager.Instance.SettingPanel);
         Debug.Log("셋팅");
+
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
 
     public void MainMenuButton()
     {
         OnMainMenuEnter?.Invoke(this, EventArgs.Empty);
+
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
 
     public override void Back()
     {
         UIManager.Instance.TopPaneHide();
+
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
         //base.Back();
     }
 }

@@ -115,7 +115,7 @@ public class LockPattern : MonoBehaviour
 
         yield return new WaitForSeconds(waitTime);
 
-        foreach(var point in pointers)
+        foreach (var point in pointers)
         {
             //point.Value.GetComponent<Image>().color = Color.white;
             point.Value.GetComponent<Animator>().enabled = false;
@@ -135,6 +135,8 @@ public class LockPattern : MonoBehaviour
         pointerOnEdit = null;
 
         enabled = true;
+        
+        SoundManager.instance.PlaySFX(SFXSound.DragPattern);
     }
 
     /// <summary>

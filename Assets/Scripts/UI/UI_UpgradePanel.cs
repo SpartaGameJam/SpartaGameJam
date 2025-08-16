@@ -34,7 +34,9 @@ public class UI_UpgradePanel : UISelector
         _curIndex = slotIndex;
         UpgradeManager.Instance.TryUpgrade(slots[_curIndex].UpgradeType);
         UpdateSlots();
-        
+
         EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+        
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
 }

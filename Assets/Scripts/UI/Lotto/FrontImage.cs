@@ -180,6 +180,9 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
             tilt.ReleaseExternalTilt();
     }
 
+    private float _lastPlayTime = 0f;
+    [SerializeField] private float _sfxCooldown = 0.3f;
+
     bool DrawLine(Vector2 start, Vector2 end)
     {
         bool erased = false;
@@ -192,7 +195,13 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
             Vector2 point = Vector2.Lerp(start, end, i / (float)steps);
             erased |= Erase(Mathf.RoundToInt(point.x), Mathf.RoundToInt(point.y));
         }
+        if (Time.time - _lastPlayTime >= _sfxCooldown)
+        {
+            SoundManager.instance.PlaySFX(SFXSound.DragPattern);
+            _lastPlayTime = Time.time;
+        }
         return erased;
+
     }
 
     // 실제 스크래치 지우기

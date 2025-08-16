@@ -37,6 +37,9 @@ public class UI_Coin : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
         }
     }
 
+    private float _lastPlayTime = 0f;
+    [SerializeField] private float _sfxCooldown = 0.3f;
+
     public void OnDrag(PointerEventData eventData)
     {
         if (_canvas == null) return;
@@ -69,6 +72,12 @@ public class UI_Coin : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragH
 
                 frontImage.ScratchAtWorldPos(worldPos);
             }
+        }
+
+        if (Time.time - _lastPlayTime >= _sfxCooldown)
+        {
+            SoundManager.instance.PlaySFX(SFXSound.GetGold);
+            _lastPlayTime = Time.time;
         }
     }
 

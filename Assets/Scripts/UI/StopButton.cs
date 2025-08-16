@@ -16,5 +16,7 @@ public class StopButton : MonoBehaviour
         UIManager.Instance.ChangeSceneUI<UI_Play>();
         // TODO : 회사 씬으로 돌아갑니다
         Debug.Log("회사 씬으로 돌아갑니다");
+
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
     }
 }
