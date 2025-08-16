@@ -1,15 +1,5 @@
 using UnityEngine;
 
-public enum UpgradeType
-{
-    None,
-    CurrencyGain,
-    ExtraChanceRate,
-    FeverTriggerRate,
-    LotteryWinRate,
-    LotteryDiscountRate
-}
-
 public class UI_UpgradePanel : UISelector
 {
     Transform SlotPanel;
