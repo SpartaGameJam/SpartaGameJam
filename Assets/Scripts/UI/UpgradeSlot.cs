@@ -26,7 +26,7 @@ public class UpgradeSlot : MonoBehaviour
                 Txt_UpgradeValue.text = $"{StringNameSpace.ExtraChanceRate}Lv.({UpgradeManager.Instance.GetLevel(UpgradeType)})\n+{UpgradeManager.Instance.GetCurrentValue(UpgradeType)}%";
                 Txt_UpgradePrice.text = $"{UpgradeManager.Instance.GetUpgradeCost(UpgradeType)}G";
                 break;
-            case UpgradeType.FeverTriggerRate:
+            case UpgradeType.FeverGaugeFillRateUp:
                 Txt_UpgradeValue.text = $"{StringNameSpace.FeverTriggerRate}Lv.({UpgradeManager.Instance.GetLevel(UpgradeType)})\n+{UpgradeManager.Instance.GetCurrentValue(UpgradeType)}%";
                 Txt_UpgradePrice.text = $"{UpgradeManager.Instance.GetUpgradeCost(UpgradeType)}G";
                 break;

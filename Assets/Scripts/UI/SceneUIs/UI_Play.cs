@@ -32,7 +32,9 @@ public class UI_Play : UI_Scene
     enum Objects
     {
         Obj_DocumentPanel,
-        Obj_WorkInstructionPanel
+        Obj_WorkInstructionPanel,
+        Obj_Desk,
+        Obj_Enemy
     }
     #endregion
 
@@ -54,6 +56,8 @@ public class UI_Play : UI_Scene
     // 아래 서류 컨트롤용
     // 그런데 도큐먼트를 별도의 UI로 뺄지 고민 중
     GameObject Obj_DocumentPanel;
+    GameObject Obj_Desk;
+    GameObject Obj_Enemy;
 
     // 컴퓨터 속 화면
     // 기능을 추가한다면 이것을 UI로 잡고, 그 안의 내용을 세부적으로 컨트롤하게 하겠지만,
@@ -68,9 +72,17 @@ public class UI_Play : UI_Scene
     private Vector2 _docOriginPos;
     private bool _docIsAtTarget = false;
 
+    
+    [SerializeField] private float workTargetPosY = -900f;
+    [SerializeField] private float workMoveDuration = 0.6f;
+
+    private Vector2 _workOriginPos;
+    private bool _workIsAtTarget = false;
+
 
     protected override void Awake()
     {
+
         BindTexts(typeof(Texts));
         BindButtons(typeof(Buttons));
         BindImages(typeof(Images));
@@ -90,6 +102,8 @@ public class UI_Play : UI_Scene
 
         Obj_DocumentPanel = GetObject((int)Objects.Obj_DocumentPanel);
         Obj_WorkInstructionPanel = GetObject((int)Objects.Obj_WorkInstructionPanel);
+        Obj_Desk = GetObject((int)Objects.Obj_Desk);
+        Obj_Enemy = GetObject((int)Objects.Obj_Enemy);
 
         Img_BG01.sprite = Resources.Load<Sprite>("UI_Play/Img_BG01");
         Img_Desk.sprite = Resources.Load<Sprite>("UI_Play/Img_Desk");
@@ -101,8 +115,14 @@ public class UI_Play : UI_Scene
 
         BindEvent(Btn_Phone.gameObject, OnShowPhone);
         BindEvent(Obj_DocumentPanel, OnClickDocumentPanel);
+        BindEvent(Obj_Desk, OnClickWorkInstructionPanel);
+        BindEvent(Obj_Enemy, OnClickWorkInstructionPanel);
+
+        _workOriginPos = Obj_Desk.GetComponent<RectTransform>().anchoredPosition;
+        workTargetPosY = -720;
     }
 
+    #region DOTWEEN
     public void OnClickDocumentPanel(PointerEventData eventData)
     {
         RectTransform rt = Obj_DocumentPanel.GetComponent<RectTransform>();
@@ -122,6 +142,31 @@ public class UI_Play : UI_Scene
         mover.PlayBounceMove();
         _docIsAtTarget = !_docIsAtTarget;
     }
+
+    public void OnClickWorkInstructionPanel(PointerEventData _)
+    {
+        RectTransform rt = Obj_Desk.GetComponent<RectTransform>();
+
+        // DG_MoveEase 없으면 자동 부착
+        DG_MoveEase mover = Obj_Desk.GetComponent<DG_MoveEase>();
+        if (mover == null) mover = Obj_Desk.AddComponent<DG_MoveEase>();
+
+        // 현재 위치 기준 토글 (X는 유지, Y만 변경)
+        Vector2 nextPosAnchored = _workIsAtTarget
+            ? _workOriginPos
+            : new Vector2(rt.anchoredPosition.x, workTargetPosY);
+
+        mover.target   = rt;
+        mover.duration = workMoveDuration;
+
+        mover.targetPos = nextPosAnchored;
+
+        // anchoredPosition 기준 이동을 원하므로 Local 버전 호출
+        mover.PlayLocalMove();
+
+        _workIsAtTarget = !_workIsAtTarget;
+    }
+    #endregion
 
 
     #region Button

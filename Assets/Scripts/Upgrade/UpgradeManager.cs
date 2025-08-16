@@ -7,7 +7,7 @@ public enum UpgradeType
     None,
     CurrencyGain,
     ExtraChanceRate,
-    FeverTriggerRate,
+    FeverGaugeFillRateUp,
     LotteryWinRate,
     LotteryDiscountRate
 }
