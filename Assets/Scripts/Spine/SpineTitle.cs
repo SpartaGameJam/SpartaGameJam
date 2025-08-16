@@ -1,4 +1,5 @@
-﻿using Spine.Unity;
+﻿using System.Collections;
+using Spine.Unity;
 using UnityEngine;
 
 public class SpineTitle : MonoBehaviour
@@ -13,5 +14,14 @@ public class SpineTitle : MonoBehaviour
     private void Start()
     {
         SpineController.Instance.skeletonGraphicTitle = skeletonGraphic;
+
+        StartCoroutine(PlayTitle());
+    }
+
+    private IEnumerator PlayTitle()
+    {
+        yield return new WaitForSeconds(5f);
+
+        SpineController.Instance.StartTitle(false, 1f);
     }
 }
