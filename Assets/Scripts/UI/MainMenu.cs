@@ -31,6 +31,7 @@ public class MainMenu : UISelector
         GameManager.Instance.ClearData();
         SoundManager.instance.PlayBGM(LobbySound.Lobby);
         MainMenuUIManager.Instance.ChangePanel(this);
+        MainMenuUIManager.Instance.BugCheck(false);
     }
 
 

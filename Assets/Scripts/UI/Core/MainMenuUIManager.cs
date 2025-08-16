@@ -21,6 +21,8 @@ public class MainMenuUIManager : MonoBehaviour
 
     private Stack<UISelector> panelStack = new Stack<UISelector>();
 
+    public bool lottoBug { get; private set; }
+
     /// <summary>
     /// panelStack에 현재 패널을 추가합니다.
     /// </summary>
@@ -91,5 +93,11 @@ public class MainMenuUIManager : MonoBehaviour
     {
         while (panelStack.Count > 0)
             panelStack.Pop().Hide();
+    }
+
+
+    public void BugCheck(bool bugOn)
+    {
+        lottoBug = bugOn;
     }
 }
