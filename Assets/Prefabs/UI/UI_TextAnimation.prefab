@@ -656,7 +656,7 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3444645684016767692}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 0
   m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
@@ -675,7 +675,6 @@ MonoBehaviour:
   moveY: 80
   duration: 1
   punchScale: 0.3
-  gainColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
 --- !u!1 &4057170058684192613
 GameObject:
   m_ObjectHideFlags: 0

@@ -151,6 +151,14 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         }
     }
 
+    void ShowMoneyAnimation(int amount)
+    {
+        UI_TextAnimation textAni = FindAnyObjectByType<UI_TextAnimation>();
+
+        if (textAni != null)
+            textAni.Play(amount);
+    }
+
 
     // 코인 드래그 시작할 때 Reset (UI_Coin에서 호출해줘야 함)
     public void ResetCoinState()
@@ -331,27 +339,41 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
             {
                 case LottoResult.NoMatch:
                     Debug.Log("결과: 꽝!");
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 case LottoResult.TwoMatch:
                     Debug.Log("결과: 2개 일치");
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 case LottoResult.ThreeCarrot:
                     Debug.Log("결과: 당근 3개! -> 엔딩씬으로 이동");
+
                     break;
                 case LottoResult.ThreeRabbit:
                     Debug.Log("결과: 토끼 3개! 100000G 획득");
+                    ShowMoneyAnimation(100000);
                     GameManager.Instance.Money += 100000;
                     EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 case LottoResult.ThreeRadish:
                     Debug.Log("결과: 무 3개! 50000G 획득");
+                    ShowMoneyAnimation(50000);
                     GameManager.Instance.Money += 50000;
                     EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 case LottoResult.ThreeScoop:
                     Debug.Log("결과: 국자 3개! 30000G 획득");
+                    ShowMoneyAnimation(30000);
                     GameManager.Instance.Money += 30000;
                     EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 case LottoResult.OneMore:
                     LottoMaker maker = FindAnyObjectByType<LottoMaker>();
@@ -362,11 +384,12 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                         if (lottoButton != null)
                             lottoButton.HandleLotto(autoLotto);
                     }
+                    Destroy(rootTransform.parent.gameObject);
+
                     break;
                 default:
                     break;
             }
-            Destroy(rootTransform.parent.gameObject);
         });
     }
 
