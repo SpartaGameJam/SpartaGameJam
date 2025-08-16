@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +9,16 @@ public class UISelector : UI_Base
     [SerializeField] protected GameObject content;
     [SerializeField] protected GameObject defaultButton;
 
+
+    public virtual void Show()
+    {
+        content.SetActive(true);
+    }
+
+    public virtual void Hide()
+    {
+        content.SetActive(false);
+    }
 
     public virtual void ClosePopupUI()
     {

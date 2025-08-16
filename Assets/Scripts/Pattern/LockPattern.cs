@@ -256,7 +256,11 @@ public class LockPattern : MonoBehaviour
 
             if (checkResult)
             {
-                GameManager.Instance.Money++; // 일단 1씩 증가
+
+                Debug.Log("퍼센트 :" + GameManager.Instance.GetGainPer());
+                float gold = 800;
+                //Debug.Log("돈 : " + Mathf.FloorToInt(gold * (1 + GameManager.Instance.GetGainPer())));
+                GameManager.Instance.Money += Mathf.FloorToInt(gold * (100 + GameManager.Instance.GetGainPer())/100); // 일단 1씩 증가
                 EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
                 monitorPattern.UpdateClearCount();
             }
