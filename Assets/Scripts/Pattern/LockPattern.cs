@@ -33,9 +33,11 @@ public class LockPattern : MonoBehaviour
     private float waitTime = 1f; // 패턴 애니메이션 시간
 
 
+    [SerializeField] private Slider fiverSlider;
     private float tiverTime = 30f;
-    private bool isFiver = false;
-    public int tempFiverGuage = 0; // 임시 게이지 카운트 변수
+    public int curfiverCount = 0;
+    public int maxCurfiverCount = 20;
+
     private void IdToRC(int id, out int r, out int c)
     {
         int z = id;
@@ -67,6 +69,7 @@ public class LockPattern : MonoBehaviour
         }
 
         textAni = FindAnyObjectByType<UI_TextAnimation>();
+        fiverSlider.value = 0;
     }
 
 
@@ -173,6 +176,8 @@ public class LockPattern : MonoBehaviour
         lineOnEdit = CreateLine(pp.transform.localPosition + offsetPos , pp.id); // 첫 생성 위치 동기화
         lineOnEditRect = lineOnEdit.GetComponent<RectTransform>();
         pointerOnEdit = pp;
+
+        SoundManager.instance.PlaySFX(SFXSound.PatternBGM_gameboy);
     }
 
     private void EnableColorFade(Animator anim, bool isPass = true)
@@ -278,7 +283,7 @@ public class LockPattern : MonoBehaviour
                 float gold = 800;
                 //Debug.Log("돈 : " + Mathf.FloorToInt(gold * (1 + GameManager.Instance.GetGainPer())));
                 float GainPer = (100 + GameManager.Instance.GetGainPer()) / 100;
-                float fiverGold = isFiver ? 1 : 0;
+                float fiverGold = GameManager.Instance.IsFeverTime ? 1 : 0;
                 int money = Mathf.FloorToInt(gold * (GainPer + fiverGold));
                 textAni.Play(money);
 
@@ -286,21 +291,29 @@ public class LockPattern : MonoBehaviour
                 GameManager.Instance.CompleteWork();
                 EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
                 monitorPattern.UpdateClearCount();
+                SoundManager.instance.PlaySFX(SFXSound.PattrenSuccess);
 
-                tempFiverGuage++;
 
-                if(!isFiver && tempFiverGuage > 2) // 피버 타임이 아니고 임시로 게이지가 넘어간 상태라면
+                if (!GameManager.Instance.IsFeverTime)
                 {
-                    tempFiverGuage = 0;
+                    curfiverCount++;
+                    fiverSlider.value = (float)curfiverCount / (float)(maxCurfiverCount - 15); // 15는 임시 
+                }
+
+                if(!GameManager.Instance.IsFeverTime && curfiverCount >= maxCurfiverCount -15) // 잠시 테스트를 위해 15초 감소
+                {
+                    curfiverCount = 0;
+                    GameManager.Instance.IsFeverTime = true;
                     GameManager.Instance.UpdateFiver();
                     StartCoroutine(FiverTime());
                 }
             }
+            else SoundManager.instance.PlaySFX(SFXSound.FailPattern);
 
             foreach (var line in lines)
-            {
-                EnableColorFade(pointers[line.id].gameObject.GetComponent<Animator>(), checkResult);
-            }
+                {
+                    EnableColorFade(pointers[line.id].gameObject.GetComponent<Animator>(), checkResult);
+                }
 
 
             Destroy(lines[lines.Count - 1].gameObject);
@@ -320,17 +333,19 @@ public class LockPattern : MonoBehaviour
     public IEnumerator FiverTime()
     {
         SpineController.Instance.ChangeFiver(FiverState.Start, false, 1f);
+        SoundManager.instance.PlaySFX(SFXSound.FeverTimeStart);
 
         yield return new WaitForSeconds(1f);
-        isFiver = true;
         
         SpineController.Instance.ChangeFiver(FiverState.Ing, true, 1f);
 
-        yield return new WaitForSeconds(tiverTime);
+        yield return new WaitForSeconds(tiverTime - 20); // 잠시 테스트를 위해 감소
 
         SpineController.Instance.ChangeFiver(FiverState.End, false, 1f);
 
-        isFiver = false;
+        GameManager.Instance.IsFeverTime = false;
+        fiverSlider.value = 0;
+
         yield return new WaitForSeconds(1f);
         SpineController.Instance.skeletonGraphicTimeFiver.color = new Color(1f, 1f, 1f, 0f);
 

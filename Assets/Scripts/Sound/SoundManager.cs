@@ -18,7 +18,7 @@ public enum GameplaySound
 
 public enum LobbySound
 {
-	None
+	Lobby
 }
 
 
@@ -72,7 +72,7 @@ public class SoundManager : MonoBehaviour
 	private void Start()
 	{
         
-        PlayBGM(GameplaySound.Main); // 임시
+        PlayBGM(LobbySound.Lobby); // 임시
 
     }
 	private void Update()
@@ -82,16 +82,16 @@ public class SoundManager : MonoBehaviour
 
 	public void PlayBGM(GameplaySound gamePlaySound)
 	{
-		//if (lobbyAS.isPlaying) lobbyAS.Stop();
+		if (lobbyAS.isPlaying) lobbyAS.Stop();
 		gameplayAS.clip = gameplayClips[(int)gamePlaySound];
 		gameplayAS.Play();
 	}
 
 	public void PlayBGM(LobbySound lobbySound)
 	{
-       /* if (gameplayAS.isPlaying) gameplayAS.Stop();
+       if (gameplayAS.isPlaying) gameplayAS.Stop();
         lobbyAS.clip = lobbyClips[(int)lobbySound];
-		lobbyAS.Play();*/
+		lobbyAS.Play();
 	}
 
 	/*public void StopLobbyBGM()
