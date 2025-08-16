@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class MonitorPattern : MonoBehaviour
 {
-    public List<GameObject> pointers;
+    public List<PatternPointer> pointers;
     public List<int> patternSequence; // 포인트 배열 순서
     public List<GameObject> lines;
 
     public GameObject linePrefab;
     public Canvas canvas; // 하이어라키창 스폿
+    public Sprite[] pointerSprites; // 0 기본 , 1 현재, 2 확정
 
     private int gridSize = 3;
 
@@ -182,13 +183,15 @@ public class MonitorPattern : MonoBehaviour
 
     private void Start()
     {
-        pointers = new List<GameObject>();
+        pointers = new List<PatternPointer>();
         patternSequence = new List<int>();
         lines = new List<GameObject>();
 
         for (int i = 0; i < transform.childCount; i++)
         {
-            pointers.Add(transform.GetChild(i).gameObject);
+            PatternPointer pp =  transform.GetChild(i).gameObject.GetComponent<PatternPointer>();
+            pp.id = i;
+            pointers.Add(pp);
         }
 
         //SetPatternSquence();
@@ -225,9 +228,16 @@ public class MonitorPattern : MonoBehaviour
         int cnt = Random.Range(2, pointers.Count); // 선은 점 2개부터 시작이니
         int check = 0; // 현재 들어온 값을 카운트
 
+        foreach (var point in pointers)
+        {
+            point.image.sprite = pointerSprites[0];
+        }
+
         patternSequence.Clear();
 
-        patternSequence.Add(Random.Range(0, pointers.Count)); // 첫 인자값 추가
+        int ran = Random.Range(0, pointers.Count);
+        pointers[ran].image.sprite = pointerSprites[2];
+        patternSequence.Add(ran); // 첫 인자값 추가
         check++;
 
         while(check < cnt)
@@ -244,11 +254,13 @@ public class MonitorPattern : MonoBehaviour
                     continue; // 다시 뽑기
                 }
 
+                pointers[mid].image.sprite = pointerSprites[2];
                 patternSequence.Add(mid); // 사이 노드 추가
                 check++;
             }
 
             check++;
+            pointers[num].image.sprite = pointerSprites[2];
             patternSequence.Add(num);
         }
 

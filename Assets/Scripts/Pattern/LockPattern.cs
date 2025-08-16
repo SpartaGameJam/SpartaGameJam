@@ -8,6 +8,7 @@ public class LockPattern : MonoBehaviour
     public GameObject linePrefab;
     public Canvas canvas;
     public MonitorPattern monitorPattern;
+    public Sprite[] pointerSprites; // 0 기본 , 1 현재, 2 확정
 
     public Vector3 offsetPos = new Vector3(0, -450f, 0); // PatternContent의 Rect Transform 값
 
@@ -25,7 +26,7 @@ public class LockPattern : MonoBehaviour
 
     public int gridSize = 3;
 
-    
+    private float waitTime = 1f; // 패턴 애니메이션 시간
 
     private void IdToRC(int id, out int r, out int c)
     {
@@ -90,12 +91,14 @@ public class LockPattern : MonoBehaviour
         enabled = false;
         monitorPattern.SetPatternSquence();
 
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(waitTime);
 
         foreach(var point in pointers)
         {
-            point.Value.GetComponent<Image>().color = Color.white;
+            //point.Value.GetComponent<Image>().color = Color.white;
             point.Value.GetComponent<Animator>().enabled = false;
+            point.Value.image.color = Color.white;
+            point.Value.image.sprite = pointerSprites[0];
         }
 
         foreach (var line in lines)
@@ -146,6 +149,8 @@ public class LockPattern : MonoBehaviour
             }
         }
 
+        if(pointerOnEdit != null) pointerOnEdit.image.sprite = pointerSprites[2]; 
+        pp.image.sprite = pointerSprites[1];
         lineOnEdit = CreateLine(pp.transform.localPosition + offsetPos , pp.id); // 첫 생성 위치 동기화
         lineOnEditRect = lineOnEdit.GetComponent<RectTransform>();
         pointerOnEdit = pp;
