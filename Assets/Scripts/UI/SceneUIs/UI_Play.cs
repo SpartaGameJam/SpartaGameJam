@@ -107,7 +107,17 @@ public class UI_Play : UI_Scene
 
         BindEvent(Btn_Phone.gameObject, OnShowPhone);
         BindEvent(Obj_Desk, OnClickWorkInstructionPanel);
+        //SoundManager.instance.PlaySFX(SFXSound.Bujang);
+
+
+
+
+
         BindEvent(Obj_Enemy, OnClickWorkInstructionPanel);
+
+
+
+
 
         _workOriginPos = Obj_Desk.GetComponent<RectTransform>().anchoredPosition;
         workTargetPosY = -720;
@@ -140,6 +150,10 @@ public class UI_Play : UI_Scene
 
     public void OnClickWorkInstructionPanel(PointerEventData _)
     {
+        
+        SoundManager.instance.PlaySFX(SFXSound.Bujang01);
+
+
         RectTransform rt = Obj_Desk.GetComponent<RectTransform>();
 
         // DG_MoveEase 없으면 자동 부착
@@ -198,6 +212,9 @@ public class UI_Play : UI_Scene
     #region Button
     public void OnShowPhone(PointerEventData eventData)
     {
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
+        //SoundManager.instance.PlaySFX(SFXSound.Bujang);
+
         UIManager.Instance.CloseAllPopupUI();
         UIManager.Instance.ShowPopup<UI_Phone>();
         UIManager.Instance.ShowPopup<UI_AppMenuPanel>(null, UIManager.Instance.FindUIPopup<UI_Phone>()?.AppMenuPanelBox);

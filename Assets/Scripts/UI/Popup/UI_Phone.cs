@@ -49,6 +49,8 @@ public class UI_Phone : UISelector
     #region Button
     void OnBackPannel(PointerEventData eventData)
     {
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
+
         if (UIManager.Instance.PeekCurPopup() is UI_UpgradePanel)
         {
             ClosePopupUI();
@@ -62,6 +64,8 @@ public class UI_Phone : UISelector
 
     void OnHomeButton(PointerEventData eventData)
     {
+        SoundManager.instance.PlaySFX(SFXSound.ButtonClick);
+        
         UIManager.Instance.CloseAllPopupUI();
     }
     #endregion

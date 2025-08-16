@@ -2256,12 +2256,27 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   gameplayClips:
-  - {fileID: 8300000, guid: a748f9da3ad4c9848a73d354c2f92a97, type: 3}
-  lobbyClips: []
+  - {fileID: 8300000, guid: b4c582a2cbb334148bcf114368ca1378, type: 3}
+  lobbyClips:
+  - {fileID: 8300000, guid: b74899823586e86409402e0cd2cafe74, type: 3}
   sfxClips:
-  - {fileID: 8300000, guid: 9bf900dc615c4314ab0da3a51fb91e93, type: 3}
-  - {fileID: 8300000, guid: 30af27118e8572a4991b6a39814a69c6, type: 3}
-  - {fileID: 8300000, guid: bb1c92f1a029b2b41b6d131772d6ffa3, type: 3}
+  - {fileID: 8300000, guid: 53d2448b39a3c804d9a9ee081164a108, type: 3}
+  - {fileID: 8300000, guid: f7ee1d98fba9cd0419edd6c7ad335861, type: 3}
+  - {fileID: 8300000, guid: 65d0e4ab32380e2478caa26593915459, type: 3}
+  - {fileID: 8300000, guid: 5177e6c721ea50749b3798dea0ff7dea, type: 3}
+  - {fileID: 8300000, guid: bfc5303356d0b98438bdfb24a520b5ee, type: 3}
+  - {fileID: 8300000, guid: a4d7e9938266eca43a10a6b0e071ee76, type: 3}
+  - {fileID: 8300000, guid: 5c9802a49d8820f42a734cb186b392ca, type: 3}
+  - {fileID: 8300000, guid: 3d0a767b3ae5fc84c8f0b3f9650661ee, type: 3}
+  - {fileID: 8300000, guid: 2cabdd3654e1116408a18a62cc10a251, type: 3}
+  - {fileID: 8300000, guid: 9cd7943553d502c4e9690155401e416f, type: 3}
+  - {fileID: 8300000, guid: 21e8c3acace4e1744889888828dccc3b, type: 3}
+  - {fileID: 8300000, guid: a1880f12b53313e47962a9799116c10a, type: 3}
+  - {fileID: 8300000, guid: fc4120938f344cb4db1117ac8b04884c, type: 3}
+  - {fileID: 8300000, guid: fff9d14f54dd33f4bae1ca78d9316619, type: 3}
+  - {fileID: 8300000, guid: b1ac78b862bd64040a53ac12f0a6615a, type: 3}
+  - {fileID: 8300000, guid: a145f692ef02eb543acc34845af7606b, type: 3}
+  - {fileID: 8300000, guid: bcfe2206e0f0b1045a7aeae256afbad4, type: 3}
   gameplayAS: {fileID: 1050884418}
   lobbyAS: {fileID: 1261269027}
   sfxAS: {fileID: 1666573833}

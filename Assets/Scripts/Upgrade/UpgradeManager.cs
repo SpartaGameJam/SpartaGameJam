@@ -39,7 +39,6 @@ public class UpgradeManager : Singleton<UpgradeManager>
 
     void Awake()
     {
-
         Init();
     }
 
@@ -71,7 +70,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
                 statType = type,
                 level = 0,
                 baseStatValue = 0,
-                valueIncrease = type == UpgradeType.ExtraChanceRate ? 1 : 2,
+                valueIncrease = 2,
                 baseCost = 1000,
                 costIncrease = 30
             });
@@ -95,6 +94,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
     {
         return _cache.TryGetValue(stat, out var u) ? u.level : 0;
     }
+    
 
 
     public float GetCurrentValue(UpgradeType stat)
