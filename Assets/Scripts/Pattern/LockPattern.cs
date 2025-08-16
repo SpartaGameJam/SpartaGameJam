@@ -254,6 +254,13 @@ public class LockPattern : MonoBehaviour
             bool checkResult = monitorPattern.CheckPattern(ids);
             Debug.Log("결과값 받아옴:" + checkResult);
 
+            if (checkResult)
+            {
+                GameManager.Instance.Money++; // 일단 1씩 증가
+                EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
+                monitorPattern.UpdateClearCount();
+            }
+
             foreach (var line in lines)
             {
                 EnableColorFade(pointers[line.id].gameObject.GetComponent<Animator>(), checkResult);
