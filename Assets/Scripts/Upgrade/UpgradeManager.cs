@@ -69,7 +69,7 @@ public class UpgradeManager : Singleton<UpgradeManager>
                 statType = type,
                 level = 0,
                 baseStatValue = 1000,
-                valueIncrease = 30,
+                valueIncrease = 1,
                 baseCost = 1000,
                 costIncrease = 30
             });
