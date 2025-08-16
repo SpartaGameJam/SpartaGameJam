@@ -44,7 +44,7 @@ public class UIManager : MonoBehaviour
     {
         RegisterAllUIs();
 
-        ChangeSceneUI<UI_Shop>();
+        ChangeSceneUI<UI_Play>();
         FindUIScene<UI_HUD>().SetUP();
         FindUIPopup<UI_UpgradePanel>().SetUp();
     }
