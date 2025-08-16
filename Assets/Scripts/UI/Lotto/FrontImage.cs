@@ -1,4 +1,4 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,21 +8,21 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     [Header("Scratch Settings")]
     public Image scratchImage;
     public Texture2D brushTexture;
-    public float clearThreshold = 60f; // ÆÛ¼¾Æ®(%)
+    public float clearThreshold = 60f; // í¼ì„¼íŠ¸(%)
 
     [Header("Shine Settings")]
     public Image shineImage;
     public Transform rootTransform;
 
     [Header("Animation Settings")]
-    [SerializeField] private float forwardMoveZ = -50f; // ¾ÕÀ¸·Î Æ¢¾î³ª¿À±â z º¯È­·®
-    [SerializeField] private float forwardMoveDuration = 0.1f; // Æ¢¾î³ª¿À±â ½Ã°£
-    [SerializeField] private float moveXOffset = 300f; // ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿ÇÒ X °Å¸®
-    [SerializeField] private float moveXDuration = 1f; // ¿À¸¥ÂÊ ÀÌµ¿ ½Ã°£
+    [SerializeField] private float forwardMoveZ = -50f;
+    [SerializeField] private float forwardMoveDuration = 0.1f;
+    [SerializeField] private float moveXOffset = 300f;
+    [SerializeField] private float moveXDuration = 1f;
 
     [Header("Dust Settings")]
     [SerializeField] private ParticleSystem scratchDustPrefab;
-    [SerializeField] private float particleSpacing = 10f; // °¡·ç °£°İ(px)
+    [SerializeField] private float particleSpacing = 10f;
     private Vector3 lastDustPos;
     private bool firstDust = true;
 
@@ -31,6 +31,11 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     int totalPixels;
     int erasedPixels;
     bool isCleared;
+
+    // ì½”ì¸ ì§„ì… ì—¬ë¶€
+    bool coinInside = false;
+    // í˜„ì¬ ì½”ì¸ ê¸ëŠ” ì¤‘ ì—¬ë¶€
+    bool isScratching = false;
 
     void Start()
     {
@@ -61,6 +66,7 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
     void Update()
     {
+        // ê´‘íƒ ì—°ì¶œìš© ì…°ì´ë” íŒŒë¼ë¯¸í„°
         if (shineMat != null && rootTransform != null)
         {
             Vector3 euler = rootTransform.localRotation.eulerAngles;
@@ -72,13 +78,24 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
             shineMat.SetVector("_Rotation", new Vector2(remapX, remapY));
         }
+
+        // ê¸ëŠ” ì¤‘ì¼ ë•Œ rootTransformì„ ë§ˆìš°ìŠ¤ ë°©í–¥ìœ¼ë¡œ íšŒì „
+        if (isScratching && rootTransform != null)
+        {
+            Vector3 mousePos = Input.mousePosition;
+            Vector3 worldPos = scratchImage.canvas.worldCamera.ScreenToWorldPoint(mousePos);
+
+            Vector3 dir = (worldPos - rootTransform.position).normalized;
+            Quaternion targetRot = Quaternion.LookRotation(dir, Vector3.up);
+
+            // ë¶€ë“œëŸ½ê²Œ íšŒì „
+            rootTransform.rotation = Quaternion.Slerp(rootTransform.rotation, targetRot, Time.deltaTime * 5f);
+        }
     }
 
+    // ë§ˆìš°ìŠ¤ë¡œ ê¸ê¸° (ì§€ìš°ì§€ ì•Šê³ , dustë„ ì—†ìŒ, ë¶€ëª¨ ì´ë²¤íŠ¸ë§Œ)
     public void OnPointerDown(PointerEventData eventData)
     {
-        ScratchAt(eventData);
-        firstDust = true; // Ã¹ ±Ü±â ½Ã Ã¹ ÆÄÆ¼Å¬ º¸Àå
-
         ExecuteEvents.Execute<IPointerDownHandler>(
             rootTransform.gameObject, eventData, ExecuteEvents.pointerDownHandler
         );
@@ -86,8 +103,6 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
     public void OnDrag(PointerEventData eventData)
     {
-        ScratchAt(eventData);
-
         ExecuteEvents.Execute<IDragHandler>(
             rootTransform.gameObject, eventData, ExecuteEvents.dragHandler
         );
@@ -95,10 +110,138 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
 
     public void OnPointerUp(PointerEventData eventData)
     {
-        CheckClear();
         ExecuteEvents.Execute<IPointerUpHandler>(
             rootTransform.gameObject, eventData, ExecuteEvents.pointerUpHandler
         );
+    }
+
+    // ì½”ì¸ ê¸ê¸° (ì§€ìš°ê¸° + Dust + ë¶€ëª¨ ì´ë²¤íŠ¸ + íšŒì „)
+    public void ScratchAtWorldPos(Vector3 worldPos)
+    {
+        Vector2 localPos;
+        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            scratchImage.rectTransform,
+            worldPos,
+            null,
+            out localPos))
+        {
+            Rect rect = scratchImage.rectTransform.rect;
+            float u = (localPos.x - rect.x) / rect.width;
+            float v = (localPos.y - rect.y) / rect.height;
+
+            int px = Mathf.RoundToInt(u * scratchTex.width);
+            int py = Mathf.RoundToInt(v * scratchTex.height);
+
+            bool erased = Erase(px, py);
+
+            if (erased)
+            {
+                isScratching = true; // ê¸ëŠ” ì¤‘ ìƒíƒœ
+                CheckClear();
+                EmitScratchDust(localPos);
+
+                // ì½”ì¸ì´ ì²˜ìŒ ë‹¿ì•˜ì„ ë•Œ PointerDown ì´ë²¤íŠ¸ ì‹¤í–‰
+                if (!coinInside)
+                {
+                    coinInside = true;
+                    var downData = new PointerEventData(EventSystem.current) { position = worldPos };
+                    ExecuteEvents.Execute<IPointerDownHandler>(rootTransform.gameObject, downData, ExecuteEvents.pointerDownHandler);
+                }
+
+                // ê¸ëŠ” ë™ì•ˆ Drag ì´ë²¤íŠ¸ ì‹¤í–‰
+                var dragData = new PointerEventData(EventSystem.current) { position = worldPos };
+                ExecuteEvents.Execute<IDragHandler>(rootTransform.gameObject, dragData, ExecuteEvents.dragHandler);
+
+                // íšŒì „ ì²˜ë¦¬ (ì½”ì¸ ë°©í–¥ ë”°ë¼)
+                Vector3 dir = (worldPos - rootTransform.position).normalized;
+                float tiltX = Mathf.Clamp(-dir.y * 10f, -15f, 15f);
+                float tiltY = Mathf.Clamp(dir.x * 10f, -15f, 15f);
+                rootTransform.localRotation = Quaternion.Euler(tiltX, tiltY, 0f);
+            }
+        }
+    }
+
+
+    // ì½”ì¸ ë“œë˜ê·¸ ì‹œì‘í•  ë•Œ Reset (UI_Coinì—ì„œ í˜¸ì¶œí•´ì¤˜ì•¼ í•¨)
+    public void ResetCoinState()
+    {
+        coinInside = false;
+        isScratching = false; // âœ… ê¸ê¸° ìƒíƒœ í•´ì œ
+    }
+
+    // ì‹¤ì œ ìŠ¤í¬ë˜ì¹˜ ì§€ìš°ê¸°
+    bool Erase(int cx, int cy)
+    {
+        bool erasedAny = false;
+        int bw = brushTexture.width;
+        int bh = brushTexture.height;
+
+        for (int x = 0; x < bw; x++)
+        {
+            for (int y = 0; y < bh; y++)
+            {
+                Color bc = brushTexture.GetPixel(x, y);
+                if (bc.a > 0f)
+                {
+                    int px = cx + x - bw / 2;
+                    int py = cy + y - bh / 2;
+                    if (px >= 0 && px < scratchTex.width && py >= 0 && py < scratchTex.height)
+                    {
+                        Color current = scratchTex.GetPixel(px, py);
+                        if (current.a > 0f)
+                        {
+                            erasedPixels++;
+                            scratchTex.SetPixel(px, py, new Color(0, 0, 0, 0));
+                            erasedAny = true;
+                        }
+                    }
+                }
+            }
+        }
+        if (erasedAny) scratchTex.Apply();
+        return erasedAny;
+    }
+
+    // Dust ìƒì„±
+    void EmitScratchDust(Vector2 localPos)
+    {
+        if (scratchDustPrefab == null) return;
+
+        Vector3 worldPos = scratchImage.rectTransform.TransformPoint(localPos);
+
+        if (firstDust)
+        {
+            EmitDust(worldPos);
+            lastDustPos = worldPos;
+            firstDust = false;
+        }
+        else
+        {
+            float dist = Vector3.Distance(lastDustPos, worldPos);
+            if (dist > particleSpacing)
+            {
+                int steps = Mathf.FloorToInt(dist / particleSpacing);
+                for (int i = 1; i <= steps; i++)
+                {
+                    Vector3 stepPos = Vector3.Lerp(lastDustPos, worldPos, i / (float)steps);
+                    EmitDust(stepPos);
+                }
+                lastDustPos = worldPos;
+            }
+        }
+    }
+
+    void EmitDust(Vector3 worldPos)
+    {
+        ParticleSystem ps = Instantiate(scratchDustPrefab, worldPos, Quaternion.identity, scratchImage.canvas.transform);
+
+        var renderer = ps.GetComponent<ParticleSystemRenderer>();
+        renderer.sortingOrder = 999;
+
+        var main = ps.main;
+        main.stopAction = ParticleSystemStopAction.Destroy;
+
+        ps.Emit(Random.Range(3, 6));
     }
 
     void CheckClear()
@@ -127,7 +270,6 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
     LottoResult GetLottoResult()
     {
         UI_Lotto lotto = GetComponentInParent<UI_Lotto>();
-        Debug.Log($"{lotto.CurrentResult}");
         if (lotto == null) return LottoResult.NoMatch;
         return lotto.CurrentResult;
     }
@@ -167,104 +309,6 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
         }
 
         seq.OnComplete(() => Destroy(rootTransform.parent.gameObject));
-    }
-
-    void ScratchAt(PointerEventData eventData)
-    {
-        Vector2 localPos;
-        if (RectTransformUtility.ScreenPointToLocalPointInRectangle(
-            scratchImage.rectTransform,
-            eventData.position,
-            eventData.pressEventCamera,
-            out localPos))
-        {
-            Rect rect = scratchImage.rectTransform.rect;
-            float u = (localPos.x - rect.x) / rect.width;
-            float v = (localPos.y - rect.y) / rect.height;
-
-            int px = Mathf.RoundToInt(u * scratchTex.width);
-            int py = Mathf.RoundToInt(v * scratchTex.height);
-
-            // Erase¿¡¼­ ±ÜÈù ¿©ºÎ Ã¼Å©
-            bool erasedSomething = Erase(px, py);
-            if (!erasedSomething) return; // ¾Æ¹«°Íµµ ¾È Áö¿öÁ³À¸¸é ÆÄÆ¼Å¬ ¾È ¸¸µê
-
-            CheckClear();
-
-            Vector3 worldPos = scratchImage.rectTransform.TransformPoint(localPos);
-
-            // ÆÄÆ¼Å¬ °æ·Î »ı¼º
-            if (scratchDustPrefab != null)
-            {
-                if (firstDust)
-                {
-                    EmitDust(worldPos);
-                    lastDustPos = worldPos;
-                    firstDust = false;
-                }
-                else
-                {
-                    float dist = Vector3.Distance(lastDustPos, worldPos);
-                    if (dist > particleSpacing)
-                    {
-                        int steps = Mathf.FloorToInt(dist / particleSpacing);
-                        for (int i = 1; i <= steps; i++)
-                        {
-                            Vector3 stepPos = Vector3.Lerp(lastDustPos, worldPos, i / (float)steps);
-                            EmitDust(stepPos);
-                        }
-                        lastDustPos = worldPos;
-                    }
-                }
-            }
-        }
-    }
-
-    void EmitDust(Vector3 worldPos)
-    {
-        ParticleSystem ps = Instantiate(scratchDustPrefab, worldPos, Quaternion.identity, scratchImage.canvas.transform);
-
-        // Lotto Á¾ÀÌº¸´Ù À§¿¡ Ç¥½Ã
-        var renderer = ps.GetComponent<ParticleSystemRenderer>();
-        renderer.sortingOrder = 999;
-
-        var main = ps.main;
-        main.stopAction = ParticleSystemStopAction.Destroy;
-
-        ps.Emit(Random.Range(3, 6));
-    }
-
-
-    bool Erase(int cx, int cy)
-    {
-        bool erasedAny = false;
-        int bw = brushTexture.width;
-        int bh = brushTexture.height;
-
-        for (int x = 0; x < bw; x++)
-        {
-            for (int y = 0; y < bh; y++)
-            {
-                Color bc = brushTexture.GetPixel(x, y);
-                if (bc.a > 0f)
-                {
-                    int px = cx + x - bw / 2;
-                    int py = cy + y - bh / 2;
-                    if (px >= 0 && px < scratchTex.width && py >= 0 && py < scratchTex.height)
-                    {
-                        Color current = scratchTex.GetPixel(px, py);
-                        if (current.a > 0f) // ¾ÆÁ÷ Áö¿öÁöÁö ¾ÊÀº ÇÈ¼¿¸¸
-                        {
-                            erasedPixels++;
-                            scratchTex.SetPixel(px, py, new Color(0, 0, 0, 0));
-                            erasedAny = true;
-                        }
-                    }
-                }
-            }
-        }
-        if (erasedAny) scratchTex.Apply();
-        return erasedAny;
     }
 
     float ClampAngle(float angle, float min, float max)
