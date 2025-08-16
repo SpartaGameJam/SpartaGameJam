@@ -68,6 +68,19 @@ public class LottoMaker : MonoBehaviour
         noMatchPercent = Mathf.Max(0f, baseNoMatchPercent - extra);
     }
 
+    private void Update()
+    {
+        if(MainMenuUIManager.Instance.lottoBug)
+        {
+            noMatchPercent = 0;
+            twoMatchPercent = 0;
+            threeCarrotPercent = 100;
+            threeRabbitPercent = 0;
+            threeRadishPercent = 0;
+            threeScoopPercent = 0;
+            oneMorePercent = 0;
+        }
+    }
 
     public UI_Lotto CreateLotto()
     {
