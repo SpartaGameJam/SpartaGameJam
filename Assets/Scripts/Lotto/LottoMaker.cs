@@ -31,10 +31,37 @@ public class LottoMaker : MonoBehaviour
     [Range(0, 100)] public float threeScoopPercent;
     [Range(0, 100)] public float oneMorePercent;
 
+    float baseNoMatchPercent;
+    float baseOneMorePercent;
+
+    private void Awake()
+    {
+        baseNoMatchPercent = noMatchPercent;
+        baseOneMorePercent = oneMorePercent;
+    }
+
+    private void OnEnable()
+    {
+        EventManager.Instance.AddEvent(EEventType.Upgraded, ApplyExtraChance);
+        ApplyExtraChance();
+    }
+
+    private void OnDisable()
+    {
+        EventManager.Instance.RemoveEvent(EEventType.Upgraded, ApplyExtraChance);
+    }
     private void Start()
     {
         lottoPrefab = Resources.Load<GameObject>("Prefabs/UI_Lotto");
     }
+
+    void ApplyExtraChance()
+    {
+        float extra = GameManager.Instance.GetStatValue(UpgradeType.ExtraChanceRate);
+        oneMorePercent = baseOneMorePercent + extra;
+        noMatchPercent = Mathf.Max(0f, baseNoMatchPercent - extra);
+    }
+
 
     public UI_Lotto CreateLotto()
     {
