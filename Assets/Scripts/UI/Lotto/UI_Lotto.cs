@@ -31,18 +31,18 @@ public class UI_Lotto : MonoBehaviour
                 images[i].sprite = sprites[i];
         }
 
-        // targetPositionÀ¸·Î ÀÌµ¿ ¾Ö´Ï¸ÞÀÌ¼Ç
+        // targetPositionï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½ ï¿½Ö´Ï¸ï¿½ï¿½Ì¼ï¿½
         MoveToTarget(targetPosition);
     }
 
     private void MoveToTarget(Transform targetPosition)
     {
-        float moveDuration = 0.5f; // ÀÌµ¿ ½Ã°£
+        float moveDuration = 0.5f; // ï¿½Ìµï¿½ ï¿½Ã°ï¿½
 
-        // ½ÃÀÛÇÒ ¶§ ·£´ý È¸Àü
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È¸ï¿½ï¿½
         transform.rotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(-50, 50f));
 
-        // ÀÌµ¿°ú È¸ÀüÀ» µ¿½Ã¿¡
+        // ï¿½Ìµï¿½ï¿½ï¿½ È¸ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã¿ï¿½
         transform.DOMove(targetPosition.position, moveDuration)
                  .SetEase(Ease.OutCubic);
 

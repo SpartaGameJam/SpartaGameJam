@@ -16,8 +16,14 @@ public class LottoButton : MonoBehaviour
         buttonText = GetComponentInChildren<TMP_Text>();
         button = GetComponent<Button>();
         button.onClick.AddListener(GetLotto);
+        button.onClick.AddListener(CloseShopScene);
 
         UpdateButtonText();
+    }
+
+    void CloseShopScene()
+    {
+        UIManager.Instance.FindUIScene<UI_Shop>().gameObject.SetActive(false);
     }
 
     void GetLotto()

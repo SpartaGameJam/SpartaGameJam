@@ -16,7 +16,7 @@ public class UI_Shop : UI_Scene
     enum Buttons
     {
         Btn_ReturnToOffice,
-        Btn_Lotto
+        //Btn_Lotto
     }
 
     enum Images
@@ -36,7 +36,7 @@ public class UI_Shop : UI_Scene
     #endregion
 
     Button Btn_ReturnToOffice;
-    Button Btn_Lotto;
+    //Button Btn_Lotto;
 
     Image Img_BG02;
     Image Img_Counter;
@@ -58,7 +58,7 @@ public class UI_Shop : UI_Scene
         Txt_CashierDialogue = GetText((int)Texts.Txt_CashierDialogue);
 
         Btn_ReturnToOffice = GetButton((int)Buttons.Btn_ReturnToOffice);
-        Btn_Lotto = GetButton((int)Buttons.Btn_Lotto);
+        //Btn_Lotto = GetButton((int)Buttons.Btn_Lotto);
 
         Img_BG02 = GetImage((int)Images.Img_BG02);
         Img_Counter = GetImage((int)Images.Img_Counter);
@@ -73,7 +73,7 @@ public class UI_Shop : UI_Scene
         Img_ReturnToOffice.sprite = Resources.Load<Sprite>("UI_Shop/Img_ReturnToOffice");
         Img_Cashier.sprite = Resources.Load<Sprite>("Char/Img_Juno002");
 
-        BindEvent(Btn_Lotto.gameObject, OnClickLotto);
+        //BindEvent(Btn_Lotto.gameObject, OnClickLotto);
         BindEvent(Btn_ReturnToOffice.gameObject, OnReturnToOffice);
 
         BindEvent(Obj_Cashier, CashierClick);

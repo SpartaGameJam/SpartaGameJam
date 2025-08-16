@@ -24,16 +24,12 @@ public class UI_Play : UI_Scene
         Img_BG01,
         Img_Desk,
         Img_Phone,
-        Img_Document,
-        Img_Pattern01,
 
         Img_Enemy
     }
 
     enum Objects
     {
-        Obj_DocumentPanel,
-        Obj_WorkInstructionPanel,
         Obj_Desk,
         Obj_Enemy
     }
@@ -56,14 +52,12 @@ public class UI_Play : UI_Scene
 
     // 아래 서류 컨트롤용
     // 그런데 도큐먼트를 별도의 UI로 뺄지 고민 중
-    GameObject Obj_DocumentPanel;
     GameObject Obj_Desk;
     GameObject Obj_Enemy;
 
     // 컴퓨터 속 화면
     // 기능을 추가한다면 이것을 UI로 잡고, 그 안의 내용을 세부적으로 컨트롤하게 하겠지만,
     // 단순히 이미지를 바꾸거나 오브젝트를 바꾸는 것이라면 이대로 사용
-    GameObject Obj_WorkInstructionPanel;
 
     
     [SerializeField] private float workTargetPosY = -900f;
@@ -100,8 +94,6 @@ public class UI_Play : UI_Scene
 
         Img_Enemy = GetImage((int)Images.Img_Enemy);
 
-        Obj_DocumentPanel = GetObject((int)Objects.Obj_DocumentPanel);
-        Obj_WorkInstructionPanel = GetObject((int)Objects.Obj_WorkInstructionPanel);
         Obj_Desk = GetObject((int)Objects.Obj_Desk);
         Obj_Enemy = GetObject((int)Objects.Obj_Enemy);
 
