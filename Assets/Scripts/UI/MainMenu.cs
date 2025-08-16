@@ -24,7 +24,6 @@ public class MainMenu : UISelector
         MainMenuUIManager.Instance.InitializePannel();
 
         LoadSceneManager.Instance.LoadScene(SceneName.Ingame);
-        LoadSceneManager.Instance.curSceneName = SceneName.Ingame;
 
         Debug.Log("NewStartButton");
     }

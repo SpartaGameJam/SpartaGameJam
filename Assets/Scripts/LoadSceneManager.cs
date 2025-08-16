@@ -7,6 +7,7 @@ public enum SceneName
 {
     MainMenu,
     Ingame,
+    Ending,
     None
 }
 
@@ -15,7 +16,7 @@ public class LoadSceneManager : MonoBehaviour
     private static LoadSceneManager instance;
     public static LoadSceneManager Instance => instance;
 
-    public SceneName curSceneName;
+    public SceneName curSceneName {  get; private set; }
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class LoadSceneManager : MonoBehaviour
     public void LoadScene(SceneName sn)
     {
         SceneManager.LoadSceneAsync((int)sn, LoadSceneMode.Additive);
+        curSceneName = sn;
     }
 
     public void UnLoadScene(SceneName sn)
@@ -64,5 +66,7 @@ public class LoadSceneManager : MonoBehaviour
             }
         }
         SceneManager.UnloadSceneAsync((int)curScene);
+
+        curSceneName = nextScene;
     }
 }

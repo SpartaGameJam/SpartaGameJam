@@ -21,7 +21,7 @@ public class SpineCutScene : MonoBehaviour
     {
         SpineController.Instance.StartCutScene(false, 1f);
 
-        yield return new WaitForSeconds(4.5f);
+        yield return new WaitForSeconds(15f);
 
         gameObject.SetActive(false);
     }
