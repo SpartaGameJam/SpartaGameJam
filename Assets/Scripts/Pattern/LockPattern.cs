@@ -291,6 +291,7 @@ public class LockPattern : MonoBehaviour
 
                 if(!isFiver && tempFiverGuage > 2) // 피버 타임이 아니고 임시로 게이지가 넘어간 상태라면
                 {
+                    tempFiverGuage = 0;
                     GameManager.Instance.UpdateFiver();
                     StartCoroutine(FiverTime());
                 }

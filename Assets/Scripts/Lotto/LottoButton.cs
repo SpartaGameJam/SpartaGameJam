@@ -64,8 +64,9 @@ public class LottoButton : MonoBehaviour
         }
         
         SoundManager.instance.PlaySFX(SFXSound.BuyLotto);
-        
-        GameManager.Instance.Money -= currentPrice;
+
+        GameManager.Instance.UpdateLotto();
+        GameManager.Instance.UpdateMoney(-currentPrice);
         EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
 
         UI_Lotto lotto = lottoMaker.CreateLotto();
