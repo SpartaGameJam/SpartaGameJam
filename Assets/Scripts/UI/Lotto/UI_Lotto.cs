@@ -52,6 +52,10 @@ public class UI_Lotto : MonoBehaviour
 
     private void OnDestroy()
     {
-        OnLottoDestroyed?.Invoke();
+        if (currentResult != LottoResult.OneMore)
+        {
+            OnLottoDestroyed?.Invoke();
+            OnLottoDestroyed = null;
+        }
     }
 }

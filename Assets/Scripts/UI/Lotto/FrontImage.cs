@@ -357,8 +357,13 @@ public class FrontImage : MonoBehaviour, IPointerDownHandler, IDragHandler, IPoi
                     break;
                 case LottoResult.OneMore:
                     LottoMaker maker = FindAnyObjectByType<LottoMaker>();
+                    LottoButton lottoButton = FindAnyObjectByType<LottoButton>();
                     if (maker != null)
-                        maker.CreateLotto();
+                    {
+                        UI_Lotto autoLotto = maker.CreateLotto();
+                        if (lottoButton != null)
+                            lottoButton.HandleLotto(autoLotto);
+                    }
                     break;
                 default:
                     break;

@@ -49,20 +49,19 @@ MonoBehaviour:
   spawnPoint: {fileID: 8255352798843103208}
   targetPoint: {fileID: 3144859021181961381}
   normalIcons:
-  - {fileID: 21300000, guid: b288479dc22095e478d6b3d61db5830d, type: 3}
-  - {fileID: 21300000, guid: 4caabf03f5b46354fb2b75c538f0bdeb, type: 3}
-  - {fileID: 21300000, guid: 2a4269de44dc1204eadd6d62d383b584, type: 3}
-  - {fileID: 21300000, guid: 62d8fff3c1f561c47b6d13956fa747ec, type: 3}
+  - {fileID: 21300000, guid: 92a2b9fe4e3a6ae4d930bcd3bfc640b6, type: 3}
+  - {fileID: 21300000, guid: 2115ace6394c5f749a3c8fbdb1a9f79f, type: 3}
+  - {fileID: 21300000, guid: 0d524236ee66e154bb8efc3dafa82467, type: 3}
+  - {fileID: 21300000, guid: 47553e35b35113547a2d85d3992eb00b, type: 3}
   onemoreIcons:
-  - {fileID: 21300000, guid: dfd337f7ebd7fa446867ccd74f9b7392, type: 3}
-  - {fileID: 21300000, guid: 461e049402ba13847af93107194ba281, type: 3}
-  - {fileID: 21300000, guid: 77f159390f83357458522aafe901ba5d, type: 3}
-  feverIcon: {fileID: -7689052228002880789, guid: 55cdde612dbe9b4469b81b4e87a40ca1, type: 3}
-  noMatchPercent: 40
+  - {fileID: 21300000, guid: d9cecdf9f5e2af344a16f5e308456fdc, type: 3}
+  - {fileID: 21300000, guid: 74b59d6d6cf0e024995bff91c0f43e29, type: 3}
+  - {fileID: 21300000, guid: b4b07d2cd5bcd4648b88db37e2da49bd, type: 3}
+  noMatchPercent: 50
   twoMatchPercent: 25
-  threeMatchPercent: 5
+  threeMatchPercent: 4
+  threeCarrotPercent: 1
   oneMorePercent: 20
-  feverPercent: 10
 --- !u!1 &5365583697514631439
 GameObject:
   m_ObjectHideFlags: 0

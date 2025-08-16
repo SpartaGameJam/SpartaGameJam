@@ -23,16 +23,25 @@ public class LottoButton : MonoBehaviour
     void GetLotto()
     {
         // TODO : 돈을 차감하는 로직 필요
-        button.interactable = false;
         UI_Lotto lotto = lottoMaker.CreateLotto();
-        if (lotto != null)
-        {
-            lotto.OnLottoDestroyed += () => button.interactable = true;
-        }
+        HandleLotto(lotto);
 
         // 버튼 텍스트 업데이트 (가격이 변동할 수 있다면)
         UpdateButtonText();
     }
+
+    public void HandleLotto(UI_Lotto lotto)
+    {
+        if (lotto == null) return;
+
+        button.interactable = false;
+        lotto.OnLottoDestroyed += () =>
+        {
+            if (lotto.CurrentResult != LottoResult.OneMore)
+                button.interactable = true;
+        };
+    }
+
 
     void UpdateButtonText()
     {
