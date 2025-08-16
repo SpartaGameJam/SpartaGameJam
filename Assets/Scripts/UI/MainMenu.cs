@@ -29,7 +29,7 @@ public class MainMenu : UISelector
         SpineController.Instance.StartTitle(false, 1);
 
         GameManager.Instance.ClearData();
-
+        SoundManager.instance.PlayBGM(LobbySound.Lobby);
         MainMenuUIManager.Instance.ChangePanel(this);
     }
 

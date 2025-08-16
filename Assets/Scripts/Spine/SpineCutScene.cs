@@ -5,6 +5,7 @@ using UnityEngine;
 public class SpineCutScene : MonoBehaviour
 {
     private SkeletonGraphic skeletonGraphic;
+    public GameObject buttonGameObject;
 
     private void Awake()
     {
@@ -24,5 +25,6 @@ public class SpineCutScene : MonoBehaviour
         yield return new WaitForSeconds(7.5f);
 
         gameObject.SetActive(false);
+        buttonGameObject.SetActive(true);
     }
 }

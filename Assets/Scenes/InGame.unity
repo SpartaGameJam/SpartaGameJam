@@ -945,6 +945,10 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1614399422}
+    - target: {fileID: 871692549189666708, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1563898745048683315, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -973,6 +977,10 @@ PrefabInstance:
       propertyPath: canvas
       value: 
       objectReference: {fileID: 1614399422}
+    - target: {fileID: 2693231303118977419, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: offY.y
+      value: 500
+      objectReference: {fileID: 0}
     - target: {fileID: 2803152850614184280, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1277,6 +1285,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 6728669990889661839, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 800
+      objectReference: {fileID: 0}
+    - target: {fileID: 6728669990889661839, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 6899867192994814588, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1443,6 +1459,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8695089410800047805, guid: 55a435d865e978944809129896f5ba3d, type: 3}
       propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8834104234389352973, guid: 55a435d865e978944809129896f5ba3d, type: 3}
+      propertyPath: m_Interactable
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8901189636840036714, guid: 55a435d865e978944809129896f5ba3d, type: 3}
