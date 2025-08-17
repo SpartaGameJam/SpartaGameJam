@@ -85,6 +85,9 @@ public class LottoButton : MonoBehaviour
         {
             if (lotto.CurrentResult != LottoResult.OneMore && button != null)
                 button.interactable = true;
+
+            UIManager.Instance.FindUIScene<UI_Shop>().Btn_LottoInfo.SetActive(false);
+            UIManager.Instance.FindUIScene<UI_Shop>().Btn_LottoReturn.SetActive(false);
         };
     }
 

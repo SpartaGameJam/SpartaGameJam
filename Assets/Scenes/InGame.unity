@@ -1903,6 +1903,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1312297076}
+    - target: {fileID: 3388271933718375740, guid: 5ec33445620bb454cabe7403890497bc, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 310
+      objectReference: {fileID: 0}
+    - target: {fileID: 3388271933718375740, guid: 5ec33445620bb454cabe7403890497bc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -600
+      objectReference: {fileID: 0}
     - target: {fileID: 4305492587452039747, guid: 5ec33445620bb454cabe7403890497bc, type: 3}
       propertyPath: m_Pivot.x
       value: 0
@@ -1991,6 +1999,14 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 1312297076}
+    - target: {fileID: 8058296581164076493, guid: 5ec33445620bb454cabe7403890497bc, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 310
+      objectReference: {fileID: 0}
+    - target: {fileID: 8058296581164076493, guid: 5ec33445620bb454cabe7403890497bc, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -600
+      objectReference: {fileID: 0}
     - target: {fileID: 9076599643789038689, guid: 5ec33445620bb454cabe7403890497bc, type: 3}
       propertyPath: m_Name
       value: Btn_LottoInfo

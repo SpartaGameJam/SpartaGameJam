@@ -43,10 +43,10 @@ public class UI_Shop : UI_Scene
     TextMeshProUGUI Txt_CashierDialogue;
     Image Img_Cashier;
 
-    [SerializeField]GameObject Btn_LottoInfo;
-    [SerializeField]GameObject Btn_LottoReturn;
+    [SerializeField]public GameObject Btn_LottoInfo;
+    [SerializeField]public GameObject Btn_LottoReturn;
     
-    [SerializeField] GameObject LotteryTicketBack;
+    [SerializeField]public GameObject LotteryTicketBack;
 
 
     protected override void Awake()
@@ -80,6 +80,12 @@ public class UI_Shop : UI_Scene
         Btn_LottoInfo.SetActive(false);
         Btn_LottoReturn.SetActive(false);
         LotteryTicketBack.SetActive(false);
+    }
+
+    public void OffLottoInfo()
+    {
+        Btn_LottoInfo.SetActive(false);
+        Btn_LottoReturn.SetActive(false);
     }
 
     public void ShowLottoInfo()

@@ -84,6 +84,8 @@ public class LottoMaker : MonoBehaviour
 
     public UI_Lotto CreateLotto()
     {
+        UIManager.Instance.FindUIScene<UI_Shop>().ShowLottoInfo();
+
         // 결과 결정
         LottoResult result = GetRandomResult();
 
