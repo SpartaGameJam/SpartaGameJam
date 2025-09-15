@@ -21,18 +21,6 @@ public class LoadSceneManager : MonoBehaviour
     private void Awake()
     {
         if (Instance == null) instance = this;
-        //LoadScene(SceneName.UI);
-    }
-
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void LoadScene(SceneName sn)

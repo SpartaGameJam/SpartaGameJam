@@ -29,6 +29,8 @@ public class MonitorPattern : MonoBehaviour
     //public Vector3 offsetPos = new Vector3(0, 450f, 0); // Monitor의 Rect Transform 값
     public float yOffset = 350f;
 
+    // 정답 열쇠
+    private HashSet<string> answerSet = new HashSet<string>();
 
     // 세 점이 같은 행/열/대각선(↘ 또는 ↙) 위에 있는지
     private bool IsStraightLine(int a, int b, int c)
@@ -45,9 +47,6 @@ public class MonitorPattern : MonoBehaviour
 
         return sameRow || sameCol || mainDiag || antiDiag;
     }
-
-    // 정답 열쇠
-    private HashSet<string> answerSet = new HashSet<string>();
 
     private void RebuildAnswerSet()
     {
@@ -190,10 +189,6 @@ public class MonitorPattern : MonoBehaviour
 
     public bool CheckPattern(List<int> pointlist)
     {
-        /*var setA = new HashSet<int>(patternSequence);
-        var setB = new HashSet<int>(pointlist);
-
-        return setA.SetEquals(setB);*/
         answerSet.Clear();
 
         RebuildAnswerSet();
@@ -204,12 +199,8 @@ public class MonitorPattern : MonoBehaviour
         }
 
         Debug.Log(result);
-        //Debug.Log(answerSet.Contains(result));
-        //Debug.Log(answerSet.Contains("23458"));
 
         return answerSet.Contains(result);
-
-        //return answerSet.Contains(ToKey(pointlist));
     }
 
     private void Start()
@@ -224,6 +215,8 @@ public class MonitorPattern : MonoBehaviour
             pp.id = i;
             pointers.Add(pp);
         }
+
+
 
         //SetPatternSquence();
 

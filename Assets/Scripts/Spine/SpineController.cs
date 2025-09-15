@@ -20,28 +20,9 @@ public class SpineController : MonoBehaviour
 
     private FiverState fiverState;
 
-
     private void Awake()
     {
         if(Instance == null) Instance = this;
-    }
-
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            ChangeFiver(FiverState.Start, false, 1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            ChangeFiver(FiverState.Ing, true, 1);
-        }
-
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            ChangeFiver(FiverState.End, false, 1);
-        }
     }
 
     // 사용 ChangeFiver(FiverState, 반복 여부, 재생 시간)

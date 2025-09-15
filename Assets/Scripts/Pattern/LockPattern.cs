@@ -274,13 +274,8 @@ public class LockPattern : MonoBehaviour
 
     public void MouseUp(PatternPointer pp)
     {
-        //Debug.Log("Up : " + pp.id);
 
-        if (enabled == false)
-        {
-            return;
-        }
-
+        if (enabled == false) return;
 
         if (unlocking) // 패턴 그리기 완료
         {
@@ -296,26 +291,23 @@ public class LockPattern : MonoBehaviour
 
                 Debug.Log("퍼센트 :" + GameManager.Instance.GetGainPer());
                 float gold = 800;
-                //Debug.Log("돈 : " + Mathf.FloorToInt(gold * (1 + GameManager.Instance.GetGainPer())));
                 float GainPer = (100 + GameManager.Instance.GetGainPer()) / 100;
                 float fiverGold = GameManager.Instance.IsFeverTime ? 1 : 0;
                 int money = Mathf.FloorToInt(gold * (GainPer + fiverGold));
                 textAni.Play(money);
 
-                GameManager.Instance.UpdateMoney(money); // 일단 1씩 증가
+                GameManager.Instance.UpdateMoney(money);
                 GameManager.Instance.CompleteWork();
                 EventManager.Instance.TriggerEvent(EEventType.MoneyChanged);
                 monitorPattern.UpdateClearCount();
                 SoundManager.instance.PlaySFX(SFXSound.PattrenSuccess);
 
-
                 if (!GameManager.Instance.IsFeverTime)
                 {
                     curfiverCount++;
-                    fiverSlider.value = (float)curfiverCount / (float)(maxCurfiverCount); // 15는 임시 
+                    fiverSlider.value = (float)curfiverCount / (float)(maxCurfiverCount);
                 }
-
-                if(!GameManager.Instance.IsFeverTime && curfiverCount >= maxCurfiverCount) // 잠시 테스트를 위해 15초 감소
+                if(!GameManager.Instance.IsFeverTime && curfiverCount >= maxCurfiverCount)
                 {
                     curfiverCount = 0;
                     curTiverTime = 0;

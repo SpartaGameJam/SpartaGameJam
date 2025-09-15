@@ -48,7 +48,8 @@ public class SoundManager : MonoBehaviour
 {
 	public static SoundManager instance;
 
-	[SerializeField] private AudioMixer mixer;
+# region 사운드 매니저 변수
+    [SerializeField] private AudioMixer mixer;
 	[SerializeField] private AnimationCurve volumeCurve;
 
 	//AudioClip 모음
@@ -60,8 +61,8 @@ public class SoundManager : MonoBehaviour
 	[SerializeField] private AudioSource gameplayAS;
 	[SerializeField] private AudioSource lobbyAS;
 	[SerializeField] private AudioSource sfxAS;
-
-	private void Awake()
+#endregion
+    private void Awake()
 	{
 		if (instance == null)
 		{
@@ -75,10 +76,6 @@ public class SoundManager : MonoBehaviour
         PlayBGM(LobbySound.Lobby); // 임시
 
     }
-	private void Update()
-	{
-
-	}
 
 	public void PlayBGM(GameplaySound gamePlaySound)
 	{
